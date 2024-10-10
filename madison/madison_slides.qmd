@@ -1,0 +1,33 @@
+---
+title: "Madison_capstone"
+author: "Madison" 
+format: revealjs
+editor: visual
+---
+
+## Slide 1
+
+-   Bullet 1
+-   Bullet 2
+
+## Slide 2
+
+::: incremental
+-   Incremental Bullet 1
+-   Bullet 2
+:::
+
+## Slide 3
+
+![](aud_ema.png)
+
+## Slide 4
+
+```{r}
+library(ggplot2)
+library(dplyr)
+starwars |>  
+  filter(mass < 500) |>  
+  ggplot(aes(height, mass)) +
+  geom_point() 
+```
