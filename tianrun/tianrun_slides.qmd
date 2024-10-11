@@ -1,0 +1,42 @@
+---
+title: "tianrun_slides"
+author: Tianrun
+format: html
+editor: visual
+---
+
+---
+title: "Tianrun_capstone"
+author: "Tianrun" 
+format: revealjs
+editor: visual
+---
+
+## Slide 1
+
+-   Bullet 1
+-   Bullet 2
+
+## Slide 2
+
+::: incremental
+-   Incremental Bullet 1
+-   Bullet 2
+:::
+
+## Slide 3
+
+![](aud_ema.png)
+
+## Slide 4
+
+```{r}
+library(ggplot2)
+library(dplyr)
+mtcars |>
+  ggplot(aes(x = hp, y = mpg)) +
+  geom_point() +
+  labs(title = "Scatterplot of Horsepower vs Miles per Gallon",
+       x = "Horsepower (hp)",
+       y = "Miles per Gallon (mpg)")
+```
