@@ -1,0 +1,4 @@
+- source: madison_slides.qmd
+  quarto-pub:
+    - id: 2a2d6baa-3a2b-42d5-a9c5-a65056340852
+      url: 'https://mherrmann44.quarto.pub/madison_capstone'
