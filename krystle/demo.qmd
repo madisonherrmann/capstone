@@ -1,27 +1,58 @@
 ---
 title: "Demo"
 author: "Krystle"
-format: revealjs
+format:
+  revealjs: 
+    code-block-height: 650px
 editor: visual
 ---
 
-## Quarto
+## Slide
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+-   With bullet point
 
-## Running Code
+## Slide with Incremental Bullet Points
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+::: incremental
+-   Incremental bullet point 1
+-   Incremental bullet point 2
+-   Incremental bullet point 3
+:::
+
+## Slide with
+
+![A squirrel image](squirrel.jpeg)
+
+## Using a code chunk to make a figure {.scrollable}
+
+Geographical distribution of squirrels in Central Park, NY
 
 ```{r}
-1 + 1
+# loading packages 
+knitr::opts_chunk$set(warning= FALSE, echo = TRUE)
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("leaflet")
+library(tidyverse) 
+library(psych) 
+library(janitor)
+library(car) 
+library(leaflet)
 ```
-
-You can add options to executable code like this 
 
 ```{r}
-#| echo: false
-2 * 2
-```
+df <- read_csv("squirrel_2018.csv") |> 
+  clean_names("snake")
 
-The `echo: false` option disables the printing of code (only output is displayed).
+fur_df <- df[!is.na(df$primary_fur_color), ]
+
+squirrel_map <- leaflet(fur_df) %>%
+  addTiles() %>%  # Add default OpenStreetMap tiles
+  addCircleMarkers(lng = ~x, lat = ~y, 
+                   color = ~ifelse(`primary_fur_color` == "Gray", "grey", 
+                                   ifelse(`primary_fur_color` == "Cinnamon", "brown", "black")),
+                   opacity = 1, fillOpacity = 0.8, radius = 3) %>%
+  addLegend("bottomright", colors = c("grey", "brown", "black"), 
+            labels = c("Gray", "Cinnamon", "Black"), title = "Fur Color")
+
+squirrel_map
+```
