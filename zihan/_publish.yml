@@ -1,0 +1,4 @@
+- source: zihan_capstone.qmd
+  quarto-pub:
+    - id: dffd2fc2-08e7-4ec8-b71a-8d95ac9d5d59
+      url: 'https://zli2545.quarto.pub/zihan_capstone'
