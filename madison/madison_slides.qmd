@@ -2,7 +2,7 @@
 title: "Madison_capstone"
 author: "Madison" 
 format: revealjs
-editor: visual
+editor: source
 ---
 
 ## Slide 1
@@ -31,3 +31,12 @@ starwars |>
   ggplot(aes(height, mass)) +
   geom_point() 
 ```
+
+SUD's are chronic, requiring lifelong management, however there are many barriers to accessing continued care in the United States. Our aim is to implement a risk-monitoring system that can deliver real-time interventions and improve clinical outcomes, while mitigating barriers in accessibility. 
+
+Recovery is dynamic in nature as important risk factors at one moment might not be the same across time. That is, interventions that support early recovery might differ from what is needed later. For example, craving might be the most important feature impacting lapse probability in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given the individual is engaging with the interventions. However, the same individual could have a stressful event that increases lapse probability and requires a different intervention, like attending an AA meeting. Hence, the factors contributing to lapse risk require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.
+
+Ecological momentary assessment data was collected on individual's in early recovery from alcohol use disorder. These refer to 4x daily self-report measures that assess mood, experiences, and past use. A previous model based solely on self-report measures achieved an outstanding AUC of 0.91, far surpassing industry benchmarks. My updated model is a key step toward deploying real-time risk-prediction systems, improving access to continuous care in this chronic disorder.
+
+
+To do this, I retrained the model with both EMA and geo-location to predict the probability of lapse risk in individuals recovering from alcohol use disorder. The model was trained using high throughput computing and resulted in an AUC of ....
