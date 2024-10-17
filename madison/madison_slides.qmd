@@ -70,7 +70,7 @@ ema <- read_rds(here::here(path_processed_opt, "ema_1day_shapley_labels.rds"))
     -   Mitigate health disparities
 :::
 
-::: notes
+:::{.notes}
 Alcohol and Opioid use disorders are chronic, requiring lifelong management, however there are many barriers to accessing continued care in the United States. Stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment. Our aim is to implement a risk-monitoring system that can deliver real-time interventions and improve clinical outcomes, while mitigating barriers in accessibility.
 :::
 
@@ -84,14 +84,13 @@ Alcohol and Opioid use disorders are chronic, requiring lifelong management, how
     -   Change within participants, across time
 :::
 
-::: notes
-Recovery is dynamic in nature as important risk factors at one moment might not be the same across time. That is, interventions that support early recovery might differ from what is needed later. For example, craving might be the most important feature impacting lapse probability in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given the individual is engaging with the interventions. However, the same individual could have a stressful event that increases lapse probability and requires a different intervention, like attending an AA meeting. Hence, the factors contributing to lapse risk require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.
+:::{.notes}Recovery is dynamic in nature as important risk factors at one moment might not be the same across time. That is, interventions that support early recovery might differ from what is needed later. For example, craving might be the most important feature impacting lapse probability in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given the individual is engaging with the interventions. However, the same individual could have a stressful event that increases lapse probability and requires a different intervention, like attending an AA meeting. Hence, the factors contributing to lapse risk require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.
 :::
 
 ## AUD Characteristics
 
 **insert plots** 
-::: {.notes} Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. Ecological momentary assessment data was collected on individual's in early recovery from alcohol use disorder. These refer to 4x daily self-report measures that assess mood, experiences, and past use. Geolocation and cellular communication data was also collected through passive sensing methods. ::: 
+:::{.notes} Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. Ecological momentary assessment data was collected on individual's in early recovery from alcohol use disorder. These refer to 4x daily self-report measures that assess mood, experiences, and past use. Geolocation and cellular communication data was also collected through passive sensing methods. ::: 
 
 ## SHAP values
 
@@ -101,8 +100,7 @@ Recovery is dynamic in nature as important risk factors at one moment might not 
 ![past_stress.png]
 :::
 
-::: notes
-Past use is the most important feature contributing to an increase in lapse probability for this person, during their first 10 days on study. After day 10, future efficacy is briefly the most important feature before shifting back to past use. By day 40, it appears craving is now driving lapse probability the most, until around day 60. Another interesting point is that a past stressful event contributed to decreasing lapse probability across time. It appears this stressful event was the initial lapses, given the increase in past use aligns with the decrease in past stressful event. The other features are mostly static across 0, indicating little impact on lapse probability for this individual.Now let's compare to another subject. This emphasizes the need for tailor-made, temporally-precise interventions to support lifelong recovery.
+:::{.notes} Past use is the most important feature contributing to an increase in lapse probability for this person, during their first 10 days on study. After day 10, future efficacy is briefly the most important feature before shifting back to past use. By day 40, it appears craving is now driving lapse probability the most, until around day 60. Another interesting point is that a past stressful event contributed to decreasing lapse probability across time. It appears this stressful event was the initial lapses, given the increase in past use aligns with the decrease in past stressful event. The other features are mostly static across 0, indicating little impact on lapse probability for this individual.Now let's compare to another subject. This emphasizes the need for tailor-made, temporally-precise interventions to support lifelong recovery.
 :::
 
 ## Predicting Lapse in AUD
@@ -113,8 +111,7 @@ Past use is the most important feature contributing to an increase in lapse prob
 -   First step in deploying a real-time risk-prediction system
 :::
 
-::: notes
-A previous model based solely on self-report measures achieved an outstanding AUC of 0.91, far surpassing industry benchmarks. My updated model is a key step toward deploying real-time risk-prediction systems, improving access to continuous care in this chronic disorder. To do this, I retrained the model with both EMA and geo-location to predict the probability of lapse risk in individuals recovering from alcohol use disorder. The addition of geo-location provides information on risky locations and people, increasing temporal precision. The model was trained using high throughput computing with algorithm and resulted in an AUC of ....
+:::{.notes}A previous model based solely on self-report measures achieved an outstanding AUC of 0.91, far surpassing industry benchmarks. My updated model is a key step toward deploying real-time risk-prediction systems, improving access to continuous care in this chronic disorder. To do this, I retrained the model with both EMA and geo-location to predict the probability of lapse risk in individuals recovering from alcohol use disorder. The addition of geo-location provides information on risky locations and people, increasing temporal precision. The model was trained using high throughput computing with algorithm and resulted in an AUC of ....
 :::
 
 ## OUD Characteristics
