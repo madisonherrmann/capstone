@@ -57,7 +57,7 @@ ema <- read_rds(here::here(path_processed_opt, "ema_1day_shapley_labels.rds"))
 ## Developing a "Smart" Recovery Monitoring and Support System
 
 ::: {.notes}
-Alcohol and opioid use disorders are chronic, requiring lifelong management, however there are many barriers to accessing continued care in the United States. Stigmatization of substance use disorders creates additional  include, but are not limited to, affordability, accessibility,**talk ab stigmatization of suds and why these lead to further disparities/gaps in care.** Our aim is to implement a risk-monitoring system that can deliver real-time interventions and improve clinical outcomes, while mitigating barriers in accessibility. 
+Alcohol and opioid use disorders are chronic, requiring lifelong management, however there are many barriers to accessing continued care in the United States. Stigmatization of substance use disorders makes it difficult for individuals to recieve intital access to treatment. Our aim is to implement a risk-monitoring system that can deliver real-time interventions and improve clinical outcomes, while mitigating barriers in accessibility. 
 :::
 
 ## Recovery is Dynamic
