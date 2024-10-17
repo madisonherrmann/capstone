@@ -1,44 +1,107 @@
 ---
-title: "Madison_capstone"
-author: "Madison" 
-format: revealjs
-editor: source
+title: 'Developing a "Smart" Recovery Monitoring and Support System'
+author: "Madison Herrmann & Tianrun Zhu"
+institute: "University of Wisconsin-Madison"
+date: December 13, 2024
+format: 
+  revealjs:
+    scrollable: true
+    css: chm.css
+    slide-number: false 
+title-slide-attributes:
+  data-background-image: https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true
+  data-background-size: 35%
+  data-background-repeat: no
+  data-background-position: left 10% bottom 10%
+include-after: |
+  <script type="text/javascript">
+    Reveal.on('ready', event => {
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+        Reveal.configure({ slideNumber: null });
+        Reveal.configure({ slideNumber: 'c' });
+editor_options: 
+  chunk_output_type: console
 ---
 
-## Slide 1
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 
--   Bullet 1
--   Bullet 2
+library(skimr)
+library(tidyverse) 
+library(knitr)
+library(kableExtra, exclude = c("group_rows"))
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_eda.R?raw=true")
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true")
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_plots.R?raw=true")
+theme_set(theme_classic())
+options(dplyr.print_max=Inf)
 
-## Slide 2
+path_processed_opt <- format_path("studydata/optimize/data_processed")
+path_processed <- format_path("studydata/risk2/data_processed/shared")
+```
 
-::: incremental
--   Incremental Bullet 1
--   Bullet 2
+```{r}
+#| message: false
+#| warning: false
+
+# Read in data
+intake <- read_csv(here::here(path_processed, "survey_intake_wide.csv"))
+ema <- read_rds(here::here(path_processed_opt, "ema_1day_shapley_labels.rds"))
+```
+
+## Developing a "Smart" Recovery Monitoring and Support System
+
+::: {.notes}
+Alcohol and opioid use disorders are chronic, requiring lifelong management, however there are many barriers to accessing continued care in the United States. Stigmatization of substance use disorders creates additional  include, but are not limited to, affordability, accessibility,**talk ab stigmatization of suds and why these lead to further disparities/gaps in care.** Our aim is to implement a risk-monitoring system that can deliver real-time interventions and improve clinical outcomes, while mitigating barriers in accessibility. 
 :::
 
-## Slide 3
+## Recovery is Dynamic
+
+::: {.notes}
+Recovery is dynamic in nature as important risk factors at one moment might not be the same across time. That is, interventions that support early recovery might differ from what is needed later. For example, craving might be the most important feature impacting lapse probability in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given the individual is engaging with the interventions. However, the same individual could have a stressful event that increases lapse probability and requires a different intervention, like attending an AA meeting. Hence, the factors contributing to lapse risk require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.
+:::
+-- Show shaps?
 
 ![](aud_ema.png)
 
-## Slide 4
+## How can we provide the **right interventions and supports** to the **right people** at the **right time**, **every time**?
 
-```{r}
-library(ggplot2)
-library(dplyr)
-starwars |>  
-  filter(mass < 500) |>  
-  ggplot(aes(height, mass)) +
-  geom_point() 
-```
+::: incremental
+- Ecological Momentary Assessment
+  - Past Use
+  - Craving
+  - Risky Situations
+  - Stressful & Pleasant Events
+  - Confidence
+- Geolocation
+  - People and Places
+  - Rural vs. Urban
+:::
 
-SUD's are chronic, requiring lifelong management, however there are many barriers to accessing continued care in the United States. These barriers include, but are not limited to, affordability, accessibility,**talk ab stigmatization of suds and why these lead to further disparities/gaps in care.** Our aim is to implement a risk-monitoring system that can deliver real-time interventions and improve clinical outcomes, while mitigating barriers in accessibility. 
+::: {.notes}
+EMA refers to daily self-reports where participants report recent use, craving, recent experiences, and affect in the last 24 hours. 
+Passive sensing through geo location can reveal insights into the people and places influencing lapse probability. The addition of geo location will improve model generalization in that the risk factors influencing lapse in a rural area might differ from that of an urban area. 
+:::
+## Predicting Lapse in AUD
 
-Recovery is dynamic in nature as important risk factors at one moment might not be the same across time. That is, interventions that support early recovery might differ from what is needed later. For example, craving might be the most important feature impacting lapse probability in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given the individual is engaging with the interventions. However, the same individual could have a stressful event that increases lapse probability and requires a different intervention, like attending an AA meeting. Hence, the factors contributing to lapse risk require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.
+::: incremental
+- Model trained with EMA achieved an outstanding AUC of 0.91
+- Retrained model with geolocation and EMA: AUC of
+- First step in deploying a real-time risk-prediction system
+:::
 
--- Show shaps?
-
+::: {.notes}
 Ecological momentary assessment data was collected on individual's in early recovery from alcohol use disorder. These refer to 4x daily self-report measures that assess mood, experiences, and past use. A previous model based solely on self-report measures achieved an outstanding AUC of 0.91, far surpassing industry benchmarks. My updated model is a key step toward deploying real-time risk-prediction systems, improving access to continuous care in this chronic disorder.
-
-
 To do this, I retrained the model with both EMA and geo-location to predict the probability of lapse risk in individuals recovering from alcohol use disorder. The addition of geo-location provides information on risky locations and people, increasing temporal precision. The model was trained using high throughput computing with __ algorithm and resulted in an AUC of ....
+:::
+
+## OUD
+
+
+
+
