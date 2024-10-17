@@ -90,14 +90,15 @@ Recovery is dynamic in nature as important risk factors at one moment might not 
 
 ## AUD Characteristics
 
-**insert plots** ::: {.notes} Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. Ecological momentary assessment data was collected on individual's in early recovery from alcohol use disorder. These refer to 4x daily self-report measures that assess mood, experiences, and past use. Geolocation and cellular communication data was also collected through passive sensing methods. ::: \## SHAP values
+**insert plots** 
+::: {.notes} Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. Ecological momentary assessment data was collected on individual's in early recovery from alcohol use disorder. These refer to 4x daily self-report measures that assess mood, experiences, and past use. Geolocation and cellular communication data was also collected through passive sensing methods. ::: 
+
+## SHAP values
 
 ::: incremental
--   
-
 -   Negative values represent EMA items that decrease the probability of lapse.
-
--   Positive values indicate an increased probability. \[past_stress.png\]
+-   Positive values indicate an increased probability. 
+![past_stress.png]
 :::
 
 ::: notes
@@ -113,7 +114,7 @@ Past use is the most important feature contributing to an increase in lapse prob
 :::
 
 ::: notes
-A previous model based solely on self-report measures achieved an outstanding AUC of 0.91, far surpassing industry benchmarks. My updated model is a key step toward deploying real-time risk-prediction systems, improving access to continuous care in this chronic disorder. To do this, I retrained the model with both EMA and geo-location to predict the probability of lapse risk in individuals recovering from alcohol use disorder. The addition of geo-location provides information on risky locations and people, increasing temporal precision. The model was trained using high throughput computing with \_\_ algorithm and resulted in an AUC of ....
+A previous model based solely on self-report measures achieved an outstanding AUC of 0.91, far surpassing industry benchmarks. My updated model is a key step toward deploying real-time risk-prediction systems, improving access to continuous care in this chronic disorder. To do this, I retrained the model with both EMA and geo-location to predict the probability of lapse risk in individuals recovering from alcohol use disorder. The addition of geo-location provides information on risky locations and people, increasing temporal precision. The model was trained using high throughput computing with algorithm and resulted in an AUC of ....
 :::
 
 ## OUD Characteristics
