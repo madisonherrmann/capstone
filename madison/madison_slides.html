@@ -346,12 +346,8 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="alcohol-use-disorder-and-opioid-use-disorder" class="slide level2">
 <h2>Alcohol Use Disorder and Opioid Use Disorder</h2>
 <ul>
-<li>Chronic</li>
-</ul>
-<p><br>
-</p>
-<ul>
-<li>Barriers to treatment
+<li><p>Chronic</p></li>
+<li><p>Barriers to treatment</p>
 <ul>
 <li>Accessibility</li>
 <li>Affordability</li>
@@ -373,7 +369,7 @@ Madison Herrmann &amp; Tianrun Zhu
       }</style></aside>
 </section>
 <section id="recovery-is-dynamic" class="slide level2">
-<h2>Recovery is dynamic</h2>
+<h2>Recovery is Dynamic</h2>
 <ul>
 <li>Important risk factors differ across people and time</li>
 </ul>
@@ -511,20 +507,22 @@ Madison Herrmann &amp; Tianrun Zhu
 </section>
 <section id="predicting-lapse-in-aud" class="slide level2">
 <h2>Predicting Lapse in AUD</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li>Model trained with EMA achieved an outstanding AUC of 0.91</li>
-</ul>
-<p><br>
-</p>
-<ul>
-<li>How do we implement model for clinical benefit?
+<li><p>Model trained with EMA achieved an outstanding AUC of 0.91</p></li>
+<li><p>How do we implement model for clinical benefit?</p>
 <ul>
 <li>Retrain model with geolocation and EMA</li>
 <li>Key step towards real-time risk-prediction system</li>
 </ul></li>
 </ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="dsm.png"> <strong>replace w/ au_roc plot</strong></p>
+</div>
+</div>
 <aside class="notes">
-<p>A previous model based solely on self-report measures achieved an outstanding AUC of 0.91, far surpassing industry benchmarks. Now that we have this model, how can we implement it for clinical benefit? My updated model is a key step toward deploying real-time risk-prediction systems, improving access to continuous care in this chronic disorder. To do this, I retrained the model with both EMA and geo-location to predict the probability of lapse risk in individuals recovering from alcohol use disorder. The addition of geo-location provides information on risky locations and people, increasing temporal precision. The model was trained using high throughput computing with algorithm and resulted in an AUC of ….</p>
+<p>A previous model based solely on self-report measures predicted next-day lapse and achieved an outstanding AUC of 0.91, far surpassing industry benchmarks. Now that we have this model, how can we implement it for clinical benefit? My updated model is a key step toward deploying real-time risk-prediction systems, improving access to continuous care in this chronic disorder. To do this, I retrained the model with both EMA and geo-location to predict the probability of lapse risk in individuals recovering from alcohol use disorder. The addition of geo-location provides information on risky locations and people, increasing temporal precision. The model was trained using high throughput computing with algorithm and resulted in an AUC of ….</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -609,7 +607,8 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="future-directions" class="slide level2">
 <h2>Future Directions</h2>
 <ul>
-<li>Measuring trust, engagement, usability</li>
+<li>Measuring trust, engagement, usability of risk-monitoring system interventions</li>
+<li>Determining how models can be clinically useful</li>
 </ul>
 <div class="footer footer-default">
 

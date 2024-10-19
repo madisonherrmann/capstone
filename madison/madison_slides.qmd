@@ -67,7 +67,7 @@ options(dplyr.print_max=Inf)
 Alcohol and Opioid use disorders are chronic, requiring lifelong management, however there are many barriers to accessing continued care in the United States, like affordability. Stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.
 :::
 
-## Recovery is dynamic
+## Recovery is Dynamic
 
 - Important risk factors differ across people and time
 
@@ -150,8 +150,6 @@ We had reasonable diversity across many characteristics including age, sex at bi
 ::: {.columns}
 :::: {.column width="50%"}
 - Model trained with EMA achieved an outstanding AUC of 0.91
-
-\
 
 - How do we implement model for clinical benefit? 
   - Retrain model with geolocation and EMA
