@@ -10,8 +10,9 @@
 <link href="madison_slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.353">
 
-  <meta name="author" content="Madison">
-  <title>Madison_capstone</title>
+  <meta name="author" content="Madison Herrmann &amp; Tianrun Zhu">
+  <meta name="dcterms.date" content="2024-12-13">
+  <title>Developing a “Smart” Recovery Monitoring and Support System</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -31,6 +32,7 @@
     }
   </style>
   <link rel="stylesheet" href="madison_slides_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="chm.css">
   <link href="madison_slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="madison_slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="madison_slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -243,6 +245,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -324,42 +327,127 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Madison_capstone</h1>
+<section id="title-slide" data-background-image="https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true" data-background-position="left 10% bottom 10%" data-background-repeat="no" data-background-size="35%" class="quarto-title-block center">
+  <h1 class="title">Developing a “Smart” Recovery Monitoring and Support System</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Madison 
+Madison Herrmann &amp; Tianrun Zhu 
 </div>
-</div>
+        <p class="quarto-title-affiliation">
+            University of Wisconsin-Madison
+          </p>
+    </div>
 </div>
 
+  <p class="date">2024-12-13</p>
 </section>
-<section id="slide-1" class="slide level2">
-<h2>Slide 1</h2>
-<ul>
-<li>Bullet 1</li>
-<li>Bullet 2</li>
-</ul>
-</section>
-<section id="slide-2" class="slide level2">
-<h2>Slide 2</h2>
+<section id="developing-a-smart-recovery-monitoring-and-support-system" class="slide level2">
+<h2>Developing a “Smart” Recovery Monitoring and Support System</h2>
 <div>
 <ul>
-<li class="fragment">Incremental Bullet 1</li>
-<li class="fragment">Bullet 2</li>
+<li class="fragment">Alcohol Use Disorder and Opioid Use Disorder
+<ul>
+<li class="fragment">Chronic</li>
+<li class="fragment">Lifelong management</li>
+</ul></li>
+<li class="fragment">Barriers to treatment
+<ul>
+<li class="fragment">Accessibility</li>
+<li class="fragment">Affordability</li>
+<li class="fragment">Stigmatization</li>
+</ul></li>
+<li class="fragment">Goal
+<ul>
+<li class="fragment">Implement risk-monitoring system</li>
+<li class="fragment">Improve clinical outcomes</li>
+<li class="fragment">Mitigate health disparities</li>
+</ul></li>
 </ul>
 </div>
+<p>:::{.notes}Alcohol and Opioid use disorders are chronic, requiring lifelong management, however there are many barriers to accessing continued care in the United States, like affordability. Stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment. Our aim is to implement a risk-monitoring system that can deliver real-time interventions and improve clinical outcomes, while mitigating barriers in accessibility.:::</p>
 </section>
-<section id="slide-3" class="slide level2">
-<h2>Slide 3</h2>
-
-<img data-src="aud_ema.png" class="r-stretch"></section>
-<section id="slide-4" class="slide level2">
-<h2>Slide 4</h2>
-
-<img data-src="madison_slides_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"><div class="footer footer-default">
+<section id="how-can-we-provide-the-right-interventions-and-supports-to-the-right-people-at-the-right-time-every-time" class="slide level2">
+<h2>How can we provide the <strong>right interventions and supports</strong> to the <strong>right people</strong> at the <strong>right time</strong>, <strong>every time</strong>?</h2>
+<div>
+<ul>
+<li class="fragment">Recovery is dynamic</li>
+<li class="fragment">Important risk factors differ across people and time</li>
+<li class="fragment">Local Importance:
+<ul>
+<li class="fragment">Importance of any feature to the lapse prediction for a single day</li>
+<li class="fragment">Changes within participants, across time</li>
+</ul></li>
+</ul>
+</div>
+<p>:::{.notes}Recovery is dynamic in nature as important risk factors at one moment might not be the same across time. That is, interventions that support early recovery might differ from what is needed later. For example, craving might be the most important feature impacting lapse probability in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given the individual is engaging with the interventions. However, the same individual could have a stressful event that increases lapse probability and requires a different intervention, like attending an AA meeting. Hence, the factors contributing to lapse risk require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.:::</p>
+</section>
+<section id="monitoring-lapse-risk" class="slide level2">
+<h2>Monitoring Lapse Risk</h2>
+<p>::: incremental - Active Sensing - Ecological Momentary Assessment - Passive Sensing - Geolocation - Cellular Communications</p>
+<p>:::{.notes} Lapse risk is monitored through active and passive sensing. Ecological momentary assessmenst refer to daily self-report measures that assess mood, experiences, and past use. Through passive sensing methods, geolocation and cellular communication data was also collected.:::</p>
+</section>
+<section id="aud-characteristics" class="slide level2">
+<h2>AUD Characteristics</h2>
+<p>[dsm.png] :::{.notes} Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery.:::</p>
+</section>
+<section id="aud-characteristics-1" class="slide level2">
+<h2>AUD Characteristics</h2>
+<p>[aud_demographics.png]</p>
+<p>:::{.notes}We had reasonble diversity across many charactersitics including age, sex at birth, maritital status, education, and income. However, given the recuriting methods, there is very little racial and ethinic diversity in the sample. The sample is predominately white and non-hispanic.:::</p>
+</section>
+<section id="predicting-lapse-in-aud" class="slide level2">
+<h2>Predicting Lapse in AUD</h2>
+<div>
+<ul>
+<li class="fragment">Model trained with EMA achieved an outstanding AUC of 0.91</li>
+<li class="fragment">How do we implement model for clinical benefit?
+<ul>
+<li class="fragment">Retrained model with geolocation and EMA</li>
+<li class="fragment">Key step towards real-time risk-prediction system <strong>show au_roc plot</strong></li>
+</ul></li>
+</ul>
+</div>
+<p>:::{.notes}A previous model based solely on self-report measures achieved an outstanding AUC of 0.91, far surpassing industry benchmarks. Now that we have this model, how can we implement it for clinical benefit? My updated model is a key step toward deploying real-time risk-prediction systems, improving access to continuous care in this chronic disorder. To do this, I retrained the model with both EMA and geo-location to predict the probability of lapse risk in individuals recovering from alcohol use disorder. The addition of geo-location provides information on risky locations and people, increasing temporal precision. The model was trained using high throughput computing with algorithm and resulted in an AUC of ….:::</p>
+</section>
+<section id="important-features" class="slide level2">
+<h2>Important Features</h2>
+<div>
+<ul>
+<li class="fragment">Globally Important
+<ul>
+<li class="fragment">Past use</li>
+<li class="fragment">Future Efficacy</li>
+<li class="fragment">Craving</li>
+</ul></li>
+<li class="fragment">Local Importance: SHAPs
+<ul>
+<li class="fragment">Negative values represent EMA items that decrease the probability of lapse.</li>
+<li class="fragment">Positive values indicate an increased probability. [past_stress.png]</li>
+</ul></li>
+</ul>
+</div>
+<p>:::{.notes} Across participants, past use, future efficacy, and craving were the most important predictors of lapse. However, different risk factors effect differnt people at different times. Shap values reveal which EMA items change lapse probability. Negative values decrease lapse probability, while positive values increase it. Lets look at the most important features for a specific particpant across the study. Past use is intially their most important feature contributing to an increase in lapse probability. After day 10, future efficacy is briefly the most important feature before shifting back to past use. By day 40, it appears craving is now driving lapse probability the most, until around day 60. The other features are mostly static across 0, indicating little impact on lapse probability for this individual. Now let’s compare to another subject..:::</p>
+</section>
+<section id="important-features-1" class="slide level2">
+<h2>Important Features</h2>
+<p>[subid_190.png] :::{.notes}This particpant did not lapse aross the study, as past use consistently lowered lapse probability. Intially the most important feature increasing lapse probability is past stressful event, but it’s quickly replaced by craving. Around day 10 future efficiacy is increasing lapse risk the most, but drops off around day 25 when past pleasent event surpasses it. Future effiacy appears to have the biggest effect on lapse risk, given the variatian. Across time, arousal, past stressful event, craving, future effiacy, and past pleasent event were the most important features influencing laspe risk for this participant. The difference in risk factors over time emphasizes the need for tailor-made, temporally-precise interventions that support continious recovery:::</p>
+</section>
+<section id="oud-characteristics" class="slide level2">
+<h2>OUD Characteristics</h2>
+</section>
+<section id="predicting-lapse-in-oud" class="slide level2">
+<h2>Predicting Lapse in OUD</h2>
+</section>
+<section id="future-directions" class="slide level2">
+<h2>Future Directions</h2>
+<div>
+<ul>
+<li class="fragment">Measuring trust, engagement, usability</li>
+</ul>
+</div>
+<div class="footer footer-default">
 
 </div>
 </section>
@@ -758,6 +846,14 @@ Madison
       }
     });
     </script>
-    
-
-</body></html>
+    <script type="text/javascript">
+      Reveal.on('ready', event => {
+        if (event.indexh === 0) {
+          document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
+          document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
+          document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+          Reveal.configure({ slideNumber: null });
+          Reveal.configure({ slideNumber: 'c' });
+    </body>
+</html>
+</script></body></html>
