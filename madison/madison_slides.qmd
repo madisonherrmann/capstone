@@ -180,7 +180,7 @@ A previous model based solely on self-report measures predicted next-day lapse a
 Across participants, past use, future efficacy, and craving were the most important predictors of lapse. However, different risk factors effect differnt people at different times. Shap values reveal which EMA items change lapse probability. Negative values decrease lapse probability, while positive values increase it.  Lets look at the most important features for a specific particpant across the study.
 :::
 
-## Local importance
+## Local Importance
 
 ![](past_stress.png)
 
@@ -203,5 +203,5 @@ This participant did not lapse across the study, as past use consistently lowere
 
 ## Future Directions
 
-- Measuring trust, engagement, usability of risk-monitoring system interventions
+- Measuring trust, engagement, and usability of risk-monitoring system interventions
 - Determining how models can be clinically useful 
