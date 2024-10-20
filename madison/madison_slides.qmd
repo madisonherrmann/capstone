@@ -9,19 +9,50 @@ format:
     css: chm.css
     slide-number: false 
 title-slide-attributes:
-  data-background-image:  https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true
-  data-background-size: 20%
+  data-background-image: https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true
+  data-background-size: 30%
   data-background-repeat: no
   data-background-position: left 10% bottom 10%
 include-after: |
+  <style>
+    /* Apply custom styles only to the title slide */
+    .reveal .slides > section:first-of-type h1 {
+      color: blue;         /* Title color */
+      font-size: 4rem;     /* Larger font size */
+      text-align: center;  /* Center align the title */
+      font-weight: bold;   /* Bold text */
+    }
+
+    .reveal .slides > section:first-of-type h2 {
+      font-size: 1.5rem;   /* Smaller font for author */
+      text-align: center;  /* Center align the author */
+    }
+
+    .reveal .slides > section:first-of-type h3 {
+      font-size: 1.2rem;   /* Smaller font for institute */
+      text-align: center;  /* Center align the institute */
+    }
+
+    .reveal .slides > section:first-of-type h4 {
+      font-size: 1rem;     /* Small font for date */
+      text-align: center;  /* Center align the date */
+    }
+
+    .reveal .slides > section:first-of-type {
+      padding-top: 2rem;   /* Adds space at the top */
+    }
+  </style>
+
   <script type="text/javascript">
     Reveal.on('ready', event => {
       if (event.indexh === 0) {
         document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
-        document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
         document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
         Reveal.configure({ slideNumber: null });
         Reveal.configure({ slideNumber: 'c' });
+      }
+    });
+  </script>
 editor_options: 
   chunk_output_type: console
 ---
@@ -54,36 +85,41 @@ options(dplyr.print_max=Inf)
 #ema <- read_rds(here::here(path_processed_opt, "ema_1day_shapley_labels.rds"))
 ```
 
-## Alcohol Use Disorder and Opioid Use Disorder
+## <span style="color: green; text-decoration: underline;">Alcohol and Opioid Use Disorder</span>
+
 
 -   Chronic
 
 -   Barriers to treatment
-    -   Accessibility
-    -   Affordability
-    -   Stigmatization
+    -   [Accessibility]{style="color: gray;"}
+    -   [Affordability]{style="color: gray;"}
+    -   [Availability]{style="color: gray;"}
+    -   [Acceptability]{style="color: gray;"}
 
 :::{.notes}
-Alcohol and Opioid use disorders are chronic, requiring lifelong management, however there are many barriers to accessing continued care in the United States, like affordability. Stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.
+**add image to right**
+-Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. 
+-however there are many barriers to accessing continued care in the US, like affordability and availability. 
+- The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.
 :::
 
-## Recovery is Dynamic
+## <span style="color: green; text-decoration: underline;">Recovery is Dynamic</span>
 
 - Important risk factors differ across people and time
 
 \
 
-- How can we provide the **right interventions and supports** to the **right people** at the **right time**, **every time**?
+- How can we provide the [right interventions]{style="color: blue;"} and [supports]{style="color: blue;"} to the [right people]{style="color: blue;"} at the [right time]{style="color: blue;"}, [every time?]{style="color: blue;"}
 
 \
 
 - Need for continuous monitoring
 
 :::{.notes}
-Recovery is dynamic in nature as important risk factors at one moment might not be the same across time. That is, interventions that support early recovery might differ from what is needed later. For example, craving might be the most important feature impacting lapse probability in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given the individual is engaging with the interventions. However, the same individual could have a stressful event that increases lapse probability and requires a different intervention, like attending an AA meeting. Hence, the factors contributing to lapse risk require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.
+Recovery is dynamic in nature as important risk factors change across time both within and between individuals. That is, interventions that support early recovery might differ from what is needed later. For example, craving might be the most important feature impacting lapse probability in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given the individual is engaging with the interventions. Later on, the same individual could experience a stressful event that increases lapse probability and requires a different intervention, like attending an AA meeting. Hence, the factors contributing to lapse risk require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.
 :::
 
-## Lapse
+## <span style="color: green; text-decoration: underline;">Lapse</span>
 
 - Temporally precise onset
 
@@ -98,14 +134,14 @@ Recovery is dynamic in nature as important risk factors at one moment might not 
 \
 
 :::{.notes}
+**add image to right**
 Before I get any further, it is important to distinguish lapse from relapse. 
-- Lapses are clearly defined and have a temporally precise onset
-- Lapses are an important target for intervention because the thoughts and feelings that follow can spiral into relapse. 
-- They can serve as an early warning sign for relapse because they both precede and predict it.
+- Lapses are clearly defined and have a temporally precise onset.
+- They're an important target for intervention and serve as an early warning sign for relapse because they both precede and predict it.
 - A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a risk-prediction model to predict future lapse probability. 
 ::: 
 
-## Overarching Goal
+## <span style="color: green; text-decoration: underline;">Overarching Goal</span>
 
 -   Implement a temporally-precise, risk-monitoring system
 
@@ -118,23 +154,32 @@ Before I get any further, it is important to distinguish lapse from relapse.
 -   Mitigate barriers in accessibility
     
 :::{.notes}
-Our aim is to implement a risk-monitoring system that can deliver real-time interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a digital therapeutic. 
+Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a digital therapeutic or stand-alone support system. 
 :::
 
-## Monitoring Lapse Risk 
+## <span style="color: green; text-decoration: underline;">Monitoring Lapse Risk</span> 
 
-- Active Sensing
-  - Ecological Momentary Assessment (EMA)
+::: {.columns}
+:::: {.column width="30%"}
+- [Active Sensing]{style="color: blue;"}
+  - Ecological Momentary Assessment (**EMA**)
 
-- Passive Sensing
+- [Passive Sensing]{style="color: blue;"}
   - Geolocation
   - Cellular Communications 
-  
-:::{.notes} 
-Lapse risk is monitored through active and passive sensing. Ecological momentary assessments refer to daily self-report measures that assess mood, experiences, and past use. Through passive sensing methods, geolocation and cellular communication data was also collected. These methods were used over the course of three months with the aim of predicting lapse probability in individuals' recovering from alcohol use disorder.
+::::
+
+:::: {.column width="70%"}
+![](ema.png)
+::::
 :::
 
-## AUD Characteristics
+:::{.notes} 
+Lapse risk is monitored through both active and passive sensing methods. Ecological momentary assessments refer to daily self-report measures that assess mood, experiences, and past use. The image shows where participants report whether or not they have drank alcohol since there last assessment. Through passive sensing methods, geolocation and cellular communication data was also collected. These methods were used over the course of three months with the aim of predicting lapse probability in individuals' recovering from alcohol use disorder.
+:::
+
+
+## <span style="color: green; text-decoration: underline;">AUD Characteristics</span>
 
 ::: {.columns}
 :::: {.column width="50%"}
@@ -155,10 +200,10 @@ Lapse risk is monitored through active and passive sensing. Ecological momentary
 :::
 
 :::{.notes} 
-Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. The majority of participants reported over 10 symptoms of AUD.
+Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. The majority of participants reported over 10 symptoms of AUD and comitted to abstinence for the duration of the study.
 :::
 
-## AUD Characteristics
+## <span style="color: green; text-decoration: underline;">AUD Characteristics</span>
 
 ![](aud_demographics.png)
 
@@ -167,63 +212,78 @@ Data was collected on 151 individuals with moderate to severe AUD in early stage
 We had reasonable diversity across many characteristics including age, sex at birth, marital status, education, and income. However, given the recruiting methods, there is very little racial and ethnic diversity in the sample. The sample is predominately white and non-Hispanic.
 ::: 
 
-## Predicting Lapse in AUD
+## <span style="color: green; text-decoration: underline;">Predicting Lapse</span>
+
+- Predict hour-by-hour probability of [future lapse]{style="color: blue;"}
+
+\
+
+- Lapse window widths
+  - [1 week]{style="color: gray;"} 
+  - [1 day]{style="color: gray;"}
+  - [1 hour]{style="color: gray;"}
+
+:::{.notes} 
+Through the sensing methods previously described, feature engineering transformed raw data into meaningful signals that predict future lapse. Several machine learning models were developed to predict lapse in the next week, day, and hour. As the windows narrow, the model's predictions increase in temporal precision.
+:::
+
+## <span style="color: green; text-decoration: underline;">Predicting Lapse in AUD</span>
 
 ::: {.columns}
 :::: {.column width="50%"}
-- Model trained with EMA achieved an outstanding AUC of 0.91
+- [Model trained with EMA achieved an outstanding auROC of 0.91]{style="color: gray;"}
 
-- How do we implement model for clinical benefit? 
-  - Retrain model with geolocation and EMA
+- **How do we implement model for clinical benefit?** 
+  - Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
   - Key step towards real-time risk-prediction system
 ::::
 
 :::: {.column width="50%"}
-![](dsm.png) **replace w/ au_roc plot**
+![](dsm.png) **replace w/ auROC plot**
 ::::
 :::
 
 :::{.notes}
-A previous model based solely on self-report measures predicted next-day lapse and achieved an outstanding AUC of 0.91, far surpassing industry benchmarks. Now that we have this model, how can we implement it for clinical benefit? My updated model is a key step toward deploying real-time risk-prediction systems, improving access to continuous care in this chronic disorder. To do this, I retrained the model with both EMA and geo-location to predict the probability of lapse risk in individuals recovering from alcohol use disorder. The addition of geo-location provides information on risky locations and people, increasing temporal precision. The model was trained using high throughput computing with algorithm and resulted in an AUC of ....
+A previous model based solely on EMA predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. Now that we have this model, how can we implement it for clinical benefit? My updated model is a key step toward deploying real-time risk-prediction systems for clinical implementation. To do this, I retrained the model with both EMA and geo-location, which contained information on risky locations and people. The model was trained using high throughput computing with algorithm and resulted in an auROC of ....
 :::
 
-## Important Features
+## <span style="color: green; text-decoration: underline;">Important Features</span>
 
-- Globally Important
+- [Global Importance]{style="color: blue;"}
   - Past use
   - Future Efficacy
   - Craving
 
-- Local Importance: SHAPs
-  -   Negative values represent EMA items that decrease the probability of lapse.
-  -   Positive values indicate an increased probability. 
+- [Local Importance: **SHAP**]{style="color: blue;"}
+  -   **Negative** values **decrease** lapse probability.
+  -   **Positive** values **increase** lapse probability. 
 
 :::{.notes} 
-Across participants, past use, future efficacy, and craving were the most important predictors of lapse. However, different risk factors effect differnt people at different times. Shap values reveal which EMA items change lapse probability. Negative values decrease lapse probability, while positive values increase it.  Lets look at the most important features for a specific particpant across the study.
+Across participants, past use, future efficacy, and craving were the most important predictors of lapse. However, different risk factors effect different people at different times. SHAP values are an explanatory approach revealing which features on which days change lapse probability for each participant. Negative values decrease lapse probability, while positive values increase it.  Lets look at the most important features for a specific participant across the study.
 :::
 
-## Local Importance
+## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
 ![](past_stress.png)
 
 :::{.notes}
-Past use is initially their most important feature contributing to an increase in lapse probability. After day 10, future efficacy is briefly the most important feature before shifting back to past use. By day 40, it appears craving is now driving lapse probability the most, until around day 60. The other features are mostly static across 0, indicating little impact on lapse probability for this individual. Now let's compare to another subject. 
+Past use is initially their most important feature contributing to an increase in lapse probability. After day 10, future efficacy is briefly the most important feature before being replaced by past use. By day 40, it appears craving is  increasing lapse probability the most, until around day 60. The other features are mostly static across 0, indicating little impact on lapse probability for this individual. Moreover, a past stressful event around day 10 contributed to a decrease in lapse probability, as it is consistently below 0. Now let's compare to another subject. 
 :::
 
-## Local Importance
+## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
 ![](subid_190.png)
 
 
 :::{.notes}
-This participant did not lapse across the study, as past use consistently lowered lapse probability. Initially the most important feature increasing lapse probability is past stressful event, but it's quickly replaced by craving. Around day 10 future efficacy is increasing lapse risk the most, but drops off around day 25 when past pleasant event surpasses it. Future efficacy appears to have the biggest effect on lapse risk, given the variation. Across time, arousal, past stressful event, craving, future efficacy, and past pleasant event were the most important features influencing lapse risk for this participant. The difference in risk factors over time emphasizes the need for tailor-made, temporally-precise interventions that support continuous recovery.
+This participant did not lapse across the study, as past use consistently lowered lapse probability. Initially the most important feature increasing lapse probability is past stressful event, but it's quickly replaced by craving. Around day 10 future efficacy is increasing lapse risk the most, but drops off around day 25 when past pleasant event surpasses it. Future efficacy appears to have the biggest effect on lapse risk, given the variation across study days. Arousal, past stressful event, craving, future efficacy, and past pleasant event were all important features influencing lapse risk for this participant, but at different times. The differences between and within participants' risk factors over time emphasizes the need for tailor-made, temporally-precise interventions that support continuous recovery.  
 ::: 
 
-## OUD Characteristics
+## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
 
-## Predicting Lapse in OUD
+## <span style="color: green; text-decoration: underline;">Predicting Lapse in OUD</span>
 
-## Future Directions
+## <span style="color: green; text-decoration: underline;">Future Directions</span>
 
-- Measuring trust, engagement, and usability of risk-monitoring system interventions
-- Determining how models can be clinically useful 
+- Measuring [trust]{style="color: blue;"}, [engagement]{style="color: blue;"}, and [usability]{style="color: blue;"} of risk-monitoring system interventions
+- Determining how models can be [clinically useful]{style="color: blue;"} 
