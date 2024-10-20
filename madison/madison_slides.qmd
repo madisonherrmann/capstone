@@ -124,7 +124,7 @@ Our aim is to implement a risk-monitoring system that can deliver real-time inte
 ## Monitoring Lapse Risk 
 
 - Active Sensing
-  - Ecological Momentary Assessment
+  - Ecological Momentary Assessment (EMA)
 
 - Passive Sensing
   - Geolocation
