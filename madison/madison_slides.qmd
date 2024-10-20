@@ -99,7 +99,7 @@ options(dplyr.print_max=Inf)
 :::{.notes}
 **add image to right**
 -Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. 
--however there are many barriers to accessing continued care in the US, like affordability and availability. 
+-However, there are many barriers to accessing continued care in the United States, including affordability and availability. 
 - The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.
 :::
 
@@ -109,14 +109,14 @@ options(dplyr.print_max=Inf)
 
 \
 
-- How can we provide the [right interventions]{style="color: blue;"} and [supports]{style="color: blue;"} to the [right people]{style="color: blue;"} at the [right time]{style="color: blue;"}, [every time?]{style="color: blue;"}
+- Need for continuous monitoring
 
 \
 
-- Need for continuous monitoring
+- How can we provide the [right interventions]{style="color: blue;"} and [supports]{style="color: blue;"} to the [right people]{style="color: blue;"} at the [right time]{style="color: blue;"}, [every time?]{style="color: blue;"}
 
 :::{.notes}
-Recovery is dynamic in nature as important risk factors change across time both within and between individuals. That is, interventions that support early recovery might differ from what is needed later. For example, craving might be the most important feature impacting lapse probability in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given the individual is engaging with the interventions. Later on, the same individual could experience a stressful event that increases lapse probability and requires a different intervention, like attending an AA meeting. Hence, the factors contributing to lapse risk require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.
+Recovery is dynamic in nature as important risk factors change across time both within and between individuals. That is, interventions that support early recovery might differ from what's needed later. For example, craving might be the most important factor in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given their engaging with the proper interventions. Later on, the same individual could experience a stressful event that requires a different intervention, like attending an AA meeting. Hence, the risk factors impacting recovery require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Lapse</span>
@@ -129,7 +129,7 @@ Recovery is dynamic in nature as important risk factors change across time both 
 
 \
 
-- Early warning sign for relapse
+- **Single lapse** can result in **overdose and death**
 
 \
 
@@ -137,8 +137,8 @@ Recovery is dynamic in nature as important risk factors change across time both 
 **add image to right**
 Before I get any further, it is important to distinguish lapse from relapse. 
 - Lapses are clearly defined and have a temporally precise onset.
-- They're an important target for intervention and serve as an early warning sign for relapse because they both precede and predict it.
-- A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a risk-prediction model to predict future lapse probability. 
+- They're an important target for intervention and serve as an early warning sign for relapse.
+- A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a temporally-precise, risk-monitoring system. 
 ::: 
 
 ## <span style="color: green; text-decoration: underline;">Overarching Goal</span>
@@ -147,11 +147,11 @@ Before I get any further, it is important to distinguish lapse from relapse.
 
 \
 
--   Precision mental healthcare 
+-   Mitigate barriers in accessibility
 
 \
 
--   Mitigate barriers in accessibility
+-   Deliver tailored support and recommendations
     
 :::{.notes}
 Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a digital therapeutic or stand-alone support system. 
@@ -200,7 +200,7 @@ Lapse risk is monitored through both active and passive sensing methods. Ecologi
 :::
 
 :::{.notes} 
-Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. The majority of participants reported over 10 symptoms of AUD and comitted to abstinence for the duration of the study.
+Now lets characterize our sample. Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. The majority of participants reported over 10 symptoms of AUD and committed to abstinence for the duration of the study.
 :::
 
 ## <span style="color: green; text-decoration: underline;">AUD Characteristics</span>
@@ -244,7 +244,8 @@ Through the sensing methods previously described, feature engineering transforme
 :::
 
 :::{.notes}
-A previous model based solely on EMA predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. Now that we have this model, how can we implement it for clinical benefit? My updated model is a key step toward deploying real-time risk-prediction systems for clinical implementation. To do this, I retrained the model with both EMA and geo-location, which contained information on risky locations and people. The model was trained using high throughput computing with algorithm and resulted in an auROC of ....
+A previous model based solely on EMA predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. 
+Now that we have this model, how can we implement it for clinical benefit? My updated model is a key step toward deploying real-time risk-prediction systems for clinical implementation. To do this, I retrained the model with both EMA and geo-location, which contained information on risky locations and people. The model was trained using high throughput computing with algorithm and resulted in an auROC of ....
 :::
 
 ## <span style="color: green; text-decoration: underline;">Important Features</span>
