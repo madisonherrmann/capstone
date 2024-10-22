@@ -11,6 +11,7 @@
   <meta name="generator" content="quarto-1.4.555">
 
   <meta name="author" content="Zihan Li">
+  <meta name="dcterms.date" content="2024-12-13">
   <title>zihan_capstone</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -31,6 +32,7 @@
     }
   </style>
   <link rel="stylesheet" href="zihan_capstone_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="chm.css">
   <link href="zihan_capstone_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="zihan_capstone_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="zihan_capstone_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -244,6 +246,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -325,7 +328,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" data-background-image="https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true" data-background-position="left 10% bottom 10%" data-background-repeat="no" data-background-size="30%" class="quarto-title-block center">
   <h1 class="title">zihan_capstone</h1>
 
 <div class="quarto-title-authors">
@@ -333,9 +336,13 @@
 <div class="quarto-title-author-name">
 Zihan Li 
 </div>
-</div>
+        <p class="quarto-title-affiliation">
+            University of Wisconsin-Madison
+          </p>
+    </div>
 </div>
 
+  <p class="date">2024-12-13</p>
 </section>
 <section id="oud-symptoms" class="slide level2">
 <h2>OUD Symptoms</h2>
@@ -839,6 +846,38 @@ Zihan Li
       }
     });
     </script>
-    
-
-</body></html>
+    <style>
+      /* Apply custom styles only to the title slide */
+      }
+      }
+      }
+      }
+      }
+      });
+      .reveal .slides > section:first-of-type h1 {
+        color: blue;         /* Title color */
+        font-size: 4rem;     /* Larger font size */
+        text-align: center;  /* Center align the title */
+        font-weight: bold;   /* Bold text */
+      .reveal .slides > section:first-of-type h2 {
+        font-size: 1.5rem;   /* Smaller font for author */
+        text-align: center;  /* Center align the author */
+      .reveal .slides > section:first-of-type h3 {
+        font-size: 1.2rem;   /* Smaller font for institute */
+        text-align: center;  /* Center align the institute */
+      .reveal .slides > section:first-of-type h4 {
+        font-size: 1rem;     /* Small font for date */
+        text-align: center;  /* Center align the date */
+      .reveal .slides > section:first-of-type {
+        }
+        padding-top: 2rem;   /* Adds space at the top */
+    <script type="text/javascript">
+      Reveal.on('ready', event => {
+        if (event.indexh === 0) {
+          document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
+          document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+          Reveal.configure({ slideNumber: null });
+          Reveal.configure({ slideNumber: 'c' });
+    </body>
+</html>
+</style></body></html>

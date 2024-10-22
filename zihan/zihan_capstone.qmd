@@ -1,9 +1,55 @@
 ---
 title: "zihan_capstone"
 author: "Zihan Li"
-format: revealjs
-editor: visual
+institute: "University of Wisconsin-Madison"
+date: December 13, 2024
+format: 
+  revealjs:
+    scrollable: true
+    css: chm.css
+    slide-number: false 
+title-slide-attributes:
+  data-background-image: https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true
+  data-background-size: 30%
+  data-background-repeat: no
+  data-background-position: left 10% bottom 10%
+include-after: |
+  <style>
+    /* Apply custom styles only to the title slide */
+    }
+    }
+    }
+    }
+    }
+    });
+  <script type="text/javascript">
+    .reveal .slides > section:first-of-type h1 {
+      color: blue;         /* Title color */
+      font-size: 4rem;     /* Larger font size */
+      text-align: center;  /* Center align the title */
+      font-weight: bold;   /* Bold text */
+    .reveal .slides > section:first-of-type h2 {
+      font-size: 1.5rem;   /* Smaller font for author */
+      text-align: center;  /* Center align the author */
+    .reveal .slides > section:first-of-type h3 {
+      font-size: 1.2rem;   /* Smaller font for institute */
+      text-align: center;  /* Center align the institute */
+    .reveal .slides > section:first-of-type h4 {
+      font-size: 1rem;     /* Small font for date */
+      text-align: center;  /* Center align the date */
+    .reveal .slides > section:first-of-type {
+      }
+      padding-top: 2rem;   /* Adds space at the top */
+    Reveal.on('ready', event => {
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+        Reveal.configure({ slideNumber: null });
+        Reveal.configure({ slideNumber: 'c' });
+editor_options: 
+  chunk_output_type: console
 ---
+
 
 ```{r}
 #| echo: false
@@ -345,8 +391,7 @@ p_rec_4_1 <- intake |>
         axis.text.x = element_text(angle = 0, hjust = 0.4),
         legend.position = "none") 
 
-combined_plot <- p_abstince + p_rec_4_1 + 
-  plot_layout(ncol = 2, guides = "collect")
+combined_plot <- p_abstince 
 
 combined_plot
 ```
