@@ -6,50 +6,27 @@ date: December 13, 2024
 format: 
   revealjs:
     scrollable: true
-    css: chm.css
+    css: slides.css
     slide-number: false 
 title-slide-attributes:
   data-background-image: https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true
-  data-background-size: 30%
+  data-background-size: 35%
   data-background-repeat: no
   data-background-position: left 10% bottom 10%
 include-after: |
-  <style>
-    /* Apply custom styles only to the title slide */
-    }
-    }
-    }
-    }
-    }
-    });
   <script type="text/javascript">
-    .reveal .slides > section:first-of-type h1 {
-      color: blue;         /* Title color */
-      font-size: 4rem;     /* Larger font size */
-      text-align: center;  /* Center align the title */
-      font-weight: bold;   /* Bold text */
-    .reveal .slides > section:first-of-type h2 {
-      font-size: 1.5rem;   /* Smaller font for author */
-      text-align: center;  /* Center align the author */
-    .reveal .slides > section:first-of-type h3 {
-      font-size: 1.2rem;   /* Smaller font for institute */
-      text-align: center;  /* Center align the institute */
-    .reveal .slides > section:first-of-type h4 {
-      font-size: 1rem;     /* Small font for date */
-      text-align: center;  /* Center align the date */
-    .reveal .slides > section:first-of-type {
-      }
-      padding-top: 2rem;   /* Adds space at the top */
     Reveal.on('ready', event => {
       if (event.indexh === 0) {
         document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
-        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
+      }
         Reveal.configure({ slideNumber: null });
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
         Reveal.configure({ slideNumber: 'c' });
 editor_options: 
   chunk_output_type: console
 ---
-
 
 ```{r}
 #| echo: false
@@ -66,7 +43,9 @@ library(patchwork)
 # devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true")
 # devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_plots.R?raw=true")
 # devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/var_score.R?raw=true")
+
 theme_set(theme_classic())
+update_geom_defaults("bar", list(fill = "steelblue", color = "black"))
 #update_geom_defaults("bar", list(fill = "steelblue"))
 options(dplyr.print_max=Inf)
 
@@ -85,11 +64,12 @@ path_processed <-  "P:/studydata/risk2/data_processed/shared"
 intake <- read_csv(here::here(path_processed, "survey_intake_wide.csv"))
 ```
 
-## OUD Symptoms
+## <span style="color: green; text-decoration: underline;">OUD Symptoms and Substance Usage</span> 
 
--   The participants mostly met all criteria in OUD evaluation.
+-   The participants mostly showed severe OUD symptoms.
 
 ```{r}
+# severity
 p_dsm <-  intake |> 
   drop_na(dsm_c) |> 
   mutate(dsm_category = case_when(
@@ -110,26 +90,56 @@ p_dsm <-  intake |>
         plot.title = element_text(hjust = 0.5))
 
 p_dsm
+
+# what other drug to quit
+p_rec_4_1 <- intake |> 
+  select(-ends_with("text")) |> 
+  select(contains("recovery_4_1")) |> 
+  pivot_longer(starts_with("recovery_4_1"),
+               names_to = "recovery_4_1",
+               values_to = "chosen") |>
+  mutate(chosen = factor(chosen, levels = c("no", "yes", NA)),
+         recovery_4_1 = str_replace(recovery_4_1, "recovery_4_1_", "")) |>
+  group_by(recovery_4_1) |>
+  count(chosen) |> 
+  filter(chosen == "yes") |> 
+  arrange(desc(n)) |> 
+  mutate(recovery_4_1 = str_replace_all(recovery_4_1, "_", " "),  
+         recovery_4_1 = str_to_title(recovery_4_1)) |> 
+  mutate(recovery_4_1 = factor(recovery_4_1, levels = c("Stimulants",
+                                                        "Alcohol",
+                                                        "Sedatives",
+                                                        "Cannabis",
+                                                        "Hallucinogens",
+                                                        "Inhalants",
+                                                        "Tobacco",
+                                                        "Ecig",
+                                                        "Other"))) |> 
+  ggplot(aes(x = recovery_4_1, y = n, fill = n)) +
+  geom_bar(stat = "identity") +
+  scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +
+  labs(title = "Other Substance Intended to Avoid",
+       x = "Substance",
+       y = "Number of Participants") +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(angle = 0, hjust = 0.4),
+        legend.position = "none") 
 ```
 
-## Important demographics
+## <span style="color: green; text-decoration: underline;">Important demographics</span> 
 
--   Race: The majority identified themselves as Asian or white
--   Income: Low income
--   Education: Participants on the average received intermediate education
--   Gender: Most oft the participants identified themselves as male/female
--   Age: Most participants are in the **26-35 (128)** and **36-45 (64)** age groups
-
-## Important demographics
+-   Low income, moderate education
+-   Balanced gender, mostly middle-aged
+-   Majority Asian and White
 
 ```{r}
 # age
-age_counts <- intake %>%
+age_data <- intake %>%
   count(age)
 
-p_age <- intake |> 
-  ggplot(aes(x = age)) +
-  geom_bar(width = 0.9) +
+p_age <- age_data |> 
+  ggplot(aes(x = age, y = n)) +
+  geom_bar(stat = "identity") +
   labs(x = NULL,
        y = "Number of Participants",
        title = "Age") +
@@ -158,30 +168,34 @@ p_gender <- gender_data |>
   theme_void() +  # Remove background elements for a clean pie chart
   labs(title = "Gender",
        fill = "Gender") +  
-  theme(plot.title = element_text(hjust = 0.5))  # Center the title
+  geom_text(aes(label = gender), position = position_stack(vjust = 0.5)) +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = "none")  # Center the title
 
 # race
-p_race <- intake |>
+p_race <- intake |> 
   select(subid, starts_with("race")) |> 
   select(-contains("text")) |> 
   pivot_longer(starts_with("race"),
                names_to = "race",
-               values_to = "chosen") |>
+               values_to = "chosen") |> 
   mutate(chosen = factor(chosen, levels = c("no", "yes", NA)),
-         race = str_replace(race, "race_", "")) |>
-  group_by(race) |>
+         race = str_replace(race, "race_", "")) |> 
+  group_by(race) |> 
   count(chosen) |> 
   filter(chosen == "yes") |> 
   arrange(desc(n)) |> 
   mutate(race = str_replace_all(race, "_", " "),  
          race = str_to_title(race)) |> 
+  mutate(race = case_when(
+    race %in% c("Native Hawaiian Other", "Not Listed", "American Indian Alaska Native") ~ "Other",
+    TRUE ~ race
+  )) |> 
   mutate(race = factor(race, levels = c("Asian",
                                         "White",
                                         "Black",
                                         "Hispanic", 
-                                        "American Indian Alaska Native",
-                                        "Not Listed", 
-                                        "Native Hawaiian Other"))) |> 
+                                        "Other"))) |> 
   ggplot(aes(x = race, y = n)) +
   geom_bar(stat = "identity") +
   scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +
@@ -211,7 +225,7 @@ edu_data <- intake |>
 
 p_edu_bar <- edu_data |> 
   ggplot(aes(x = education, y = n)) +
-  geom_bar(width = 1, stat = "identity", color = "white") +
+  geom_bar(width = 0.9, stat = "identity") +
   scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +  # Add line breaks to make labels more readable
   labs(title = "Education Level",
        x = NULL,
@@ -256,23 +270,24 @@ combined_plot <- (p_age + p_gender + p_edu_bar) / (p_race + p_income_bar)
 combined_plot
 ```
 
-## Interpersonal circumstances
+## <span style="color: green; text-decoration: underline;">Social Context and Abstinence Attitude</span>
 
--   The majority of the participants live with family or in a recovery community.
+- A majority of participants have some form of social support
+- Most participants show strong intention to avoid substance use
 
 ```{r}
 # general
 liv_arr_data <- intake |> 
   drop_na(living_arrangement_1) |> 
   select(subid, living_arrangement_1) |> 
-  count(living_arrangement_1) |> 
-  arrange(desc(n)) |> 
-  mutate(prop = round(n / sum(n) * 100, 1)) |> 
   mutate(living_arrangement_1 = case_when(
     living_arrangement_1 == "Recovery community (Sober living/halfway house)" ~ "Recovery community",
     living_arrangement_1 %in% c("Homeless shelter", "Homeless unsheltered") ~ "Homeless",
     TRUE ~ living_arrangement_1
   )) |> 
+  count(living_arrangement_1) |> 
+  arrange(desc(n)) |> 
+  mutate(prop = round(n / sum(n) * 100, 1)) |> 
   mutate(living_arrangement_1 = factor(living_arrangement_1,
                                        levels = c("Living with family/others",
                                                   "Recovery community",
@@ -285,45 +300,12 @@ p_liv_arr_1 <- liv_arr_data |>
   ggplot(aes(x = living_arrangement_1, y = n)) +
   geom_bar(stat = "identity") +
   scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +  # Add line breaks to make labels more readable
-  labs(x = "General Living Arrangement",
-       y = "Number of Participants",
-       title = "Living Arrangement of the Participants") +
-  theme(plot.title = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 0, hjust = 0.4),
-        legend.position = "none")
-
-# who to live with
-liv_arr_2_data <- intake |>
-  select(subid, starts_with("living_arrangement_2")) |> 
-  select(-contains("text")) |> 
-  pivot_longer(starts_with("living_arrangement_2"),
-               names_to = "living_arrangement_2",
-               values_to = "chosen") |>
-  mutate(chosen = factor(chosen, levels = c("no", "yes", NA)),
-         living_arrangement_2 = str_replace(living_arrangement_2, "living_arrangement_2_", "")) |>
-  group_by(living_arrangement_2) |>
-  count(chosen) |> 
-  filter(chosen == "yes") |> 
-  arrange(desc(n)) |> 
-  mutate(living_arrangement_2 = str_replace_all(living_arrangement_2, "_", " "),  
-         living_arrangement_2 = str_to_title(living_arrangement_2)) |> 
-  mutate(living_arrangement_2 = factor(living_arrangement_2, levels = c("Spouse Sig Other",
-                                        "Non Relative",
-                                        "Child Grandchild",
-                                        "Parent",
-                                        "Other Relative")))
-
-# Plot the people the subjects was living with
-p_liv_arr_2 <- liv_arr_2_data |> 
-  ggplot(aes(x = living_arrangement_2, y = n)) +
-  geom_bar(stat = "identity") +
-  scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +
-  labs(title = "Family Living Arrangements",
+  labs(title = "General Living Arrangement",
        y = "Number of Participants",
        x = NULL) +
   theme(plot.title = element_text(hjust = 0.5),
         axis.text.x = element_text(angle = 0, hjust = 0.4),
-        legend.position = "none") 
+        legend.position = "none")
 
 # Plot the romantic relationship
 romantic_data <- intake |> 
@@ -338,18 +320,11 @@ p_romantic <- romantic_data |>
   theme_void() +  # Remove background elements for a clean pie chart
   labs(title = "Romantic Relationship",
        fill = "In a relationship") +  
-  theme(plot.title = element_text(hjust = 0.5))
+  geom_text(aes(label = romantic_status), position = position_stack(vjust = 0.5)) +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = "none")
 
-combined_plot <- (p_liv_arr_1 / p_liv_arr_2) | p_romantic + 
-  plot_layout(widths = c(2, 1)) 
-combined_plot
-```
 
-## Attitude of the Participants on Abstince
-
--   Most of the participants showed high intention to avoid substance usage.
-
-```{r}
 abst_data <- intake |> 
   select(contains(paste0("recovery_", c(2:3), "_"))) |> 
   rename(Motivation = recovery_2_motivation,
@@ -360,55 +335,35 @@ abst_data <- intake |>
   group_by(Recovery, value) |> 
   summarise(n = n(), .groups = 'drop') |>  # Count the number of occurrences for each value
   group_by(Recovery) |> 
-  mutate(prop = round(n / sum(n) * 100, 1))  # Calculate the percentage for each value
+  mutate(prop = round(n / sum(n) * 100, 1)) |>  # Calculate the percentage for each value
+  drop_na(value)
 
-# Plot the faceted bar chart with percentage labels
-p_abstince <- abst_data |> 
+# Efficacy
+p_efficacy <- abst_data |> 
+  filter(Recovery == "Efficacy") |> 
   ggplot(aes(x = value, y = n)) +
-  geom_bar(stat = "identity") +
-  facet_wrap(~Recovery, ncol = 1, scales = "free_y") +
+  geom_bar(stat = "identity") + 
   ylim(0, 200) +
-  labs(x = "Evaluated Scores for Abstinence Attitude",
+  labs(title = "Opioid Avoidance Confidence",
        y = "Number of Participants",
-       title = "Scores of Abstinence Goals") +
+       x = NULL) +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5))
 
-# what other drug to quit
-p_rec_4_1 <- intake |> 
-  select(-ends_with("text")) |> 
-  select(contains("recovery_4_1")) |> 
-  pivot_longer(starts_with("recovery_4_1"),
-               names_to = "recovery_4_1",
-               values_to = "chosen") |>
-  mutate(chosen = factor(chosen, levels = c("no", "yes", NA)),
-         recovery_4_1 = str_replace(recovery_4_1, "recovery_4_1_", "")) |>
-  group_by(recovery_4_1) |>
-  count(chosen) |> 
-  filter(chosen == "yes") |> 
-  arrange(desc(n)) |> 
-  mutate(recovery_4_1 = str_replace_all(recovery_4_1, "_", " "),  
-         recovery_4_1 = str_to_title(recovery_4_1)) |> 
-  mutate(recovery_4_1 = factor(recovery_4_1, levels = c("Stimulants",
-                                                        "Alcohol",
-                                                        "Sedatives",
-                                                        "Cannabis",
-                                                        "Hallucinogens",
-                                                        "Inhalants",
-                                                        "Tobacco",
-                                                        "Ecig",
-                                                        "Other"))) |> 
-  ggplot(aes(x = recovery_4_1, y = n, fill = n)) +
-  geom_bar(stat = "identity") +
-  scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +
-  labs(title = "Other Substance Intended to Avoid",
-       x = "Substance",
-       y = "Number of Participants") +
-  theme(plot.title = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 0, hjust = 0.4),
-        legend.position = "none") 
+# Motivation
+p_motivation <- abst_data |> 
+  filter(Recovery == "Motivation") |> 
+  ggplot(aes(x = value, y = n)) +
+  geom_bar(stat = "identity") + 
+  ylim(0, 200) +
+  labs(title = "Opioid Avoidance Motivation",
+       y = "Number of Participants",
+       x = NULL) +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5))
 
-combined_plot <- p_abstince 
+
+combined_plot <- (p_liv_arr_1 | p_romantic ) / (p_efficacy | p_motivation)
 
 combined_plot
 ```
