@@ -101,7 +101,7 @@ p_dsm <-  intake |>
   count(dsm_category) |> 
   mutate(dsm_category = factor(dsm_category, levels = c("No Symptom", "Mild", "Moderate", "Severe"))) |> 
   ggplot(aes(x = dsm_category, y = n)) +
-  geom_bar(stat = "identity", width = 0.9, fill = "lightblue") +  
+  geom_bar(stat = "identity", width = 0.9) +  
   geom_text(aes(label = n), vjust = -0.5, size = 4, color = "black") +
   labs(x = "OUD(DSM) Symptoms",
        y = "Number of Participants",
@@ -129,7 +129,7 @@ age_counts <- intake %>%
 
 p_age <- intake |> 
   ggplot(aes(x = age)) +
-  geom_bar(width = 0.9, fill = "lightblue") +
+  geom_bar(width = 0.9) +
   labs(x = NULL,
        y = "Number of Participants",
        title = "Age") +
@@ -183,7 +183,7 @@ p_race <- intake |>
                                         "Not Listed", 
                                         "Native Hawaiian Other"))) |> 
   ggplot(aes(x = race, y = n)) +
-  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_bar(stat = "identity") +
   scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +
   labs(title = "Race or Ethnic Origin",
        x = NULL,
@@ -196,14 +196,14 @@ p_race <- intake |>
 edu_data <- intake |> 
   select(education) |>  # Calculate percentage |> 
   mutate(education = case_when(
-    education %in% c("Some high school, but did not graduate", "High school graduate or GED") ~ "High school",
-    education %in% c("Some college or 2-year degree", "4-year college graduate") ~ "College",
+    education %in% c("8th grade or less", "Some high school, but did not graduate", "High school graduate or GED") ~ "<= High school",
+    education == "Some college or 2-year degree" ~ "Some College",
+    education == "4-year college graduate" ~ "4-year college degree",
     education == "More than 4-year or advanced degree" ~ "Advanced degree",
-    TRUE ~ education
   )) |> 
-  mutate(education = factor(education, levels = c("8th grade or less",
-                                                  "High school",
-                                                  "College",
+  mutate(education = factor(education, levels = c("<= High school",
+                                                  "Some College",
+                                                  "4-year college degree",
                                                   "Advanced degree"))) |> 
   drop_na(education) |> 
   count(education) |> 
@@ -211,7 +211,7 @@ edu_data <- intake |>
 
 p_edu_bar <- edu_data |> 
   ggplot(aes(x = education, y = n)) +
-  geom_bar(width = 1, stat = "identity", fill = "lightblue", color = "white") +
+  geom_bar(width = 1, stat = "identity", color = "white") +
   scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +  # Add line breaks to make labels more readable
   labs(title = "Education Level",
        x = NULL,
@@ -243,7 +243,7 @@ income_data <- intake |>
 
 p_income_bar <- income_data |> 
   ggplot(aes(x = income, y = n)) +
-  geom_bar(width = 0.9, stat = "identity", fill = "lightblue") +  # Use stat = "identity" since we're using pre-counted data
+  geom_bar(width = 0.9, stat = "identity") +  # Use stat = "identity" since we're using pre-counted data
   labs(y = "Number of Participants",
        x = NULL,
        title = "Income") +
@@ -256,7 +256,7 @@ combined_plot <- (p_age + p_gender + p_edu_bar) / (p_race + p_income_bar)
 combined_plot
 ```
 
-## General Living Arrangement
+## Interpersonal circumstances
 
 -   The majority of the participants live with family or in a recovery community.
 
@@ -283,7 +283,7 @@ liv_arr_data <- intake |>
 # Plot the bar chart with percentage labels above the bars
 p_liv_arr_1 <- liv_arr_data |> 
   ggplot(aes(x = living_arrangement_1, y = n)) +
-  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_bar(stat = "identity") +
   scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +  # Add line breaks to make labels more readable
   labs(x = "General Living Arrangement",
        y = "Number of Participants",
@@ -313,18 +313,35 @@ liv_arr_2_data <- intake |>
                                         "Parent",
                                         "Other Relative")))
 
-# Plot the bar chart with count labels above the bars
+# Plot the people the subjects was living with
 p_liv_arr_2 <- liv_arr_2_data |> 
   ggplot(aes(x = living_arrangement_2, y = n)) +
-  geom_bar(stat = "identity", fill = "lightblue") +
-  labs(title = "Living Arrangement Distribution of Participants",
-       x = "Living Arrangement: Partners",
-       y = "Number of Participants") +
+  geom_bar(stat = "identity") +
+  scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +
+  labs(title = "Family Living Arrangements",
+       y = "Number of Participants",
+       x = NULL) +
   theme(plot.title = element_text(hjust = 0.5),
         axis.text.x = element_text(angle = 0, hjust = 0.4),
         legend.position = "none") 
 
-combined_plot <- p_liv_arr_1 + p_liv_arr_2
+# Plot the romantic relationship
+romantic_data <- intake |> 
+  drop_na(romantic_status) |> 
+  select(romantic_status) |> 
+  count(romantic_status)
+
+p_romantic <- romantic_data |> 
+  ggplot(aes(x = "", y = n, fill = romantic_status)) +
+  geom_bar(width = 1, stat = "identity", color = "white") +  # Draw bar segments for each gender
+  coord_polar("y", start = 0) +  # Convert to polar coordinates to create a pie chart
+  theme_void() +  # Remove background elements for a clean pie chart
+  labs(title = "Romantic Relationship",
+       fill = "In a relationship") +  
+  theme(plot.title = element_text(hjust = 0.5))
+
+combined_plot <- (p_liv_arr_1 / p_liv_arr_2) | p_romantic + 
+  plot_layout(widths = c(2, 1)) 
 combined_plot
 ```
 
@@ -348,7 +365,7 @@ abst_data <- intake |>
 # Plot the faceted bar chart with percentage labels
 p_abstince <- abst_data |> 
   ggplot(aes(x = value, y = n)) +
-  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_bar(stat = "identity") +
   facet_wrap(~Recovery, ncol = 1, scales = "free_y") +
   ylim(0, 200) +
   labs(x = "Evaluated Scores for Abstinence Attitude",
@@ -382,7 +399,7 @@ p_rec_4_1 <- intake |>
                                                         "Ecig",
                                                         "Other"))) |> 
   ggplot(aes(x = recovery_4_1, y = n, fill = n)) +
-  geom_bar(stat = "identity", fill = "lightblue") +
+  geom_bar(stat = "identity") +
   scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +
   labs(title = "Other Substance Intended to Avoid",
        x = "Substance",
