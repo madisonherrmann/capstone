@@ -181,16 +181,16 @@ p_race <- intake |>
                values_to = "chosen") |> 
   mutate(chosen = factor(chosen, levels = c("no", "yes", NA)),
          race = str_replace(race, "race_", "")) |> 
+  mutate(race = case_when(
+    race %in% c("native_hawaiian_other", "not_listed", "american_indian_alaska_native") ~ "other",
+    TRUE ~ race
+  )) |> 
   group_by(race) |> 
   count(chosen) |> 
   filter(chosen == "yes") |> 
   arrange(desc(n)) |> 
   mutate(race = str_replace_all(race, "_", " "),  
          race = str_to_title(race)) |> 
-  mutate(race = case_when(
-    race %in% c("Native Hawaiian Other", "Not Listed", "American Indian Alaska Native") ~ "Other",
-    TRUE ~ race
-  )) |> 
   mutate(race = factor(race, levels = c("Asian",
                                         "White",
                                         "Black",
