@@ -5,8 +5,9 @@ institute: "University of Wisconsin-Madison"
 date: December 13, 2024
 format: 
   revealjs:
+    chalkboard: true
     scrollable: true
-    css: chm.css
+    css: slides.css
     slide-number: false 
 title-slide-attributes:
   data-background-image: https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true
