@@ -53,6 +53,10 @@ options(dplyr.print_max=Inf)
 # path_processed <- format_path("studydata/risk2/data_processed/shared")
 
 path_processed <-  "P:/studydata/risk2/data_processed/shared"
+
+# plot setting
+theme_set(theme_classic(base_size = 14)) 
+
 ```
 
 ```{r}
@@ -65,55 +69,6 @@ intake <- read_csv(here::here(path_processed, "survey_intake_wide.csv"))
 ```
 
 ```{r}
-# general
-liv_arr_data <- intake |> 
-  drop_na(living_arrangement_1) |> 
-  select(subid, living_arrangement_1) |> 
-  mutate(living_arrangement_1 = case_when(
-    living_arrangement_1 == "Recovery community (Sober living/halfway house)" ~ "Recovery community",
-    living_arrangement_1 %in% c("Homeless shelter", "Homeless unsheltered") ~ "Homeless",
-    TRUE ~ living_arrangement_1
-  )) |> 
-  count(living_arrangement_1) |> 
-  arrange(desc(n)) |> 
-  mutate(prop = round(n / sum(n) * 100, 1)) |> 
-  mutate(living_arrangement_1 = factor(living_arrangement_1,
-                                       levels = c("Living with family/others",
-                                                  "Recovery community",
-                                                  "Living alone",
-                                                  "Other",
-                                                  "Homeless")))
-
-# Plot the bar chart with percentage labels above the bars
-p_liv_arr_1 <- liv_arr_data |> 
-  ggplot(aes(x = living_arrangement_1, y = n)) +
-  geom_bar(stat = "identity") +
-  scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +  # Add line breaks to make labels more readable
-  labs(title = "General Living Arrangement",
-       y = "Number of Participants",
-       x = NULL) +
-  theme(plot.title = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 0, hjust = 0.4),
-        legend.position = "none")
-
-# Plot the romantic relationship
-romantic_data <- intake |> 
-  drop_na(romantic_status) |> 
-  select(romantic_status) |> 
-  count(romantic_status)
-
-p_romantic <- romantic_data |> 
-  ggplot(aes(x = "", y = n, fill = romantic_status)) +
-  geom_bar(width = 1, stat = "identity", color = "white") +  # Draw bar segments for each gender
-  coord_polar("y", start = 0) +  # Convert to polar coordinates to create a pie chart
-  theme_void() +  # Remove background elements for a clean pie chart
-  labs(title = "Romantic Relationship",
-       fill = "In a relationship") +  
-  geom_text(aes(label = romantic_status), position = position_stack(vjust = 0.5)) +
-  theme(plot.title = element_text(hjust = 0.5),
-        legend.position = "none")
-
-
 abst_data <- intake |> 
   select(contains(paste0("recovery_", c(2:3), "_"))) |> 
   rename(Motivation = recovery_2_motivation,
@@ -127,18 +82,6 @@ abst_data <- intake |>
   mutate(prop = round(n / sum(n) * 100, 1)) |>  # Calculate the percentage for each value
   drop_na(value)
 
-# Efficacy
-p_efficacy <- abst_data |> 
-  filter(Recovery == "Efficacy") |> 
-  ggplot(aes(x = value, y = n)) +
-  geom_bar(stat = "identity") + 
-  ylim(0, 200) +
-  labs(title = "Opioid Avoidance Confidence",
-       y = "Number of Participants",
-       x = NULL) +
-  theme(legend.position = "none",
-        plot.title = element_text(hjust = 0.5))
-
 # Motivation
 p_motivation <- abst_data |> 
   filter(Recovery == "Motivation") |> 
@@ -146,28 +89,32 @@ p_motivation <- abst_data |>
   geom_bar(stat = "identity") + 
   ylim(0, 200) +
   labs(title = "Opioid Avoidance Motivation",
-       y = "Number of Participants",
+       y = "Count",
        x = NULL) +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5))
-
-
-combined_plot <- (p_liv_arr_1 | p_romantic ) / (p_efficacy | p_motivation)
-
-combined_plot
 ```
 
 ## <span style="color: green; text-decoration: underline;">OUD Characteristics</span> 
 
 ::: {.columns}
-:::: {.column width="50%"}
+:::: {.column width="45%"}
 - 336 individuals mostly showed severe OUD symptoms.
 
-- Committed to abstinence throughout study
+\
+
+- Motivated to abstinence throughout study
 ::::
 
-:::: {.column width="50%"}
+:::: {.column width="55%"}
 ```{r}
+# font just for this slide
+theme_update(
+  plot.title = element_text(hjust = 0.5, size = 24, face = "bold"), 
+  axis.title = element_text(size = 22),                            
+  axis.text = element_text(size = 20)
+)
+
 # severity
 p_dsm <-  intake |> 
   drop_na(dsm_c) |> 
@@ -182,29 +129,35 @@ p_dsm <-  intake |>
   ggplot(aes(x = dsm_category, y = n)) +
   geom_bar(stat = "identity", width = 0.9) +  
   geom_text(aes(label = n), vjust = -0.5, size = 4, color = "black") +
-  labs(x = "OUD(DSM) Symptoms",
-       y = "Number of Participants",
-       title = "Distribution of the OUD(DSM) Number of Symptoms") +
+  labs(x = NULL,
+       y = "Count",
+       title = "Severity of OUD Symptoms") +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5))
 
 p_dsm
-p_efficacy 
 p_motivation
 ```
 ::::
 :::
 
 
-
-
 ## <span style="color: green; text-decoration: underline;">OUD Characteristics</span> 
 
+:::{.notes} 
 -   Low income, moderate education
 -   Balanced gender, mostly middle-aged
 -   Majority Asian and White
+:::
 
 ```{r}
+# Update font for those
+theme_update(
+  plot.title = element_text(hjust = 0.5, size = 16, face = "bold"), 
+  axis.title = element_text(size = 14),                            
+  axis.text = element_text(size = 12)
+)
+
 # age
 age_data <- intake %>%
   count(age)
@@ -213,7 +166,7 @@ p_age <- age_data |>
   ggplot(aes(x = age, y = n)) +
   geom_bar(stat = "identity") +
   labs(x = NULL,
-       y = "Number of Participants",
+       y = "Count",
        title = "Age") +
   theme(legend.position="none",
         plot.title = element_text(hjust = 0.5)) 
@@ -273,7 +226,7 @@ p_race <- intake |>
   scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +
   labs(title = "Race or Ethnic Origin",
        x = NULL,
-       y = "Number of Participants") +
+       y = "Count") +
   theme(plot.title = element_text(hjust = 0.5),
         axis.text.x = element_text(angle = 0, hjust = 0.4),
         legend.position = "none") 
@@ -301,7 +254,7 @@ p_edu_bar <- edu_data |>
   scale_x_discrete(labels = function(x) str_replace_all(x, " ", "\n")) +  # Add line breaks to make labels more readable
   labs(title = "Education Level",
        x = NULL,
-       y = "Number of Participants") +
+       y = "Count") +
   theme(plot.title = element_text(hjust = 0.5),
         legend.position = "none")  # Center the plot title and remove the legend
 
@@ -330,7 +283,7 @@ income_data <- intake |>
 p_income_bar <- income_data |> 
   ggplot(aes(x = income, y = n)) +
   geom_bar(width = 0.9, stat = "identity") +  # Use stat = "identity" since we're using pre-counted data
-  labs(y = "Number of Participants",
+  labs(y = "Count",
        x = NULL,
        title = "Income") +
   theme(legend.position = "none",  # Hide legend
@@ -341,10 +294,3 @@ p_income_bar <- income_data |>
 combined_plot <- (p_age + p_gender + p_edu_bar) / (p_race + p_income_bar)  
 combined_plot
 ```
-
-## <span style="color: green; text-decoration: underline;">Social Context and Abstinence Attitude</span>
-
-- A majority of participants have some form of social support
-- Most participants show strong intention to avoid substance use
-
-
