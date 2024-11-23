@@ -1,0 +1,768 @@
+---
+title: "3_monthly_characterization_tianrun"
+author: "Tianrun Zhu"
+format:
+  html:
+    toc: true
+    toc-depth: 4
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(kableExtra, exclude = c("group_rows"))
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_eda.R?raw=true")
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true")
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_plots.R?raw=true")
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/var_score.R?raw=true")
+theme_set(theme_classic())
+options(dplyr.print_max=Inf)
+
+path_processed <- format_path("studydata/risk2/data_processed/shared")
+```
+
+```{r}
+#| message: false
+#| warning: false
+
+# above the the way to set in quarto
+# Read in data
+generic_monthly_wide <- read_csv(here::here(path_processed, "generic_monthly_wide_num.csv"))
+```
+
+# Summary of the key findings
+
+1\) `ras_` variables have very low completion rate when looking at the whole data of generic monthly surveys. The completion rate for all of `ras_1`, `ras_2` and `ras_3` is approximately .56
+
+\-- See Section `Overall summary` -\> Section `Feature Matrix`
+
+2\) There can be a ceiling effect for recovery.
+
+\-- See Section `Overall summary` -\> Section `Histogram` -\> Section `Recovery`
+
+\-- See Section `For each participants` -\> Section `Look at the distribution where the standard devaition is 0`
+
+3\) The average composite score for `bpi_` variables is higher at the beginning months followed by a drastic drop in 2021-10.
+
+\-- See Section `Temporal Analysis` -\> Section `bpi`
+
+4\) The average composite score for `basis_` variables is lower at the beginning months followed by a drastic drop in 2021-10.
+
+\-- See Section `Temporal Analysis` -\> Section `basis`
+
+5\) For whoqol\_ variables. The average composite scores for 2021-05 and 2021-06 is lower than the average composite scores from 2021-09. There is no scores for 2021-07 and 2021-08.
+
+\-- See Section `Temporal Analysis` -\> Section `whoqol`
+
+6\) Identified potential low trustworthy responses when looking for individuals: `subid 1038` and `subid 1352` for their responses in `recovery_c`; `subid 1372` for their responses in `bpi_c`.
+
+\-- See Section `For each participants` -\> Section `Look at the high skewness` -\> Section `recovery` & Section `bpi`
+
+# Extract the scale variables
+
+```{r}
+generic_monthly_scale <- generic_monthly_wide |> 
+  select("subid", "survey_slug", "user_survey_guid",starts_with("ras_"), starts_with("recovery_"),
+         starts_with("bpi_"), starts_with("basis_"), starts_with("pss_"), 
+         starts_with("whoqol_"), starts_with("social_"),starts_with("bpi4_"), starts_with("re41_"))
+```
+
+# **Explore variable classes**
+
+```{r}
+generic_monthly_scale |>
+  select(ends_with("_num"), ends_with("_c")) |> # All composite scores are named with the suffix "_c"
+  glimpse()
+# They are all numeric.
+```
+
+# Overall summary
+
+## Feature Matrix
+
+```{r}
+generic_monthly_scale |> 
+  select(ends_with("_num"), ends_with("_c"), subid) |> 
+  skim_all()
+
+# The ras_ variables face severe low completion, all at .56
+```
+
+## Histogram
+
+### RAS
+
+```{r}
+generic_monthly_scale |> plot_hist("ras_1_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("ras_2_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("ras_3_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("ras_c")
+```
+
+Overall, participants are good with their relationship.
+
+### Recovery
+
+```{r}
+generic_monthly_scale |> plot_hist("recovery_1_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("recovery_2_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("recovery_3_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("recovery_c")
+```
+
+There can be a ceiling effect for recovery because many participants reached the highest value, 12, meaning that those participants were all extremely satisfied with their recovery goals (`recovery_1`), extremely motivated to avoid using opioid for non-medical reasons (`recovery_2`) and extremely confident in their ability to avoid using opioids for non-medical reasons (`recovery_3`).
+
+```{r}
+# recovery_4_1 is a question with multiple possible answers
+generic_monthly_scale |> 
+  select(starts_with("re41_")) |>
+  pivot_longer(cols = everything(), names_to = "variable", values_to = "value") |>
+  ggplot(aes(x = value)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "black", alpha = 0.7) +
+  facet_wrap(~variable, scales = "free_x") +
+  labs(title = "Histograms for recovery_4_1 columns", x = "Value", y = "Frequency") +
+  theme_minimal()
+```
+
+### BPI
+
+```{r}
+generic_monthly_scale |> plot_hist("bpi_1_num")
+unique(generic_monthly_scale$bpi_1_num)
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("bpi_2_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("bpi_3_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("bpi_c")
+```
+
+```{r}
+# bpi_4 is a question with multiple possible answers
+generic_monthly_scale |> 
+  select(starts_with("bpi4_")) |>
+  pivot_longer(cols = everything(), names_to = "variable", values_to = "value") |>
+  ggplot(aes(x = value)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "black", alpha = 0.7) +
+  facet_wrap(~variable, scales = "free_x") +
+  labs(title = "Histograms for bpi4_ columns", x = "Value", y = "Frequency") +
+  theme_minimal()
+```
+
+### BASIS
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_1_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_2_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_3_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_4_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_5_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_6_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_7_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_8_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_9_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_10_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("basis_c")
+```
+
+Overall, participants did not experience much pain. The 0 for `basis_c` can be true 0 instead of a floor effect, meaning the participants did not experience any pain.
+
+### PSS
+
+```{r}
+generic_monthly_scale |> plot_hist("pss_1_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("pss_2_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("pss_3_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("pss_4_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("pss_c")
+```
+
+Overall, participants' perceived stress looks normally distributed.
+
+### WHOQOL
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_1_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_2_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_3_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_4_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_5_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_6_num")
+unique(generic_monthly_scale$whoqol_6_num)
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_7_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_8_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_9_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_10_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_11_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_12_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_13_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_14_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_15_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_16_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_17_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("whoqol_c")
+```
+
+### SOCIAL
+
+```{r}
+generic_monthly_scale |> plot_hist("social_1_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("social_2_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("social_3_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("social_4_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("social_5_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("social_6_num")
+```
+
+```{r}
+generic_monthly_scale |> plot_hist("social_c")
+```
+
+# Temporal Analysis
+
+Remove all the surveys not showing specific time.
+
+```{r}
+timed <- generic_monthly_scale |>
+  filter(str_detect(survey_slug, "monthly-\\d{4}-\\d{4}-\\d{2}-\\d{2}-\\d"))
+```
+
+Extract the years and the months as new columns
+
+```{r}
+timed <- timed |>
+  mutate(
+    year = str_extract(survey_slug, "(?<=-\\d{4}-)(\\d{4})"), 
+    month = str_extract(survey_slug, "(?<=monthly-\\d{4}-)(\\d{4}-\\d{2})"))
+```
+
+## Look for the temporal changes
+
+### ras
+
+```{r}
+monthly_scores <- timed |>
+  group_by(month) |>
+  summarise(avg_ras_c = mean(ras_c, na.rm = TRUE)) # Look at the average of ras_c
+
+ggplot(monthly_scores, aes(x = month, y = avg_ras_c)) +
+  geom_col() +
+  labs(title = "Average ras_c Score by Month", x = "Month", y = "Average ras_c Score") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+```
+
+### recovery
+
+```{r}
+monthly_scores <- timed |>
+  group_by(month) |>
+  summarise(avg_recovery_c = mean(recovery_c, na.rm = TRUE))
+
+ggplot(monthly_scores, aes(x = month, y = avg_recovery_c)) +
+  geom_col() +  # Use 'geom_col()' to create a histogram with totals for each month
+  labs(title = "Average recovery_c Score by Month", x = "Month", y = "Average recovery_c Score") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+```
+
+### bpi
+
+```{r}
+monthly_scores <- timed |>
+  group_by(month) |>
+  summarise(avg_bpi_c = mean(bpi_c, na.rm = TRUE))
+
+ggplot(monthly_scores, aes(x = month, y = avg_bpi_c)) +
+  geom_col() +  # Use 'geom_col()' to create a histogram with totals for each month
+  labs(title = "Average bpi_c Score by Month", x = "Month", y = "Average bpi_c Score") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+```
+
+It is worth noticing that the average `bpi_c` score is higher at the beginning months followed by a drastic drop in 2021-10, and then after some fluctuation, the value tends to be stable but lower than in the beginning months.
+
+### basis
+
+```{r}
+monthly_scores <- timed |>
+  group_by(month) |>
+  summarise(avg_basis_c = mean(basis_c, na.rm = TRUE))
+
+ggplot(monthly_scores, aes(x = month, y = avg_basis_c)) +
+  geom_col() +  # Use 'geom_col()' to create a histogram with totals for each month
+  labs(title = "Average basis_c Score by Month", x = "Month", y = "Average basis_c Score") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+```
+
+It is worth noticing that the average `basis_c` score is lower at the beginning months followed by a drastic drop in 2021-10, and then after some fluctuation, the value tends to be stable but higher than in the beginning months.
+
+### pss
+
+```{r}
+monthly_scores <- timed |>
+  group_by(month) |>
+  summarise(avg_pss_c = mean(pss_c, na.rm = TRUE))
+
+ggplot(monthly_scores, aes(x = month, y = avg_pss_c)) +
+  geom_col() +  # Use 'geom_col()' to create a histogram with totals for each month
+  labs(title = "Average pss_c Score by Month", x = "Month", y = "Average pss_c Score") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+```
+
+### whoqol
+
+```{r}
+monthly_scores <- timed |>
+  group_by(month) |>
+  summarise(avg_whoqol_c = mean(whoqol_c, na.rm = TRUE))
+
+ggplot(monthly_scores, aes(x = month, y = avg_whoqol_c)) +
+  geom_col() +  # Use 'geom_col()' to create a histogram with totals for each month
+  labs(title = "Average whoqol_c Score by Month", x = "Month", y = "Average whoqol_c Score") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+```
+
+The scores for 2021-05 and 2021-06 is lower than scores from 2021-09. There is no scores for 2021-07 and 2021-08.
+
+### social
+
+```{r}
+monthly_scores <- timed |>
+  group_by(month) |>
+  summarise(avg_social_c = mean(social_c, na.rm = TRUE))
+
+ggplot(monthly_scores, aes(x = month, y = avg_social_c)) +
+  geom_col() +  # Use 'geom_col()' to create a histogram with totals for each month
+  labs(title = "Average social_c Score by Month", x = "Month", y = "Average social_c Score") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+```
+
+# For each participant
+
+```{r}
+skimming <- generic_monthly_scale |> 
+  select(ends_with("_num"), ends_with("_c"), subid) |> 
+  group_by(subid) |> 
+  skim_all()
+
+low_completion <- skimming |> 
+  filter(complete_rate < 0.8) |> # I am not sure to what degree a completion rate can be considered as low. However, the code can work even if the critira changes, it can adapt quickly.
+  select(subid, skim_variable, complete_rate)
+
+unique_combination_low_completion <- low_completion |> 
+  distinct(subid, skim_variable)
+
+unique_combination_low_completion # This shows all the variables that faces low complete rate (< 0.8) for each participants
+```
+
+There is a problem of low completion rate for some variables.
+
+## Skim the composite score only
+
+```{r}
+#generic_monthly_scale <- generic_monthly_scale |> 
+#  group_by(subid) |> 
+#  filter(n() >= 5) |> 
+#  ungroup() # Filter out the participants who did not make more than 5 surveys. Some participants only made a small number of suverys. For these participants, it is difficult to examine wh
+
+skimming_composite <- generic_monthly_scale |> 
+  select(ends_with("_c"), subid) |> 
+  group_by(subid) |> 
+  skim_all()
+```
+
+remove all rows with completion rate lower than 0.5
+
+```{r}
+#skimming_composite <- skimming_composite |>
+#  filter(complete_rate >= 0.5)
+```
+
+## Look at the high skewness
+
+High skewness indicates that the participants may change their responses drastically across the monthly surveys.
+
+```{r}
+skimming_composite_high_skew <- skimming_composite |>
+  filter(abs(numeric.skew) >= 2)
+```
+
+### ras
+
+```{r}
+subid_list <- c(1048, 1300, 1324)
+
+generic_monthly_scale |> 
+  filter(subid %in% subid_list) |> 
+  ggplot(aes(x = ras_c)) + 
+  geom_histogram(bins = 100) + 
+  facet_wrap(~ subid) + 
+  theme(axis.text.x = element_text(size = 11), 
+        axis.text.y = element_text(size = 11))
+```
+
+For all three participants,although the distribution for ras_c shows high skewness, the values with low frequency (11) is one 1 score lower than the value with high frequency (12), indicating they are good with their relationship.
+
+### recovery
+
+```{r}
+subid_list <- c(1006, 1033, 1038, 1071, 1082, 1093, 1095, 1106, 1315, 1351, 1352, 1399)
+
+generic_monthly_scale |> 
+  filter(subid %in% subid_list) |> 
+  ggplot(aes(x = recovery_c)) + 
+  geom_histogram(bins = 100) + 
+  facet_wrap(~ subid) + 
+  theme(axis.text.x = element_text(size = 11), 
+        axis.text.y = element_text(size = 11))
+
+# I will only look for the subid where the scores disparse greatly
+
+generic_monthly_scale |> 
+  filter(subid == 1038) |>
+  distinct(user_survey_guid, recovery_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1352) |>
+  distinct(user_survey_guid, recovery_c)
+
+# subid 1038 has a recovery_c score at 4 while other recovery_c score all above 10. Let's look at what happened when this participant answered a 4.
+generic_monthly_scale |> 
+  filter(subid == 1038, recovery_c == 4) |> 
+  select(recovery_1_num, recovery_2_num, recovery_3_num)
+
+# subid 1352 has a recovery_c score at 4 while other recovery_c score all at 12. Let's look at what happened when this participant answered a 4.
+generic_monthly_scale |> 
+  filter(subid == 1352, recovery_c == 4) |> 
+  select(recovery_1_num, recovery_2_num, recovery_3_num)
+```
+
+It is quite weird for subid 1038 and 1352, as they score high for most surveys which indicates they are good with recovery goals but score very low at only one single survey which indicates they are not good with recovery goals. However, this does not necessarily mean that we cannot trust their response on recovery, they may just feel bad during that certain month.
+
+### bpi
+
+```{r}
+subid_list <- c(1032, 1228, 1235, 1254, 1305, 1330, 1372, 1393, 1425, 1445)
+
+generic_monthly_scale |> 
+  filter(subid %in% subid_list) |> 
+  ggplot(aes(x = bpi_c)) + 
+  geom_histogram(bins = 100) + 
+  facet_wrap(~ subid) + 
+  theme(axis.text.x = element_text(size = 11), 
+        axis.text.y = element_text(size = 11))
+
+generic_monthly_scale |> 
+  filter(subid == 1228) |>
+  distinct(user_survey_guid, bpi_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1305) |>
+  distinct(user_survey_guid, bpi_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1372) |> 
+  select(user_survey_guid, bpi_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1393) |> 
+  select(user_survey_guid, bpi_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1445) |> 
+  select(user_survey_guid, bpi_c)
+
+
+# subid 1228 has a bpi_c score at 12 while other bpi_c score all below 3. Let's look at what happened when this participant answered a 12.
+# The score for all 3 items is 4, indicating highest pain experience.
+
+# subid 1305 has a bpi_c score at 9 while other bpi_c score all below 2. Let's look at what happened when this participant answered a 9.
+generic_monthly_scale |> 
+  filter(subid == 1305, bpi_c == 9) |> 
+  select(bpi_1_num, bpi_2_num, bpi_3_num)
+# The score for all three items is 3, indicating high pain experience.
+
+# subid 1372 has a bpi_c score at 0 while other bpi_c score all above 11.
+
+# subid 1393 has a bpi_c score at 12 while other bpi_c score all below 2. Let's look at what happened when this participant answered a 12.
+# The score for all 3 items is 4, indicating highest pain experience.
+
+# subid 1445 has a bpi_c score at 5 while other bpi_c score all at 0. Let's look at what happened when this participant answered a 5.
+generic_monthly_scale |> 
+  filter(subid == 1445, bpi_c == 5) |> 
+  select(bpi_1_num, bpi_2_num, bpi_3_num)
+# The participant scores 1 for bpi_1, meaning mildly pain; 3 for bpi_2, meaning the pain considerably interfered with enjoyment of life; 1 for bpi_3, meaning the pain mildly interfered with general activity.
+```
+
+In summary, I would say that the responses for subid 1372 are quite weird to see.
+
+### basis
+
+```{r}
+subid_list <- c(1006, 1282, 1339)
+
+generic_monthly_scale |> 
+  filter(subid %in% subid_list) |> 
+  ggplot(aes(x = basis_c)) + 
+  geom_histogram(bins = 100) + 
+  facet_wrap(~ subid) + 
+  theme(axis.text.x = element_text(size = 11), 
+        axis.text.y = element_text(size = 11))
+
+generic_monthly_scale |> 
+  filter(subid == 1282) |>
+  distinct(user_survey_guid, basis_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1339) |>
+  distinct(user_survey_guid, basis_c)
+
+# subid 1282 has a basis_c score at 20 while other basis_c score all below 3. Let's look at what happened when this participant answered a 20.
+generic_monthly_scale |> 
+  filter(subid == 1282, basis_c == 20) |> 
+  select(basis_1_num, basis_2_num, basis_3_num, basis_4_num, basis_5_num, basis_6_num, basis_7_num, basis_8_num, basis_9_num, basis_10_num)
+# The score for all ten items is 2, indicating overall mild behavior and symptom.
+
+# subid 1339 has a basis_c score at 14 while other basis_c score all below 4. Let's look at what happened when this participant answered a 14.
+generic_monthly_scale |> 
+  filter(subid == 1339, basis_c == 14) |> 
+  select(basis_1_num, basis_2_num, basis_3_num, basis_4_num, basis_5_num, basis_6_num, basis_7_num, basis_8_num, basis_9_num, basis_10_num)
+# The scores show that the participant experienced moderate manic, mood swings and uncontrollable behavior with considerable sexual activity or preoccupation for that month
+```
+
+### pss
+
+```{r}
+subid_list <- c(1062, 1150, 1167, 1237, 1264)
+
+generic_monthly_scale |> 
+  filter(subid %in% subid_list) |> 
+  ggplot(aes(x = pss_c)) + 
+  geom_histogram(bins = 100) + 
+  facet_wrap(~ subid) + 
+  theme(axis.text.x = element_text(size = 11), 
+        axis.text.y = element_text(size = 11))
+
+generic_monthly_scale |> 
+  filter(subid == 1062) |>
+  distinct(user_survey_guid, pss_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1150) |>
+  distinct(user_survey_guid, pss_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1167) |>
+  distinct(user_survey_guid, pss_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1237) |>
+  distinct(user_survey_guid, pss_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1264) |>
+  distinct(user_survey_guid, pss_c)
+
+# subid 1062 has a pss_c score at 0 while other pss_c score all above 7. Let's look at what happened when this participant answered a 8 or a 7.
+generic_monthly_scale |> 
+  filter(subid == 1062, pss_c == 8) |> 
+  select(pss_1_num, pss_2_num, pss_3_num, pss_4_num)
+generic_monthly_scale |> 
+  filter(subid == 1062, pss_c == 7) |> 
+  select(pss_1_num, pss_2_num, pss_3_num, pss_4_num)
+# The answers are either 1 or 2 for each item. Nothing worth noticing.
+
+generic_monthly_scale |> 
+  filter(subid == 1150, pss_c == 4) |> 
+  select(pss_1_num, pss_2_num, pss_3_num, pss_4_num)
+
+generic_monthly_scale |> 
+  filter(subid == 1167, pss_c == 3) |> 
+  select(pss_1_num, pss_2_num, pss_3_num, pss_4_num)
+
+generic_monthly_scale |> 
+  filter(subid == 1237, pss_c == 3) |> 
+  select(pss_1_num, pss_2_num, pss_3_num, pss_4_num)
+
+generic_monthly_scale |> 
+  filter(subid == 1264, pss_c == 2) |> 
+  select(pss_1_num, pss_2_num, pss_3_num, pss_4_num)
+```
+
+Overall, although there are outliers for these participants regarding their `pss_c` scores, I think all these can be explained in the context of stress.
+
+### social
+
+```{r}
+subid_list <- c(1270, 1339, 1373, 1393)
+
+generic_monthly_scale |> 
+  filter(subid %in% subid_list) |> 
+  ggplot(aes(x = social_c)) + 
+  geom_histogram(bins = 100) + 
+  facet_wrap(~ subid) + 
+  theme(axis.text.x = element_text(size = 11), 
+        axis.text.y = element_text(size = 11))
+
+generic_monthly_scale |> 
+  filter(subid == 1373) |>
+  distinct(user_survey_guid, social_c)
+
+generic_monthly_scale |> 
+  filter(subid == 1373, social_c == 15) |> 
+  select(starts_with("social") & ends_with("num"))
+```
+
+Although these participants have high skewness for the distribution in social_c, the range between the lowest value and the highest is not high. The highest difference is witnessed for subid 1373. Checking for the individual items, the values for each item does not show high disparity.
+
+## Look at the distribution where the standard devaition is 0
+
+A sd score at 0 indicates that all scores are the same in the distribution (across all monthly surveys).
+
+```{r}
+same_value_list <- skimming_composite |> 
+  filter(numeric.sd == 0) |> 
+  distinct(subid, skim_variable, numeric.mean) # Since the values are all the same, the mean is the value
+
+show(same_value_list)
+```
+
+This also indicates potential ceiling effect for recovery.
