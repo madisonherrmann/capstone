@@ -131,7 +131,7 @@ Recovery is dynamic in nature as important risk factors change across time both 
 
 \
 
-- **Single lapse** can result in **overdose and death**
+- [Single lapse]{style="color: red;"} can result in [overdose and death]{style="color: red;"}
 
 \
 
@@ -215,7 +215,7 @@ We had reasonable diversity across many characteristics including age, sex at bi
 ::: 
 
 ## <span style="color: green; text-decoration: underline;">Predicting Lapse</span>
-**not sure if we need this**
+
 - Predict hour-by-hour probability of [future lapse]{style="color: blue;"}
 
 \
@@ -229,40 +229,36 @@ We had reasonable diversity across many characteristics including age, sex at bi
 Through the sensing methods previously described, feature engineering transformed raw data into meaningful signals that predict future lapse. Several machine learning models were developed to predict lapse in the next week, day, and hour. As the windows narrow, the model's predictions increase in temporal precision.
 :::
 
-## <span style="color: green; text-decoration: underline;">Predicting Lapse in AUD</span>
+## <span style="color: green; text-decoration: underline;">Models</span>
 
-::: {.columns}
-:::: {.column width="50%"}
-- [Model trained with hour-by-hour windows using EMA achieved an outstanding auROC of 0.91]{style="color: gray;"}
-
-- **How do we implement model for clinical benefit?** 
+- **Hour-by-hour windows & EMA model:**
+  - auROC of [0.91]{style="color: blue;"}
+  - XGBoost algorithm
+  - 5x10 k-fold CV
+\
+- **How do we implement for clinical benefit?** 
   - Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
   - Key step towards real-time risk-prediction system
-::::
 
-:::: {.column width="50%"}
-![](auroc_v4.png) 
-::::
-:::
 
 :::{.notes}
 A previous model based solely on EMA using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. 
-Now that we can successfully predict lapse probability, how can we implement it for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. By retraining the model with additional geolocation, I improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system in clinical settings.  The model was trained using high throughput computing with the XGBOOST algorithm. 5 by 10 kfold cross validation was used, and the best configuration resulted in a median auroc of .85. The histogram reveals the distributuion of auroc across the 50 folds. The drop in performance is likely due to us dropping the hour-by-hour windows, and using 24 hour periods instead. 
+Now that we can successfully predict lapse probability, how can we implement it for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. By retraining the model with additional geolocation, I improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system in clinical settings.  The model was trained using high throughput computing with the XGBOOST algorithm. 5 by 10 kfold cross validation was also used.
 :::
 
-## <span style="color: green; text-decoration: underline;">Important Features</span>
+## <span style="color: green; text-decoration: underline;">Area under ROC Curve (auROC)</span>
 
-::: {.columns}
-:::: {.column width="50%"}
-- [Global Importance]{style="color: blue;"}
+![](auroc_v4.png) 
 
- 
-::::
+:::{.notes}
+The best configuration resulted in a median auroc of .85. The histogram reveals the distribution of auroc across the 50 folds. The drop in performance is likely due to us dropping the hour-by-hour windows, and using 24 hour periods instead. 
+:::
 
-:::: {.column width="50%"}
+## <span style="color: green; text-decoration: underline;">Global Importance</span>
+
+
 ![](global_shaps.png) 
-::::
-:::
+
 
 :::{.notes} 
 Across participants, past use, future efficacy, and craving were the most important predictors of lapse. However, different risk factors effect different people at different times. SHAP values are an explanatory approach revealing which features on which days change lapse probability for each participant. Negative values decrease lapse probability, while positive values increase it.  Lets look at the most important features for a specific participant across the study.
@@ -298,9 +294,10 @@ This participant did not lapse across the study, as past use consistently lowere
 - Measuring [trust]{style="color: blue;"}, [engagement]{style="color: blue;"}, and [usability]{style="color: blue;"} of risk-monitoring system interventions
 
 \
+
 - Determining how models can be [clinically useful]{style="color: blue;"} 
 
 \
 
-- Writing recommendations based on important features
+- Writing [recommendations]{style="color: blue;"} based on important features
 

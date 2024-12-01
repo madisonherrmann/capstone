@@ -2,3 +2,7 @@
   quarto-pub:
     - id: 2a2d6baa-3a2b-42d5-a9c5-a65056340852
       url: 'https://mherrmann44.quarto.pub/madison_capstone'
+- source: capstone_presentation.qmd
+  quarto-pub:
+    - id: 0ff2e49c-17e7-44cb-9cef-dde6ef990d4c
+      url: 'https://mherrmann44.quarto.pub/developing-a-smart-recovery-monitoring-and-support-system'
