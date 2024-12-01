@@ -1,0 +1,4 @@
+- source: highlight_test.qmd
+  quarto-pub:
+    - id: 37de83fe-2ab9-46cb-a1ae-a926bd3b583c
+      url: 'https://mherrmann44.quarto.pub/drawing-shapes-in-quarto-using-css'

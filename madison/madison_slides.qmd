@@ -58,6 +58,7 @@ editor_options:
   chunk_output_type: console
 ---
 
+
 ```{r}
 #| echo: false
 #| message: false
@@ -214,7 +215,7 @@ We had reasonable diversity across many characteristics including age, sex at bi
 ::: 
 
 ## <span style="color: green; text-decoration: underline;">Predicting Lapse</span>
-
+**not sure if we need this**
 - Predict hour-by-hour probability of [future lapse]{style="color: blue;"}
 
 \
