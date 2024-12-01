@@ -247,7 +247,7 @@ Through the sensing methods previously described, feature engineering transforme
 
 :::{.notes}
 A previous model based solely on EMA using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. 
-Now that we can successfully predict lapse probability, how can we implement it for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. By retraining the model with additional geolocation, I improved the models contextual awareness, a key step that brought us closer to deplying a real-time risk prediciton system in clinical settings.  The model was trained using high throughput computing with the XGBOOST algorithm. 5 by 10 kfold cross validation was used, and the best configuration resulted in a median auroc of .85. The histogram feveals the disuvtuion of auroc across the 50 folds. The drop in performance is likely due to us dropping the hour-by-hour windows, and using 24 hour periods instead. 
+Now that we can successfully predict lapse probability, how can we implement it for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. By retraining the model with additional geolocation, I improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system in clinical settings.  The model was trained using high throughput computing with the XGBOOST algorithm. 5 by 10 kfold cross validation was used, and the best configuration resulted in a median auroc of .85. The histogram reveals the distributuion of auroc across the 50 folds. The drop in performance is likely due to us dropping the hour-by-hour windows, and using 24 hour periods instead. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Important Features</span>
@@ -256,9 +256,7 @@ Now that we can successfully predict lapse probability, how can we implement it 
 :::: {.column width="50%"}
 - [Global Importance]{style="color: blue;"}
 
-- [Local Importance: **SHAP**]{style="color: blue;"}
-  -   **Negative** values **decrease** lapse probability.
-  -   **Positive** values **increase** lapse probability. 
+ 
 ::::
 
 :::: {.column width="50%"}
@@ -272,10 +270,14 @@ Across participants, past use, future efficacy, and craving were the most import
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
+
 ![](alc_avail.png)
 
 :::{.notes}
-Past use is initially their most important feature contributing to an increase in lapse probability. After day 10, future efficacy is briefly the most important feature before being replaced by past use. By day 40, it appears craving is  increasing lapse probability the most, until around day 60. The other features are mostly static across 0, indicating little impact on lapse probability for this individual. Moreover, a past stressful event around day 10 contributed to a decrease in lapse probability, as it is consistently below 0. Now let's compare to another subject. 
+- [Local Importance: **SHAP**]{style="color: blue;"}
+  -   **Negative** values **decrease** lapse probability.
+  -   **Positive** values **increase** lapse probability.
+  Past use is initially their most important feature contributing to an increase in lapse probability. After day 10, future efficacy is briefly the most important feature before being replaced by past use. By day 40, it appears craving is  increasing lapse probability the most, until around day 60. The other features are mostly static across 0, indicating little impact on lapse probability for this individual. Moreover, a past stressful event around day 10 contributed to a decrease in lapse probability, as it is consistently below 0. Now let's compare to another subject. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
