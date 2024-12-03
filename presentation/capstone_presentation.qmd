@@ -257,33 +257,33 @@ The best configuration resulted in a median auroc of .85. The histogram reveals 
 ## <span style="color: green; text-decoration: underline;">Global Importance</span>
 
 
-![](global_shaps.png) 
+![](global_importance.png) 
 
 
 :::{.notes} 
-Across participants, past use, future efficacy, and craving were the most important predictors of lapse. However, different risk factors effect different people at different times. SHAP values are an explanatory approach revealing which features on which days change lapse probability for each participant. Negative values decrease lapse probability, while positive values increase it.  Lets look at the most important features for a specific participant across the study.
+Across participants, past use and future efficacy, were by far the most important predictors of lapse. These two features were derived from the daily EMA's, where participants reported past use since their last assessment, and confidence in future recovery. In regards to the geolocation features,risky location, alcohol availability at location, location type, and location valence were globally important. The most important geolocation features were.  However, different risk factors effect different people at different times. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
-
-![](alc_avail.png)
-
-:::{.notes}
 - [Local Importance: **SHAP**]{style="color: blue;"}
   -   **Negative** values **decrease** lapse probability.
+  \
   -   **Positive** values **increase** lapse probability.
-  Past use is initially their most important feature contributing to an increase in lapse probability. After day 10, future efficacy is briefly the most important feature before being replaced by past use. By day 40, it appears craving is  increasing lapse probability the most, until around day 60. The other features are mostly static across 0, indicating little impact on lapse probability for this individual. Moreover, a past stressful event around day 10 contributed to a decrease in lapse probability, as it is consistently below 0. Now let's compare to another subject. 
-:::
-
-## <span style="color: green; text-decoration: underline;">Local Importance</span>
-
-![](risky_loc_shap.png)
-
 
 :::{.notes}
-This participant did not lapse across the study, as past use consistently lowered lapse probability. Initially the most important feature increasing lapse probability is past stressful event, but it's quickly replaced by craving. Around day 10 future efficacy is increasing lapse risk the most, but drops off around day 25 when past pleasant event surpasses it. Future efficacy appears to have the biggest effect on lapse risk, given the variation across study days. Arousal, past stressful event, craving, future efficacy, and past pleasant event were all important features influencing lapse risk for this participant, but at different times. The differences between and within participants' risk factors over time emphasizes the need for tailor-made, temporally-precise interventions that support continuous recovery.  
-::: 
+SHAP values are an explanatory approach revealing which features on which days change lapse probability for each participant. Negative values decrease lapse probability, while positive values increase it. Lets look at the most important features for a specific participant across the study.
+:::
+## <span style="color: green; text-decoration: underline;">Local Importance</span>
+
+
+![](shaps_48.png)
+
+:::{.notes}
+
+Starting from day 1, there is a large jump in future efficacy, as shown by the lime green line. Around day 5, there is a significant increase in past use, the blue line, as future efficacy plummets. The inverse relation between these two can be observed across time, as increases in past use seem to coincide with a decrease in future efficacy, and vice versa. As expected, lapsing caused a decrease in their confidence in recovery. The red line bringing
+:::
+
 
 ## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
 
