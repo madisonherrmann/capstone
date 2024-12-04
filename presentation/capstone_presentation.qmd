@@ -87,10 +87,12 @@ options(dplyr.print_max=Inf)
 #ema <- read_rds(here::here(path_processed_opt, "ema_1day_shapley_labels.rds"))
 ```
 
-## <span style="color: green; text-decoration: underline;">Alcohol and Opioid Use Disorder</span>
+## <span style="color: green; text-decoration: underline;">Substance Use Disorders</span>
 
+-   In 2022, **48.7 million** people had SUD in the United States 
+    - [1 in 4]{style="color: red;"} received treatment 
 
--   Chronic
+\
 
 -   Barriers to treatment
     -   [Accessibility]{style="color: gray;"}
@@ -99,9 +101,11 @@ options(dplyr.print_max=Inf)
     -   [Acceptability]{style="color: gray;"}
 
 :::{.notes}
--Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. 
--However, there are many barriers to accessing continued care in the United States, including affordability and availability. 
+-Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. In 2022, 48.7 million people aged 12 or older (or 17.3%) had a substance use disorder. Only about  1 in 4 who were classified as needing treatment in the past
+year received it. 
+there are many barriers to accessing continued care in the United States, including affordability and availability. 
 - The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.
+SAMHSA, Center for Behavioral Health Statistics and Quality. 2022 National Survey on Drug Use and Health
 :::
 
 ## <span style="color: green; text-decoration: underline;">Recovery is Dynamic</span>
@@ -217,9 +221,12 @@ We had reasonable diversity across many characteristics including age, sex at bi
 - Predict hour-by-hour probability of [future lapse]{style="color: blue;"}
 
 \
-- **auROC of [0.91]{style="color: blue;"}**
-  - 4x daily EMA 
-  - XGBoost Algorithm
+
+- **Area under the ROC curve (auROC): [0.91]{style="color: blue;"}**
+    - 4x daily EMA 
+    
+    \
+    - XGBoost Algorithm
 
 :::{.notes} 
  A previous model based solely on 4x daily EMA's using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. - Lapse window widths
@@ -230,16 +237,13 @@ We had reasonable diversity across many characteristics including age, sex at bi
 - Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
   - Key step towards real-time risk-prediction system
   
-\
 
-- Model Components
+- **Geolocation & 1x daily EMA Model**
   - XGBoost algorithm
   - 5x10 k-fold CV
-  - day level windows
-  - 1x daily EMA
+  - Day level windows
 
 :::{.notes}
-
 Now that we can successfully predict lapse probability, how can we implement it for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. To do so, the model was retrained using high throughput computing with the XGBOOST algorithm. 5 by 10 kfold cross validation was also used. Additional geolocation improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system for clinical implementation.  
 :::
 
@@ -263,9 +267,11 @@ Across participants, past use and future efficacy, were by far the most importan
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
-- [Local Importance: **SHAP**]{style="color: blue;"}
+- [Local Importance: **Shapley Values**]{style="color: blue;"}
   -   **Negative** values **decrease** lapse probability.
+  
   \
+  
   -   **Positive** values **increase** lapse probability.
 
 :::{.notes}
@@ -279,9 +285,26 @@ SHAP values are an explanatory approach revealing which features on which days c
 
 :::{.notes}
 
-Starting from day 1, there is a large jump in future efficacy, as shown by the lime green line. Around day 5, there is a significant increase in past use, the blue line, as future efficacy plummets. The inverse relation between these two can be observed across time, as increases in past use seem to coincide with a decrease in future efficacy, and vice versa. As expected, lapsing caused a decrease in their confidence in recovery. The red line bringing
+Starting from day 1, there is a large jump in future efficacy, as shown by the lime green line. Around day 5, there is a significant increase in past use, the blue line, as future efficacy plummets. The inverse relation between these two can be observed across time, as increases in past use seem to coincide with a decrease in future efficacy, and vice versa. As expected, lapsing caused a decrease in their confidence in recovery. The red line bringing downb their lapse probability is alcohol availability at location. 
 :::
 
+## <span style="color: green; text-decoration: underline;">Local Importance</span>
+
+
+![](aud_big_drop.png)
+
+:::{.notes}
+Started from day 1, this participants' report of past use drove up their lapse probability, as seen by the blue line The lime green line shows future efficacy, which is confidence in not drinking. There is almost an inverse relation between the two, as past use increases usually coincide with decreases inh future effiacy. This makes sense because if someone is currently using, their confidence in abstaining would likely decrease. Around day 50, there is a noticle drop in past use, bringing it down to baseline, or zero. Furture ffeiacy dips belw zero indicating this is decreasing that indoivuals risk of lapse. This graoh shows how differen risk factors were the most important oj different days.
+:::
+
+## <span style="color: green; text-decoration: underline;">Local Importance</span>
+
+
+![](aud_big_jump.png)
+
+:::{.notes}
+In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. However, around day 35, past use, the blue line, drives up their lapse probability a lot. This increase coincides with the slight increase in the purple line, which indicates time spent at a risky location. This is a geolocation feature that provides insights into why this individual may have lapsed. Moreover, future efficacy, the yellow-green line jumps shortly after past use slightly decreases. There is a somewhat inverse relation between future efficacy and past use, as expected. That is, if a person is currently using, it is likely to decrease future confidence about abstinence. At any given day, the most important feature impacting lapse probability can change. The ability top use these insights to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
+:::
 
 ## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
 
@@ -299,3 +322,6 @@ Starting from day 1, there is a large jump in future efficacy, as shown by the l
 
 - Writing [recommendations]{style="color: blue;"} based on important features
 
+## <span style="color: green; text-decoration: underline;">Credits</span>
+
+-

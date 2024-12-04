@@ -345,11 +345,18 @@ Madison Herrmann &amp; Tianrun Zhu
 
   <p class="date">2024-12-13</p>
 </section>
-<section id="alcohol-and-opioid-use-disorder" class="slide level2">
-<h2><span style="color: green; text-decoration: underline;">Alcohol and Opioid Use Disorder</span></h2>
+<section id="substance-use-disorders" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">Substance Use Disorders</span></h2>
 <ul>
-<li><p>Chronic</p></li>
-<li><p>Barriers to treatment</p>
+<li>In 2022, <strong>48.7 million</strong> people had SUD in the United States
+<ul>
+<li><span style="color: red;">1 in 4</span> received treatment</li>
+</ul></li>
+</ul>
+<p><br>
+</p>
+<ul>
+<li>Barriers to treatment
 <ul>
 <li><span style="color: gray;">Accessibility</span></li>
 <li><span style="color: gray;">Affordability</span></li>
@@ -358,7 +365,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </ul></li>
 </ul>
 <aside class="notes">
-<p><strong>add image to right</strong> -Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. -However, there are many barriers to accessing continued care in the United States, including affordability and availability. - The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.</p>
+<p>-Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. In 2022, 48.7 million people aged 12 or older (or 17.3%) had a substance use disorder. Only about 1 in 4 who were classified as needing treatment in the past year received it. there are many barriers to accessing continued care in the United States, including affordability and availability. - The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment. SAMHSA, Center for Behavioral Health Statistics and Quality. 2022 National Survey on Drug Use and Health</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -418,7 +425,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <p><br>
 </p>
 <aside class="notes">
-<p><strong>add image to right</strong> Before I get any further, it is important to distinguish lapse from relapse. - Lapses are clearly defined and have a temporally precise onset. - They’re an important target for intervention and serve as an early warning sign for relapse. - A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a temporally-precise, risk-monitoring system.</p>
+<p>Before I get any further, it is important to distinguish lapse from relapse. - Lapses are clearly defined and have a temporally precise onset. - They’re an important target for intervention and serve as an early warning sign for relapse. - A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a temporally-precise, risk-monitoring system.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -447,7 +454,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <li>Deliver tailored support and recommendations</li>
 </ul>
 <aside class="notes">
-<p>Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a digital therapeutic or stand-alone support system.</p>
+<p>Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a stand-alone support system.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -476,11 +483,11 @@ Madison Herrmann &amp; Tianrun Zhu
 </ul></li>
 </ul>
 </div><div class="column" style="width:70%;">
-<p><img data-src="ema.png"></p>
+<p><img data-src="aud_ema.png"></p>
 </div>
 </div>
 <aside class="notes">
-<p>Lapse risk is monitored through both active and passive sensing methods. Ecological momentary assessments refer to daily self-report measures that assess mood, experiences, and past use. The image shows where participants report whether or not they have drank alcohol since there last assessment. Through passive sensing methods, geolocation and cellular communication data was also collected. These methods were used over the course of three months with the aim of predicting lapse probability in individuals’ recovering from alcohol use disorder.</p>
+<p>Lapse risk is monitored through both active and passive sensing methods. Ecological momentary assessments refer to daily self-report measures that assess mood, experiences, and past use. These allow the individual to reflect daily on the risk factors impacting their recovery and lapse risk. The calendar image shows where participants report whether or not they have drank alcohol since there last assessment. Through passive sensing methods, geolocation and cellular communication data was also collected. These methods were used over the course of three months with the aim of predicting lapse probability in individuals’ recovering from alcohol use disorder.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -511,7 +518,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <li>Committed to abstinence throughout study</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p><img data-src="dsm.png"></p>
+<p><img data-src="aud_dsm.png"></p>
 </div>
 </div>
 <aside class="notes">
@@ -545,23 +552,26 @@ Madison Herrmann &amp; Tianrun Zhu
           display:block!important;
       }</style></aside>
 </section>
-<section id="predicting-lapse" class="slide level2">
-<h2><span style="color: green; text-decoration: underline;">Predicting Lapse</span></h2>
+<section id="predicting-lapse-with-ema" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">Predicting Lapse with EMA</span></h2>
 <ul>
 <li>Predict hour-by-hour probability of <span style="color: blue;">future lapse</span></li>
 </ul>
 <p><br>
 </p>
 <ul>
-<li>Lapse window widths
+<li><strong>Area under the ROC curve (auROC): <span style="color: blue;">0.91</span></strong>
 <ul>
-<li><span style="color: gray;">1 week</span></li>
-<li><span style="color: gray;">1 day</span></li>
-<li><span style="color: gray;">1 hour</span></li>
+<li>4x daily EMA</li>
+</ul>
+<br>
+
+<ul>
+<li>XGBoost Algorithm</li>
 </ul></li>
 </ul>
 <aside class="notes">
-<p>Through the sensing methods previously described, feature engineering transformed raw data into meaningful signals that predict future lapse. Several machine learning models were developed to predict lapse in the next week, day, and hour. As the windows narrow, the model’s predictions increase in temporal precision.</p>
+<p>A previous model based solely on 4x daily EMA’s using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. - Lapse window widths</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -574,24 +584,22 @@ Madison Herrmann &amp; Tianrun Zhu
           display:block!important;
       }</style></aside>
 </section>
-<section id="models" class="slide level2">
-<h2><span style="color: green; text-decoration: underline;">Models</span></h2>
+<section id="how-do-we-implement-for-clinical-benefit" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">How do we implement for clinical benefit?</span></h2>
 <ul>
-<li><strong>Hour-by-hour windows &amp; EMA model:</strong>
+<li>Retrain model with <span style="color: blue;">geolocation</span> and <span style="color: blue;">EMA</span>
 <ul>
-<li>auROC of <span style="color: blue;">0.91</span></li>
-<li>XGBoost algorithm</li>
-<li>5x10 k-fold CV<br>
-</li>
-</ul></li>
-<li><strong>How do we implement for clinical benefit?</strong>
-<ul>
-<li>Retrain model with <span style="color: blue;">geolocation</span> and <span style="color: blue;">EMA</span></li>
 <li>Key step towards real-time risk-prediction system</li>
+</ul></li>
+<li><strong>Geolocation &amp; 1x daily EMA Model</strong>
+<ul>
+<li>XGBoost algorithm</li>
+<li>5x10 k-fold CV</li>
+<li>Day level windows</li>
 </ul></li>
 </ul>
 <aside class="notes">
-<p>A previous model based solely on EMA using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. Now that we can successfully predict lapse probability, how can we implement it for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. By retraining the model with additional geolocation, I improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system in clinical settings. The model was trained using high throughput computing with the XGBOOST algorithm. 5 by 10 kfold cross validation was also used.</p>
+<p>Now that we can successfully predict lapse probability, how can we implement it for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. To do so, the model was retrained using high throughput computing with the XGBOOST algorithm. 5 by 10 kfold cross validation was also used. Additional geolocation improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system for clinical implementation.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -607,8 +615,8 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="area-under-roc-curve-auroc" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Area under ROC Curve (auROC)</span></h2>
 
-<img data-src="auroc_v4.png" class="r-stretch"><aside class="notes">
-<p>The best configuration resulted in a median auroc of .85. The histogram reveals the distribution of auroc across the 50 folds. The drop in performance is likely due to us dropping the hour-by-hour windows, and using 24 hour periods instead.</p>
+<img data-src="aud_auroc_v4.png" class="r-stretch"><aside class="notes">
+<p>The best configuration resulted in a median auroc of .85. The histogram reveals the performance across the 50 folds, with some performing as low as .4 and as high as .96. The drop in performance is likely due to dropping the hour-by-hour windows, and using 24 hour periods instead.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -624,8 +632,8 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="global-importance" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Global Importance</span></h2>
 
-<img data-src="global_shaps.png" class="r-stretch"><aside class="notes">
-<p>Across participants, past use, future efficacy, and craving were the most important predictors of lapse. However, different risk factors effect different people at different times. SHAP values are an explanatory approach revealing which features on which days change lapse probability for each participant. Negative values decrease lapse probability, while positive values increase it. Lets look at the most important features for a specific participant across the study.</p>
+<img data-src="aud_global_importance.png" class="r-stretch"><aside class="notes">
+<p>Across participants, past use and future efficacy, were by far the most important predictors of lapse. These two features were derived from the daily EMA’s, where participants reported past use since their last assessment, and confidence in future recovery. In regards to the geolocation features,risky location, alcohol availability at location, location type, and location valence were globally important. The most important being risky location. However, different risk factors effect different people at different times.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -640,15 +648,19 @@ Madison Herrmann &amp; Tianrun Zhu
 </section>
 <section id="local-importance" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
-
-<img data-src="alc_avail.png" class="r-stretch"><aside class="notes">
 <ul>
-<li><span style="color: blue;">Local Importance: <strong>SHAP</strong></span>
+<li><p><span style="color: blue;">Local Importance: <strong>SHAP</strong></span></p>
 <ul>
 <li><strong>Negative</strong> values <strong>decrease</strong> lapse probability.</li>
-<li><strong>Positive</strong> values <strong>increase</strong> lapse probability. Past use is initially their most important feature contributing to an increase in lapse probability. After day 10, future efficacy is briefly the most important feature before being replaced by past use. By day 40, it appears craving is increasing lapse probability the most, until around day 60. The other features are mostly static across 0, indicating little impact on lapse probability for this individual. Moreover, a past stressful event around day 10 contributed to a decrease in lapse probability, as it is consistently below 0. Now let’s compare to another subject.</li>
+</ul>
+<p><br>
+</p>
+<ul>
+<li><strong>Positive</strong> values <strong>increase</strong> lapse probability.</li>
 </ul></li>
 </ul>
+<aside class="notes">
+<p>SHAP values are an explanatory approach revealing which features on which days change lapse probability for each participant. Negative values decrease lapse probability, while positive values increase it. Lets look at the most important features for a specific participant across the study.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -664,8 +676,8 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="local-importance-1" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
 
-<img data-src="risky_loc_shap.png" class="r-stretch"><aside class="notes">
-<p>This participant did not lapse across the study, as past use consistently lowered lapse probability. Initially the most important feature increasing lapse probability is past stressful event, but it’s quickly replaced by craving. Around day 10 future efficacy is increasing lapse risk the most, but drops off around day 25 when past pleasant event surpasses it. Future efficacy appears to have the biggest effect on lapse risk, given the variation across study days. Arousal, past stressful event, craving, future efficacy, and past pleasant event were all important features influencing lapse risk for this participant, but at different times. The differences between and within participants’ risk factors over time emphasizes the need for tailor-made, temporally-precise interventions that support continuous recovery.</p>
+<img data-src="aud_shaps_48.png" class="r-stretch"><aside class="notes">
+<p>Starting from day 1, there is a large jump in future efficacy, as shown by the lime green line. Around day 5, there is a significant increase in past use, the blue line, as future efficacy plummets. The inverse relation between these two can be observed across time, as increases in past use seem to coincide with a decrease in future efficacy, and vice versa. As expected, lapsing caused a decrease in their confidence in recovery. The red line bringing</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -699,6 +711,9 @@ Madison Herrmann &amp; Tianrun Zhu
 <ul>
 <li>Writing <span style="color: blue;">recommendations</span> based on important features</li>
 </ul>
+</section>
+<section id="credits" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">Credits</span></h2>
 <div class="footer footer-default">
 
 </div>
