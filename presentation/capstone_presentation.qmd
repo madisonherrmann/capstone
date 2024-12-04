@@ -296,7 +296,7 @@ Starting from day 1, there is a large jump in future efficacy, as shown by the l
 ![](aud_big_drop.png)
 
 :::{.notes}
-Started from day 1, this participants' report of past use drove up their lapse probability, as seen by the blue line The lime green line shows future efficacy, which is confidence in not drinking. There is almost an inverse relation between the two, as past use increases usually coincide with decreases inh future effiacy. This makes sense because if someone is currently using, their confidence in abstaining would likely decrease. Around day 50, there is a noticle drop in past use, bringing it down to baseline, or zero. Furture ffeiacy dips belw zero indicating this is decreasing that indoivuals risk of lapse. This graoh shows how differen risk factors were the most important oj different days.
+Starting from day 1, this participants' report of past use drove up their lapse probability, as seen by the blue line The lime green line shows future efficacy, which is confidence in not drinking. There is almost an inverse relation between the two, as past use increases usually coincide with decreases in future efficacy. This makes sense because if someone is currently using, their confidence in abstaining would likely decrease. Around day 50, there is a noticable drop in past use, bringing it down to baseline, or zero. Future efficacy dips below zero indicating this is decreasing that individuals risk of lapse. This graph shows how different risk factors were the most important on different days.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
