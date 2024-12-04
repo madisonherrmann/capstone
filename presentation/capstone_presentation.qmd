@@ -17,29 +17,33 @@ title-slide-attributes:
 include-after: |
   <style>
     /* Apply custom styles only to the title slide */
-    }
-    }
-    }
-    }
-    }
-    });
     .reveal .slides > section:first-of-type h1 {
       color: blue;         /* Title color */
       font-size: 4rem;     /* Larger font size */
       text-align: center;  /* Center align the title */
       font-weight: bold;   /* Bold text */
+    }
+
     .reveal .slides > section:first-of-type h2 {
       font-size: 1.5rem;   /* Smaller font for author */
       text-align: center;  /* Center align the author */
+    }
+
     .reveal .slides > section:first-of-type h3 {
       font-size: 1.2rem;   /* Smaller font for institute */
       text-align: center;  /* Center align the institute */
+    }
+
     .reveal .slides > section:first-of-type h4 {
       font-size: 1rem;     /* Small font for date */
       text-align: center;  /* Center align the date */
+    }
+
     .reveal .slides > section:first-of-type {
-      }
       padding-top: 2rem;   /* Adds space at the top */
+    }
+  </style>
+
   <script type="text/javascript">
     Reveal.on('ready', event => {
       if (event.indexh === 0) {
@@ -47,6 +51,9 @@ include-after: |
         document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
         Reveal.configure({ slideNumber: null });
         Reveal.configure({ slideNumber: 'c' });
+      }
+    });
+  </script>
 editor_options: 
   chunk_output_type: console
 ---
@@ -263,7 +270,7 @@ The best configuration resulted in a median auroc of .85. The histogram reveals 
 
 
 :::{.notes} 
-Across participants, past use and future efficacy, were by far the most important predictors of lapse. These two features were derived from the daily EMA's, where participants reported past use since their last assessment, and confidence in future recovery. In regards to the geolocation features,risky location, alcohol availability at location, location type, and location valence were globally important. The most important being risky location. However, different risk factors effect different people at different times. 
+Across participants, past use and future efficacy, were by far the most important predictors of lapse. These two features were derived from the daily EMA's, where participants reported past use since their last assessment, and confidence in future recovery. In regards to the geolocation features,risky location, alcohol availability at location, location type, and location valence were globally important. The most important being risky location. However, different risk factors impact lapse probability at different times, for different people. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
@@ -305,7 +312,7 @@ Starting from day 1, this participants' report of past use drove up their lapse 
 ![](aud_big_jump.png)
 
 :::{.notes}
-In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. However, around day 35, past use, the blue line, drives up their lapse probability a lot. This increase coincides with the slight increase in the purple line, which indicates time spent at a risky location. This is a geolocation feature that provides insights into why this individual may have lapsed. Moreover, future efficacy, the yellow-green line jumps shortly after past use slightly decreases. There is a somewhat inverse relation between future efficacy and past use, as expected. That is, if a person is currently using, it is likely to decrease future confidence about abstinence. At any given day, the most important feature impacting lapse probability can change. The ability top use these insights to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
+In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. However, around day 35, past use, the blue line, drives up their lapse probability considerably. This increase coincides with the slight increase in time spent at a risky location, the purple line. This is a geolocation feature that provides insights into why this individual may have lapsed. Future efficacy, the yellow-green line, jumps shortly after past use slightly decreases. There is an almost inverse relation between future efficacy and past use, which makes sense. That is, if a person is currently using, their confidence about future abstinence is likely to decrease. At any given day, the most important feature impacting lapse probability can change. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
