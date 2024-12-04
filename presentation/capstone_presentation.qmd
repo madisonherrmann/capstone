@@ -101,8 +101,7 @@ options(dplyr.print_max=Inf)
     -   [Acceptability]{style="color: gray;"}
 
 :::{.notes}
--Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. In 2022, 48.7 million people aged 12 or older had a substance use disorder. Despie this, only about 1 in 4 who were classified as needing treatment in the past
-year received it. There are many barriers to accessing continued care in the United States, including affordability and availability. The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.
+Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. In 2022, 48.7 million people aged 12 or older had a substance use disorder. Despite this, only about 1 in 4 who were classified as needing treatment actually received it. There are many barriers to accessing continued care in the United States, including affordability and availability. The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.
 SAMHSA, Center for Behavioral Health Statistics and Quality. 2022 National Survey on Drug Use and Health
 :::
 
@@ -137,7 +136,7 @@ Recovery is dynamic in nature as important risk factors change across time both 
 \
 
 :::{.notes}
-Before I get any further, it is important to distinguish lapse from relapse. Lapses are clearly defined and have a temporally precise onset.They're an important target for intervention and serve as an early warning sign for relapse.A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a temporally-precise, risk-monitoring system. 
+Before I get any further, it is important to distinguish lapse from relapse. Lapses are clearly defined and have a temporally precise onset.They're an important target for intervention and serve as an early warning sign for relapse. A single lapse can be detrimental resulting in overdose and death. 
 ::: 
 
 ## <span style="color: green; text-decoration: underline;">Overarching Goal</span>
@@ -182,7 +181,7 @@ Our aim is to implement a risk-monitoring system that can deliver real-time, tai
 :::
 
 :::{.notes} 
-Lapse risk is monitored through both active and passive sensing methods. Ecological momentary assessments refer to daily self-report measures that assess mood, experiences, and past use. These allow the individual to reflect daily on the risk factors impacting their recovery and lapse risk. The calendar image shows where participants report whether or not they have drank alcohol since there last assessment. Through passive sensing methods, geolocation and cellular communication data was also collected. These methods were used over the course of three months with the aim of predicting lapse probability in individuals' recovering from alcohol use disorder.
+Lapse risk is monitored through both active and passive sensing methods. Ecological momentary assessments refer to daily self-report measures that assess mood, experiences, and past use. These allow the individual to reflect daily on the risk factors impacting their recovery. The calendar image shows where participants report whether or not they have drank alcohol since their last assessment. Through passive sensing methods, geolocation and cellular communication data was also collected. These methods were used over the course of three months with the aim of predicting lapse probability in individuals' recovering from alcohol use disorder.
 :::
 
 
@@ -207,7 +206,7 @@ Lapse risk is monitored through both active and passive sensing methods. Ecologi
 :::
 
 :::{.notes} 
-Now lets characterize our sample. Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. The majority of participants reported over 10 symptoms of AUD and committed to abstinence for the duration of the study.
+Now lets characterize our sample. Data was collected on 151 individuals with moderate to severe AUD in the early stages of recovery. The majority of participants reported over 10 symptoms and committed to abstinence for the duration of the study.
 :::
 
 ## <span style="color: green; text-decoration: underline;">AUD Characteristics</span>
@@ -222,17 +221,16 @@ We had reasonable diversity across many characteristics including age, sex at bi
 ## <span style="color: green; text-decoration: underline;">Predicting Lapse with EMA</span>
 
 - Predict hour-by-hour probability of [future lapse]{style="color: blue;"}
+  - Machine learning models
 
 \
 
 - Area under the ROC curve (auROC): [**0.91**]{style="color: blue;"}
     - 4x daily EMA 
-    
-    \
     - XGBoost Algorithm
 
 :::{.notes} 
- A previous model based solely on 4x daily EMA's using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse.
+ Using four time daily ema's, a machine learning model was trained using hour by hour windows to predict lapse probabilities. The model predicted next-day lapse with an area under the ROC curve of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse.
 :::
 
 ## <span style="color: green; text-decoration: underline;">How do we implement for clinical benefit?</span>
@@ -247,7 +245,7 @@ We had reasonable diversity across many characteristics including age, sex at bi
   - Day level windows
 
 :::{.notes}
-Now that we can successfully predict lapse probability, how can we implement it for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. To do so, the model was retrained using high throughput computing with the XGBOOST algorithm. 5 by 10 kfold cross validation was also used. Additional geolocation improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system for clinical implementation.  
+Now that we can successfully predict lapse probability, how can we implement the model for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. To do so, I retrained the model using 1x daily EMA with geolocation and day level windows. High throughput computing was utilized along with the XGBOOST algorithm and 5 by 10 kfold cross validation. The additional geolocation improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system for clinical implementation.  
 :::
 
 ## <span style="color: green; text-decoration: underline;">Area under ROC Curve (auROC)</span>
@@ -255,7 +253,7 @@ Now that we can successfully predict lapse probability, how can we implement it 
 ![](aud_auroc_v4.png) 
 
 :::{.notes}
-The best configuration resulted in a median auroc of .85. The histogram reveals the performance  across the 50 folds, with some performing as low as .4 and as high as .96. The drop in performance is likely due to dropping the hour-by-hour windows, and using 24 hour periods instead. 
+The best configuration resulted in a median auroc of .85. The histogram reveals the performance  across the 50 folds, with some performing as low as .4 and as high as .96. The drop in performance is likely due to using 24-hr periods instead of hour-by-hour windows.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Global Importance</span>
@@ -265,7 +263,7 @@ The best configuration resulted in a median auroc of .85. The histogram reveals 
 
 
 :::{.notes} 
-Across participants, past use and future efficacy, were by far the most important predictors of lapse. These two features were derived from the daily EMA's, where participants reported past use since their last assessment, and confidence in future recovery. In regards to the geolocation features,risky location, alcohol availability at location, location type, and location valence were globally important. The most important being risky location. However, different risk factors impact lapse probability at different times, for different people. 
+Global importance reveals which risk features were the most important across participants. Past use and future efficacy were by far the most important predictors of lapse. These were derived from the daily EMA's, where participants reported drinking since their last assessment, and confidence in future recovery. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. However, different risk factors impact lapse probability at different times, for different people. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
@@ -307,7 +305,7 @@ Starting from day 1, this participants' report of past use drove up their lapse 
 ![](aud_big_jump.png)
 
 :::{.notes}
-In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. However, around day 35, past use, the blue line, drives up their lapse probability considerably. This increase coincides with the slight increase in time spent at a risky location, the purple line. This is a geolocation feature that provides insights into why this individual may have lapsed. Future efficacy, the yellow-green line, jumps shortly after past use slightly decreases. There is an almost inverse relation between future efficacy and past use, which makes sense. That is, if a person is currently using, their confidence about future abstinence is likely to decrease. At any given day, the most important feature impacting lapse probability can change. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
+In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. This geolocation feature provides insights into why this individual may have lapsed. Moreover, future efficacy, the yellow-green line, jumps shortly after past use slightly decreases. There is an almost inverse relation between the two. This makes sense as a person who is currently using is likey to feel less confident about future abstinence. The variability of this plot highlights that At any given day, the most important feature impacting lapse risk can change. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>

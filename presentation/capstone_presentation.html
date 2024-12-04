@@ -365,7 +365,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </ul></li>
 </ul>
 <aside class="notes">
-<p>-Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. In 2022, 48.7 million people aged 12 or older had a substance use disorder. Despie this, only about 1 in 4 who were classified as needing treatment in the past year received it. There are many barriers to accessing continued care in the United States, including affordability and availability. The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment. SAMHSA, Center for Behavioral Health Statistics and Quality. 2022 National Survey on Drug Use and Health</p>
+<p>Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. In 2022, 48.7 million people aged 12 or older had a substance use disorder. Despite this, only about 1 in 4 who were classified as needing treatment actually received it. There are many barriers to accessing continued care in the United States, including affordability and availability. The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment. SAMHSA, Center for Behavioral Health Statistics and Quality. 2022 National Survey on Drug Use and Health</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -425,7 +425,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <p><br>
 </p>
 <aside class="notes">
-<p>Before I get any further, it is important to distinguish lapse from relapse. Lapses are clearly defined and have a temporally precise onset.They’re an important target for intervention and serve as an early warning sign for relapse.A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a temporally-precise, risk-monitoring system.</p>
+<p>Before I get any further, it is important to distinguish lapse from relapse. Lapses are clearly defined and have a temporally precise onset.They’re an important target for intervention and serve as an early warning sign for relapse. A single lapse can be detrimental resulting in overdose and death.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -493,7 +493,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </div>
 </div>
 <aside class="notes">
-<p>Lapse risk is monitored through both active and passive sensing methods. Ecological momentary assessments refer to daily self-report measures that assess mood, experiences, and past use. These allow the individual to reflect daily on the risk factors impacting their recovery and lapse risk. The calendar image shows where participants report whether or not they have drank alcohol since there last assessment. Through passive sensing methods, geolocation and cellular communication data was also collected. These methods were used over the course of three months with the aim of predicting lapse probability in individuals’ recovering from alcohol use disorder.</p>
+<p>Lapse risk is monitored through both active and passive sensing methods. Ecological momentary assessments refer to daily self-report measures that assess mood, experiences, and past use. These allow the individual to reflect daily on the risk factors impacting their recovery. The calendar image shows where participants report whether or not they have drank alcohol since their last assessment. Through passive sensing methods, geolocation and cellular communication data was also collected. These methods were used over the course of three months with the aim of predicting lapse probability in individuals’ recovering from alcohol use disorder.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -528,7 +528,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </div>
 </div>
 <aside class="notes">
-<p>Now lets characterize our sample. Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. The majority of participants reported over 10 symptoms of AUD and committed to abstinence for the duration of the study.</p>
+<p>Now lets characterize our sample. Data was collected on 151 individuals with moderate to severe AUD in the early stages of recovery. The majority of participants reported over 10 symptoms and committed to abstinence for the duration of the study.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -561,7 +561,10 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="predicting-lapse-with-ema" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Predicting Lapse with EMA</span></h2>
 <ul>
-<li>Predict hour-by-hour probability of <span style="color: blue;">future lapse</span></li>
+<li>Predict hour-by-hour probability of <span style="color: blue;">future lapse</span>
+<ul>
+<li>Machine learning models</li>
+</ul></li>
 </ul>
 <p><br>
 </p>
@@ -569,15 +572,11 @@ Madison Herrmann &amp; Tianrun Zhu
 <li>Area under the ROC curve (auROC): <span style="color: blue;"><strong>0.91</strong></span>
 <ul>
 <li>4x daily EMA</li>
-</ul>
-<br>
-
-<ul>
 <li>XGBoost Algorithm</li>
 </ul></li>
 </ul>
 <aside class="notes">
-<p>A previous model based solely on 4x daily EMA’s using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse.</p>
+<p>Using four time daily ema’s, a machine learning model was trained using hour by hour windows to predict lapse probabilities. The model predicted next-day lapse with an area under the ROC curve of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -605,7 +604,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </ul></li>
 </ul>
 <aside class="notes">
-<p>Now that we can successfully predict lapse probability, how can we implement it for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. To do so, the model was retrained using high throughput computing with the XGBOOST algorithm. 5 by 10 kfold cross validation was also used. Additional geolocation improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system for clinical implementation.</p>
+<p>Now that we can successfully predict lapse probability, how can we implement the model for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. To do so, I retrained the model using 1x daily EMA with geolocation and day level windows. High throughput computing was utilized along with the XGBOOST algorithm and 5 by 10 kfold cross validation. The additional geolocation improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system for clinical implementation.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
