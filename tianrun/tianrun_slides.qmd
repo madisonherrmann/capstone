@@ -1,42 +1,350 @@
 ---
-title: "tianrun_slides"
-author: Tianrun
-format: html
-editor: visual
+title: 'Developing a "Smart" Recovery Monitoring and Support System'
+author: "Madison Herrmann & Tianrun Zhu"
+institute: "University of Wisconsin-Madison"
+date: December 13, 2024
+format: 
+  revealjs:
+    chalkboard: true
+    scrollable: true
+    css: slides.css
+    slide-number: false 
+title-slide-attributes:
+  data-background-image: https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true
+  data-background-size: 30%
+  data-background-repeat: no
+  data-background-position: left 10% bottom 10%
+include-after: |
+  <style>
+    /* Apply custom styles only to the title slide */
+    }
+    }
+    }
+    }
+    }
+    });
+  <script type="text/javascript">
+    .reveal .slides > section:first-of-type h1 {
+      color: blue;         /* Title color */
+      font-size: 4rem;     /* Larger font size */
+      text-align: center;  /* Center align the title */
+      font-weight: bold;   /* Bold text */
+    .reveal .slides > section:first-of-type h2 {
+      font-size: 1.5rem;   /* Smaller font for author */
+      text-align: center;  /* Center align the author */
+    .reveal .slides > section:first-of-type h3 {
+      font-size: 1.2rem;   /* Smaller font for institute */
+      text-align: center;  /* Center align the institute */
+    .reveal .slides > section:first-of-type h4 {
+      font-size: 1rem;     /* Small font for date */
+      text-align: center;  /* Center align the date */
+    .reveal .slides > section:first-of-type {
+      }
+      padding-top: 2rem;   /* Adds space at the top */
+    Reveal.on('ready', event => {
+      if (event.indexh === 0) {
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
+        document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+        Reveal.configure({ slideNumber: null });
+        Reveal.configure({ slideNumber: 'c' });
+editor_options: 
+  chunk_output_type: console
 ---
-
----
-title: "Tianrun_capstone"
-author: "Tianrun" 
-format: revealjs
-editor: visual
----
-
-## Slide 1
-
--   Bullet 1
--   Bullet 2
-
-## Slide 2
-
-::: incremental
--   Incremental Bullet 1
--   Bullet 2
-:::
-
-## Slide 3
-
-![](aud_ema.png)
-
-## Slide 4
 
 ```{r}
-library(ggplot2)
-library(dplyr)
-mtcars |>
-  ggplot(aes(x = hp, y = mpg)) +
-  geom_point() +
-  labs(title = "Scatterplot of Horsepower vs Miles per Gallon",
-       x = "Horsepower (hp)",
-       y = "Miles per Gallon (mpg)")
+#| echo: false
+#| message: false
+#| warning: false
+
+library(skimr)
+library(tidyverse) 
+library(knitr)
+library(kableExtra, exclude = c("group_rows"))
+#devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_eda.R?raw=true")
+#devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true")
+#devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_plots.R?raw=true")
+theme_set(theme_classic())
+options(dplyr.print_max=Inf)
+
+#path_processed_opt <- format_path("studydata/optimize/data_processed")
+#path_processed <- format_path("studydata/risk2/data_processed/shared")
 ```
+
+```{r}
+#| message: false
+#| warning: false
+
+# Read in data
+#intake <- read_csv(here::here(path_processed, "survey_intake_wide.csv"))
+#ema <- read_rds(here::here(path_processed_opt, "ema_1day_shapley_labels.rds"))
+```
+
+## <span style="color: green; text-decoration: underline;">Alcohol and Opioid Use Disorder</span>
+
+
+-   Chronic
+
+-   Barriers to treatment
+    -   [Accessibility]{style="color: gray;"}
+    -   [Affordability]{style="color: gray;"}
+    -   [Availability]{style="color: gray;"}
+    -   [Acceptability]{style="color: gray;"}
+
+:::{.notes}
+**add image to right**
+-Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. 
+-However, there are many barriers to accessing continued care in the United States, including affordability and availability. 
+- The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.
+:::
+
+## <span style="color: green; text-decoration: underline;">Recovery is Dynamic</span>
+
+- Important risk factors differ across people and time
+
+\
+
+- Need for continuous monitoring
+
+\
+
+- How can we provide the [right interventions]{style="color: blue;"} and [supports]{style="color: blue;"} to the [right people]{style="color: blue;"} at the [right time]{style="color: blue;"}, [every time?]{style="color: blue;"}
+
+:::{.notes}
+Recovery is dynamic in nature as important risk factors change across time both within and between individuals. That is, interventions that support early recovery might differ from what's needed later. For example, craving might be the most important factor in early recovery, requiring interventions like urge-surfing. Over-time, the importance of craving will likely decrease, given their engaging with the proper interventions. Later on, the same individual could experience a stressful event that requires a different intervention, like attending an AA meeting. Hence, the risk factors impacting recovery require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.
+:::
+
+## <span style="color: green; text-decoration: underline;">Lapse</span>
+
+- Temporally precise onset
+
+\
+
+- Important target for intervention
+
+\
+
+- **Single lapse** can result in **overdose and death**
+
+\
+
+:::{.notes}
+**add image to right**
+Before I get any further, it is important to distinguish lapse from relapse. 
+- Lapses are clearly defined and have a temporally precise onset.
+- They're an important target for intervention and serve as an early warning sign for relapse.
+- A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a temporally-precise, risk-monitoring system. 
+::: 
+
+## <span style="color: green; text-decoration: underline;">Overarching Goal</span>
+
+-   Implement a temporally-precise, risk-monitoring system
+
+\
+
+-   Mitigate barriers in accessibility
+
+\
+
+-   Deliver tailored support and recommendations
+    
+:::{.notes}
+Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a digital therapeutic or stand-alone support system. 
+:::
+
+## <span style="color: green; text-decoration: underline;">Monitoring Lapse Risk</span> 
+
+::: {.columns}
+:::: {.column width="30%"}
+- [Active Sensing]{style="color: blue;"}
+  - Ecological Momentary Assessment (**EMA**)
+
+- [Passive Sensing]{style="color: blue;"}
+  - Geolocation
+  - Cellular Communications 
+::::
+
+:::: {.column width="70%"}
+![](ema.png)
+::::
+:::
+
+:::{.notes} 
+Lapse risk is monitored through both active and passive sensing methods. Ecological momentary assessments refer to daily self-report measures that assess mood, experiences, and past use. The image shows where participants report whether or not they have drank alcohol since there last assessment. Through passive sensing methods, geolocation and cellular communication data was also collected. These methods were used over the course of three months with the aim of predicting lapse probability in individuals' recovering from alcohol use disorder.
+:::
+
+
+## <span style="color: green; text-decoration: underline;">AUD Characteristics</span>
+
+::: {.columns}
+:::: {.column width="50%"}
+- 151 individuals with moderate to severe AUD
+
+\
+
+- Early in recovery (1-8 weeks)
+
+\
+
+- Committed to abstinence throughout study
+::::
+
+:::: {.column width="50%"}
+![](dsm.png)
+::::
+:::
+
+:::{.notes} 
+Now lets characterize our sample. Data was collected on 151 individuals with moderate to severe AUD in early stages of recovery. The majority of participants reported over 10 symptoms of AUD and committed to abstinence for the duration of the study.
+:::
+
+## <span style="color: green; text-decoration: underline;">AUD Characteristics</span>
+
+![](aud_demographics.png)
+
+
+:::{.notes}
+We had reasonable diversity across many characteristics including age, sex at birth, marital status, education, and income. However, given the recruiting methods, there is very little racial and ethnic diversity in the sample. The sample is predominately white and non-Hispanic.
+::: 
+
+## <span style="color: green; text-decoration: underline;">Predicting Lapse</span>
+
+- Predict hour-by-hour probability of [future lapse]{style="color: blue;"}
+
+\
+
+- Lapse window widths
+  - [1 week]{style="color: gray;"} 
+  - [1 day]{style="color: gray;"}
+  - [1 hour]{style="color: gray;"}
+
+:::{.notes} 
+Through the sensing methods previously described, feature engineering transformed raw data into meaningful signals that predict future lapse. Several machine learning models were developed to predict lapse in the next week, day, and hour. As the windows narrow, the model's predictions increase in temporal precision.
+:::
+
+## <span style="color: green; text-decoration: underline;">Predicting Lapse in AUD</span>
+
+::: {.columns}
+:::: {.column width="50%"}
+- [Model trained with EMA achieved an outstanding auROC of 0.91]{style="color: gray;"}
+
+- **How do we implement model for clinical benefit?** 
+  - Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
+  - Key step towards real-time risk-prediction system
+::::
+
+:::: {.column width="50%"}
+![](dsm.png) **replace w/ auROC plot**
+::::
+:::
+
+:::{.notes}
+A previous model based solely on EMA predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. 
+Now that we have this model, how can we implement it for clinical benefit? My updated model is a key step toward deploying real-time risk-prediction systems for clinical implementation. To do this, I retrained the model with both EMA and geo-location, which contained information on risky locations and people. The model was trained using high throughput computing with algorithm and resulted in an auROC of ....
+:::
+
+## <span style="color: green; text-decoration: underline;">Important Features</span>
+
+- [Global Importance]{style="color: blue;"}
+  - Past use
+  - Future Efficacy
+  - Craving
+
+- [Local Importance: **SHAP**]{style="color: blue;"}
+  -   **Negative** values **decrease** lapse probability.
+  -   **Positive** values **increase** lapse probability. 
+
+:::{.notes} 
+Across participants, past use, future efficacy, and craving were the most important predictors of lapse. However, different risk factors effect different people at different times. SHAP values are an explanatory approach revealing which features on which days change lapse probability for each participant. Negative values decrease lapse probability, while positive values increase it.  Lets look at the most important features for a specific participant across the study.
+:::
+
+## <span style="color: green; text-decoration: underline;">Local Importance</span>
+
+![](past_stress.png)
+
+:::{.notes}
+Past use is initially their most important feature contributing to an increase in lapse probability. After day 10, future efficacy is briefly the most important feature before being replaced by past use. By day 40, it appears craving is  increasing lapse probability the most, until around day 60. The other features are mostly static across 0, indicating little impact on lapse probability for this individual. Moreover, a past stressful event around day 10 contributed to a decrease in lapse probability, as it is consistently below 0. Now let's compare to another subject. 
+:::
+
+## <span style="color: green; text-decoration: underline;">Local Importance</span>
+
+![](subid_190.png)
+
+
+:::{.notes}
+This participant did not lapse across the study, as past use consistently lowered lapse probability. Initially the most important feature increasing lapse probability is past stressful event, but it's quickly replaced by craving. Around day 10 future efficacy is increasing lapse risk the most, but drops off around day 25 when past pleasant event surpasses it. Future efficacy appears to have the biggest effect on lapse risk, given the variation across study days. Arousal, past stressful event, craving, future efficacy, and past pleasant event were all important features influencing lapse risk for this participant, but at different times. The differences between and within participants' risk factors over time emphasizes the need for tailor-made, temporally-precise interventions that support continuous recovery.  
+::: 
+
+
+## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
+
+::: {.columns}
+:::: {.column width="50%"}
+- 336 individuals, the majority reported severe symptoms
+
+\
+
+- Early to mid-stage of recovery (1-12 months)
+
+\
+
+- Committed to abstinence throughout study
+::::
+
+:::: {.column width="50%"}
+![](oud_dsm.jpg)
+::::
+:::
+
+:::{.notes} 
+Now lets characterize the OUD sample. Data was collected on 336 individuals. The majority of participants reported severe symptoms of OUD. The participants were in early to mid-stages of recovery, and had received 1 - 12 month medication-assisted treatment. All participants committed to abstinence for the duration of the study.
+:::
+
+## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
+
+![](oud_demo_combined.1.jpeg)
+
+:::{.notes}
+We had reasonable diversity across age, education and gender. However, given the recruiting methods, there is very limited racial diversity in the sample. The sample is predominately white and non-Hispanic. Another point to notice is that the a large portion of participants has an income level less than 25,000.
+::: 
+
+## <span style="color: green; text-decoration: underline;">Predicting Lapse in OUD</span>
+
+- Predict day-by-day probability of [future lapse]{style="color: blue;"}
+
+\
+
+- Label windows roll day-by-day starting at 6am in the participants' time zone.
+
+\
+
+- Take the daily EMA data.
+
+:::{.notes} 
+The Opioid Use Disorder project is at an initial stage, with new data continuously being collected and further preprocessing tasks planned for the near future. At this stage, we present a preliminary model to provide an initial insight into the dataset. Using daily EMA data, we performed feature engineering to transform raw data into meaningful signals predictive of future opioid lapse, focusing on key variables such as pain, stress and happiness. Machine learning models were then developed to predict the likelihood of a lapse occurring on the following day.
+:::
+
+## <span style="color: green; text-decoration: underline;">Models</span>
+
+::: {.columns}
+:::: {.column width="50%"}
+- XGBoost algorithm
+- 5x10 k-fold CV
+- CHTC
+- Removed the unreliable responses
+- The best model achieved an outstanding auROC of 0.94
+::::
+
+:::: {.column width="50%"}
+![](oud_roc_curve. jpg) 
+::::
+:::
+
+:::{.notes}
+The models were trained using the XGBoost algorithm with a five by ten-fold cross-validation. framework to ensure robust performance evaluation. Prior to training, unreliable responses were removed from the dataset, such as instances where participants reported lapses on a future date. Model training utilized high-throughput computing to efficiently explore and identify the optimal combination of hyperparameters. The final model achieved an outstanding AUROC of 0.94. Here is a graph of the roc curve for the best model, you can see that the line is very close to the top left corner, indicating excellent predictive performance. 
+:::
+
+
+## <span style="color: green; text-decoration: underline;">Future Directions</span>
+
+- Measuring [trust]{style="color: blue;"}, [engagement]{style="color: blue;"}, and [usability]{style="color: blue;"} of risk-monitoring system interventions
+- Determining how models can be [clinically useful]{style="color: blue;"} 

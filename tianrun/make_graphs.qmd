@@ -1,0 +1,221 @@
+---
+title: "make_graphs"
+format: html
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(dplyr)
+library(kableExtra, exclude = c("group_rows"))
+library(cowplot)
+library(patchwork)
+
+theme_set(theme_classic())
+update_geom_defaults("bar", list(fill = "steelblue", color = "black"))
+options(dplyr.print_max=Inf)
+
+path_processed <-  "/Volumes/Private/studydata/risk2/data_processed/shared"
+
+# plot setting
+theme_set(theme_classic(base_size = 14)) 
+```
+
+```{r}
+#| message: false
+#| warning: false
+
+# above the the way to set in quarto
+# Read in data
+intake <- read_csv("/Users/Jun/Desktop/survey_intake_wide.csv")
+```
+
+```{r}
+intake_prepared <- intake %>%
+  drop_na(dsm_c) %>%         
+  count(dsm_c, name = "n")  
+
+# Create the bar plot
+p_dsm <- ggplot(intake_prepared, aes(x = dsm_c, y = n)) +
+  geom_bar(stat = "identity", width = 0.9) +  
+  labs(
+    x = "Number of OUD Symptoms",          
+    y = "Number of Participants",            
+    title = "OUD Symptom Count"  
+  ) +
+  theme(
+    legend.position = "none",               
+    plot.title = element_text(hjust = 0.5)   
+  )
+
+ggsave("/Users/Jun/capstone/tianrun/oud_dsm.jpg", plot = p_dsm, width = 3, height = 3)
+```
+
+```{r}
+# age
+age_data <- intake %>%
+  count(age)
+
+p_age <- age_data |> 
+  ggplot(aes(x = age, y = n)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL,
+       y = "Count",
+       title = "Age") +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(size = 8, angle = 45, hjust = 1), 
+    axis.text.y = element_text(size = 8) 
+  )
+
+# gender
+gender_data <- intake |> 
+  select(gender) |> 
+  mutate(gender = case_when(
+    gender %in% c("Not listed above", "Non-binary") ~ "Non-binary",
+    gender == "Prefer not to say" ~ NA,
+    TRUE ~ gender
+  )) |> 
+  drop_na(gender) |> 
+  count(gender) |> 
+  mutate(prop = round(n / sum(n) * 100, 1)) |> 
+  arrange(desc(n)) |>  
+  mutate(gender = factor(gender, levels = gender))  
+
+p_gender <- gender_data |> 
+  ggplot(aes(x = "", y = n, fill = gender)) +
+  geom_bar(width = 1, stat = "identity", color = "white") + 
+  coord_polar("y", start = 0) + 
+  scale_fill_manual(values = c(
+    "Man" = "#0073C2FF", 
+    "Woman" = "#EFC000FF", 
+    "Non-binary" = "#27AE60" 
+  )) + 
+  theme_void() +  
+  labs(title = "Gender",
+       fill = "Gender") +  
+  geom_text(aes(label = gender), position = position_stack(vjust = 0.5), color = "white", size = 5) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    legend.position = "none"  
+  )
+
+# race
+p_race <- intake |> 
+  select(subid, starts_with("race")) |> 
+  select(-contains("text")) |> 
+  pivot_longer(starts_with("race"),
+               names_to = "race",
+               values_to = "chosen") |> 
+  mutate(chosen = factor(chosen, levels = c("no", "yes", NA)),
+         race = str_replace(race, "race_", "")) |> 
+  mutate(race_group = case_when(
+    race == "white" ~ "White/Non-Hispanic",
+    TRUE ~ "Other"
+  )) |> 
+  filter(chosen == "yes") |> 
+  count(race_group) |> 
+  ggplot(aes(x = "", y = n, fill = race_group)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar(theta = "y") +  
+  scale_fill_manual(values = c("White/Non-Hispanic" = "#0073C2FF", "Other" = "#EFC000FF")) + 
+  geom_text(aes(label = race_group),  
+            position = position_stack(vjust = 0.5), 
+            color = "white", 
+            size = 4) +  
+  labs(title = "Race/Ethnicity", x = NULL, y = NULL) +
+  theme_void() +  
+  theme(
+    plot.title = element_text(hjust = 0.5), 
+    legend.position = "none"               
+  )
+
+edu_data <- intake |> 
+  select(education) |>  
+  mutate(education = case_when(
+    education %in% c("8th grade or less", "Some high school, but did not graduate", "High school graduate or GED") ~ "<= High school",
+    education == "Some college or 2-year degree" ~ "Some College",
+    education == "4-year college graduate" ~ "4-year college degree",
+    education == "More than 4-year or advanced degree" ~ "Advanced degree",
+  )) |> 
+  mutate(education = factor(education, levels = c("<= High school",
+                                                  "Some College",
+                                                  "4-year college degree",
+                                                  "Advanced degree"))) |> 
+  drop_na(education) |> 
+  count(education) |> 
+  mutate(prop = round(n / sum(n) * 100, 1))
+
+edu_data <- edu_data |> 
+  arrange(desc(n)) |> 
+  mutate(color = case_when(
+    row_number() == 1 ~ "#0073C2FF",  
+    row_number() == 2 ~ "#EFC000FF",  
+    education == "<= High school" ~ "#8E44AD",  
+    education == "Some College" ~ "#27AE60",
+    education == "4-year college degree" ~ "#27AE60",
+    education == "Advanced degree" ~ "#E74C3C"
+  ))
+
+p_edu_pie <- edu_data |> 
+  ggplot(aes(x = "", y = n, fill = education)) +
+  geom_bar(stat = "identity", width = 1) + 
+  coord_polar(theta = "y") +  
+  scale_fill_manual(values = edu_data$color) +  
+  geom_text(aes(label = education, 
+                vjust = ifelse(education == "Advanced degree", -0.5, 0.5)), 
+            position = position_stack(vjust = 0.5),  
+            color = "white", 
+            size = 4) +  
+  labs(title = "Education Level", 
+       fill = "Education Level",  
+       x = NULL, 
+       y = NULL) +
+  theme_void() +  
+  theme(
+    plot.title = element_text(hjust = 0.5),  
+    legend.position = "none"                 
+  )
+
+# income
+income_data <- intake |> 
+  drop_na(income) |> 
+  mutate(income = factor(income,
+                         levels = c("Less than $25,000",
+                                    "$25,000 - $34, 999",
+                                    "$35,000 - $49,999",
+                                    "$50,000 - $74, 999",
+                                    "$75, 000 - $99, 999",
+                                    "$100,000 - $149,999",
+                                    "$150, 000 - $199,999",
+                                    "$200, 000 or more"))) |> 
+  count(income)
+
+p_income_bar <- income_data |> 
+  ggplot(aes(x = income, y = n)) +
+  geom_bar(width = 0.9, stat = "identity") +
+  labs(y = "Count",
+       x = NULL,
+       title = "Income") +
+  theme(
+    legend.position = "none",  
+    plot.title = element_text(hjust = 0.5), 
+    axis.text.x = element_text(angle = 60, hjust = 1) 
+  )
+
+
+plot_width <- 3
+plot_height <- 3
+
+# Save each plot
+ggsave("p_age.png", plot = p_age, width = plot_width, height = plot_height)
+ggsave("p_gender.png", plot = p_gender, width = plot_width, height = plot_height)
+ggsave("p_edu_pie.png", plot = p_edu_pie, width = plot_width, height = plot_height)
+ggsave("p_race.png", plot = p_race, width = plot_width, height = plot_height)
+ggsave("p_income_bar.png", plot = p_income_bar, width = plot_width, height = plot_height)
+```
+
