@@ -101,10 +101,8 @@ options(dplyr.print_max=Inf)
     -   [Acceptability]{style="color: gray;"}
 
 :::{.notes}
--Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. In 2022, 48.7 million people aged 12 or older (or 17.3%) had a substance use disorder. Only about  1 in 4 who were classified as needing treatment in the past
-year received it. 
-there are many barriers to accessing continued care in the United States, including affordability and availability. 
-- The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.
+-Alcohol and Opioid use disorders are chronic, requiring lifelong management and continuous monitoring. In 2022, 48.7 million people aged 12 or older had a substance use disorder. Despie this, only about 1 in 4 who were classified as needing treatment in the past
+year received it. There are many barriers to accessing continued care in the United States, including affordability and availability. The stigmatization of substance use disorders creates an even bigger challenge for individuals to receive initial access to treatment.
 SAMHSA, Center for Behavioral Health Statistics and Quality. 2022 National Survey on Drug Use and Health
 :::
 
@@ -139,10 +137,7 @@ Recovery is dynamic in nature as important risk factors change across time both 
 \
 
 :::{.notes}
-Before I get any further, it is important to distinguish lapse from relapse. 
-- Lapses are clearly defined and have a temporally precise onset.
-- They're an important target for intervention and serve as an early warning sign for relapse.
-- A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a temporally-precise, risk-monitoring system. 
+Before I get any further, it is important to distinguish lapse from relapse. Lapses are clearly defined and have a temporally precise onset.They're an important target for intervention and serve as an early warning sign for relapse.A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a temporally-precise, risk-monitoring system. 
 ::: 
 
 ## <span style="color: green; text-decoration: underline;">Overarching Goal</span>
@@ -166,7 +161,7 @@ Before I get any further, it is important to distinguish lapse from relapse.
 :::
 
 :::{.notes}
-Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a stand-alone support system. Through NIAAA funding, the first steps towards this system were taken. 
+Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a stand-alone support system. Through NIAAA funding, the first steps towards developing this system were taken. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Monitoring Lapse Risk</span> 
