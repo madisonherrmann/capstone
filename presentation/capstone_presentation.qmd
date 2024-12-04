@@ -368,12 +368,49 @@ The Opioid Use Disorder project is at an initial stage, with new data continuous
 ::::
 
 :::: {.column width="50%"}
-![](oud_roc_curve. jpg) 
+![](oud_roc_curve.jpg) 
 ::::
 :::
 
 :::{.notes}
 The models were trained using the XGBoost algorithm with a five by ten-fold cross-validation. framework to ensure robust performance evaluation. Prior to training, unreliable responses were removed from the dataset, such as instances where participants reported lapses on a future date. Model training utilized high-throughput computing to efficiently explore and identify the optimal combination of hyperparameters. The final model achieved an outstanding AUROC of 0.94. Here is a graph of the roc curve for the best model, you can see that the line is very close to the top left corner, indicating excellent predictive performance. 
+:::
+
+## <span style="color: green; text-decoration: underline;">Models</span>
+
+::: {.columns}
+
+::: {.column width="50%"}
+![](oud_hyperparameters.png)
+:::
+
+::: {.column width="50%"}
+![](oud_hyperparameters_down.png)
+:::
+
+:::
+
+:::{.notes}
+Here is the hyperparameter plot shwoing the Relationship among log10 Learning Rate, Hyperparameters and auROC. We tested both the up-sampling and the down-sampling. The left is for the up-sampled data and the right one is for the dow-sampled data. We can observe a peak for every chunk, meaning that we have considered enough range of hyperparameters to select the best model.
+:::
+
+## <span style="color: green; text-decoration: underline;">EDA on Monthly Data</span>
+
+::: {.columns}
+
+::: {.column width="50%"}
+- There may be a ceiling effect for participants' self-reported recovery.
+:::
+
+::: {.column width="50%"}
+![](oud_monthly.png)
+:::
+
+:::
+
+
+:::{.notes}
+Moving on to the monthly surveys. We are now at a stage to preprocess the data for model training. There can be a ceiling effect for participants' self-reported recovery because many participants reproted the highest value, meaning that those participants were all extremely satisfied with their recovery goals, extremely motivated to avoid using opioid for non-medical reasons and extremely confident in their ability to avoid using opioids for non-medical reasons. More work is needed to identify potential unreliable responses in the future.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Future Directions</span>
@@ -387,6 +424,11 @@ The models were trained using the XGBoost algorithm with a five by ten-fold cros
 \
 
 - Writing [recommendations]{style="color: blue;"} based on important features
+
+:::{.notes}
+For future directions, our group aim to develop reliable approaches in measuring trust, engagement, and usability of risk-monitoring system interventions. In addition, there are challenges in determining how models can be clinically useful. For example, when a participant shows low effectiveness, it is essential to determine whether the issue stems from limitations in the system itself or from the participant's low adherence to the system. 
+Furthermore, once the system is implemented, we will provide users with recommendations based on the identified important features. Our team is actively exploring the optimal methods for delivering these recommendations, including the language, tone, and format, to minimize participant burden and maximize effectiveness.
+:::
 
 ## <span style="color: green; text-decoration: underline;">Credits</span>
 
