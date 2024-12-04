@@ -90,7 +90,7 @@ options(dplyr.print_max=Inf)
 ## <span style="color: green; text-decoration: underline;">Substance Use Disorders</span>
 
 -   In 2022, **48.7 million** people had SUD in the United States 
-    - [1 in 4]{style="color: red;"} received treatment 
+    - [**1 in 4**]{style="color: red;"} received treatment 
 
 \
 
@@ -147,6 +147,8 @@ Before I get any further, it is important to distinguish lapse from relapse.
 
 ## <span style="color: green; text-decoration: underline;">Overarching Goal</span>
 
+::: {.columns}
+:::: {.column width="60%"}
 -   Implement a temporally-precise, risk-monitoring system
 
 \
@@ -156,9 +158,15 @@ Before I get any further, it is important to distinguish lapse from relapse.
 \
 
 -   Deliver tailored support and recommendations
-    
+::::
+
+:::: {.column width="40%"}
+![](nih.png)
+::::
+:::
+
 :::{.notes}
-Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a stand-alone support system. 
+Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a stand-alone support system. Through NIAAA funding, the first steps towards this system were taken. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Monitoring Lapse Risk</span> 
@@ -222,14 +230,14 @@ We had reasonable diversity across many characteristics including age, sex at bi
 
 \
 
-- **Area under the ROC curve (auROC): [0.91]{style="color: blue;"}**
+- Area under the ROC curve (auROC): [**0.91**]{style="color: blue;"}
     - 4x daily EMA 
     
     \
     - XGBoost Algorithm
 
 :::{.notes} 
- A previous model based solely on 4x daily EMA's using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. - Lapse window widths
+ A previous model based solely on 4x daily EMA's using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse.
 :::
 
 ## <span style="color: green; text-decoration: underline;">How do we implement for clinical benefit?</span>
@@ -238,7 +246,7 @@ We had reasonable diversity across many characteristics including age, sex at bi
   - Key step towards real-time risk-prediction system
   
 
-- **Geolocation & 1x daily EMA Model**
+- Geolocation & 1x daily EMA Model
   - XGBoost algorithm
   - 5x10 k-fold CV
   - Day level windows
@@ -267,7 +275,8 @@ Across participants, past use and future efficacy, were by far the most importan
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
-- [Local Importance: **Shapley Values**]{style="color: blue;"}
+- [Shapley Values]{style="color: blue;"}
+
   -   **Negative** values **decrease** lapse probability.
   
   \
@@ -324,4 +333,7 @@ In the beginning, This participant had little change in their risk features, wit
 
 ## <span style="color: green; text-decoration: underline;">Credits</span>
 
--
+- **PI:** John Curtin, PhD
+- **Lab Manager:** Susan Wanta
+- **PhD Mentor:** Kendra Wyant
+- **OUD Demographics:** Zihan Li

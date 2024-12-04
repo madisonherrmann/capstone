@@ -350,7 +350,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <ul>
 <li>In 2022, <strong>48.7 million</strong> people had SUD in the United States
 <ul>
-<li><span style="color: red;">1 in 4</span> received treatment</li>
+<li><span style="color: red;"><strong>1 in 4</strong></span> received treatment</li>
 </ul></li>
 </ul>
 <p><br>
@@ -440,6 +440,8 @@ Madison Herrmann &amp; Tianrun Zhu
 </section>
 <section id="overarching-goal" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Overarching Goal</span></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <ul>
 <li>Implement a temporally-precise, risk-monitoring system</li>
 </ul>
@@ -453,8 +455,12 @@ Madison Herrmann &amp; Tianrun Zhu
 <ul>
 <li>Deliver tailored support and recommendations</li>
 </ul>
+</div><div class="column" style="width:40%;">
+<p><img data-src="nih.png"></p>
+</div>
+</div>
 <aside class="notes">
-<p>Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a stand-alone support system.</p>
+<p>Our aim is to implement a risk-monitoring system that can deliver real-time, tailored interventions, while mitigating barriers in accessibility. Machine learning algorithms and sensing methods provide the ability to deliver personalized support and recommendations within a stand-alone support system. Through NIAAA funding, the first steps towards this system were taken.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -560,7 +566,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <p><br>
 </p>
 <ul>
-<li><strong>Area under the ROC curve (auROC): <span style="color: blue;">0.91</span></strong>
+<li>Area under the ROC curve (auROC): <span style="color: blue;"><strong>0.91</strong></span>
 <ul>
 <li>4x daily EMA</li>
 </ul>
@@ -571,7 +577,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </ul></li>
 </ul>
 <aside class="notes">
-<p>A previous model based solely on 4x daily EMA’s using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse. - Lapse window widths</p>
+<p>A previous model based solely on 4x daily EMA’s using hour-by-hour windows predicted next-day lapse in AUD with an outstanding auROC of 0.91, far surpassing industry benchmarks. This means there is a 91% chance that the model will score a lapse higher than a no-lapse.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -591,7 +597,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <ul>
 <li>Key step towards real-time risk-prediction system</li>
 </ul></li>
-<li><strong>Geolocation &amp; 1x daily EMA Model</strong>
+<li>Geolocation &amp; 1x daily EMA Model
 <ul>
 <li>XGBoost algorithm</li>
 <li>5x10 k-fold CV</li>
@@ -649,7 +655,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="local-importance" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
 <ul>
-<li><p><span style="color: blue;">Local Importance: <strong>SHAP</strong></span></p>
+<li><p><span style="color: blue;">Shapley Values</span></p>
 <ul>
 <li><strong>Negative</strong> values <strong>decrease</strong> lapse probability.</li>
 </ul>
@@ -677,7 +683,41 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
 
 <img data-src="aud_shaps_48.png" class="r-stretch"><aside class="notes">
-<p>Starting from day 1, there is a large jump in future efficacy, as shown by the lime green line. Around day 5, there is a significant increase in past use, the blue line, as future efficacy plummets. The inverse relation between these two can be observed across time, as increases in past use seem to coincide with a decrease in future efficacy, and vice versa. As expected, lapsing caused a decrease in their confidence in recovery. The red line bringing</p>
+<p>Starting from day 1, there is a large jump in future efficacy, as shown by the lime green line. Around day 5, there is a significant increase in past use, the blue line, as future efficacy plummets. The inverse relation between these two can be observed across time, as increases in past use seem to coincide with a decrease in future efficacy, and vice versa. As expected, lapsing caused a decrease in their confidence in recovery. The red line bringing downb their lapse probability is alcohol availability at location.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="local-importance-2" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
+
+<img data-src="aud_big_drop.png" class="r-stretch"><aside class="notes">
+<p>Started from day 1, this participants’ report of past use drove up their lapse probability, as seen by the blue line The lime green line shows future efficacy, which is confidence in not drinking. There is almost an inverse relation between the two, as past use increases usually coincide with decreases inh future effiacy. This makes sense because if someone is currently using, their confidence in abstaining would likely decrease. Around day 50, there is a noticle drop in past use, bringing it down to baseline, or zero. Furture ffeiacy dips belw zero indicating this is decreasing that indoivuals risk of lapse. This graoh shows how differen risk factors were the most important oj different days.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="local-importance-3" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
+
+<img data-src="aud_big_jump.png" class="r-stretch"><aside class="notes">
+<p>In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. However, around day 35, past use, the blue line, drives up their lapse probability a lot. This increase coincides with the slight increase in the purple line, which indicates time spent at a risky location. This is a geolocation feature that provides insights into why this individual may have lapsed. Moreover, future efficacy, the yellow-green line jumps shortly after past use slightly decreases. There is a somewhat inverse relation between future efficacy and past use, as expected. That is, if a person is currently using, it is likely to decrease future confidence about abstinence. At any given day, the most important feature impacting lapse probability can change. The ability top use these insights to deliver tailored interventions that support recovery is the first step towards clinical implementation.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -714,6 +754,12 @@ Madison Herrmann &amp; Tianrun Zhu
 </section>
 <section id="credits" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Credits</span></h2>
+<ul>
+<li><strong>PI:</strong> John Curtin, PhD</li>
+<li><strong>Lab Manager:</strong> Susan Wanta</li>
+<li><strong>PhD Mentor:</strong> Kendra Wyant</li>
+<li><strong>OUD Demographics:</strong> Zihan Li</li>
+</ul>
 <div class="footer footer-default">
 
 </div>
