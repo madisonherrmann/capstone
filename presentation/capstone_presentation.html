@@ -329,7 +329,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true" data-background-position="left 10% bottom 10%" data-background-repeat="no" data-background-size="30%" class="quarto-title-block center">
+<section id="title-slide" data-background-image="https://github.com/jjcurtin/lectures/blob/main/images/smartphone_know_you.png?raw=true" data-background-position="left 10% bottom 10%" data-background-repeat="no" data-background-size="25%" class="quarto-title-block center">
   <h1 class="title">Developing a “Smart” Recovery Monitoring and Support System</h1>
 
 <div class="quarto-title-authors">
@@ -621,7 +621,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Area under ROC Curve (auROC)</span></h2>
 
 <img data-src="aud_auroc_v4.png" class="r-stretch"><aside class="notes">
-<p>The best configuration resulted in a median auroc of .85. The histogram reveals the performance across the 50 folds, with some performing as low as .4 and as high as .96. The drop in performance is likely due to dropping the hour-by-hour windows, and using 24 hour periods instead.</p>
+<p>The best configuration resulted in a median auroc of .85. The histogram reveals the performance across the 50 folds, with some performing as low as .4 and as high as .96. The drop in performance is likely due to using 24-hr periods instead of hour-by-hour windows.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -638,7 +638,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Global Importance</span></h2>
 
 <img data-src="aud_global_importance.png" class="r-stretch"><aside class="notes">
-<p>Across participants, past use and future efficacy, were by far the most important predictors of lapse. These two features were derived from the daily EMA’s, where participants reported past use since their last assessment, and confidence in future recovery. In regards to the geolocation features,risky location, alcohol availability at location, location type, and location valence were globally important. The most important being risky location. However, different risk factors impact lapse probability at different times, for different people.</p>
+<p>Global importance reveals which risk features were the most important across participants. Past use and future efficacy were by far the most important predictors of lapse. These were derived from the daily EMA’s, where participants reported drinking since their last assessment, and confidence in future recovery. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. However, different risk factors impact lapse probability at different times, for different people.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -699,7 +699,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
 
 <img data-src="aud_big_drop.png" class="r-stretch"><aside class="notes">
-<p>Starting from day 1, this participants’ report of past use drove up their lapse probability, as seen by the blue line The lime green line shows future efficacy, which is confidence in not drinking. There is almost an inverse relation between the two, as past use increases usually coincide with decreases in future efficacy. This makes sense because if someone is currently using, their confidence in abstaining would likely decrease. Around day 50, there is a noticable drop in past use, bringing it down to baseline, or zero. Future efficacy dips below zero indicating this is decreasing that individuals risk of lapse. This graph shows how different risk factors were the most important on different days.</p>
+<p>Starting from day 1, this participants’ report of past use drove up their lapse probability, as seen by the blue line The lime green line shows future efficacy, which is confidence in not drinking. There is almost an inverse relation between the two, as past use increases usually coincide with decreases in future efficacy. This makes sense because if someone is currently using, their confidence in abstaining would likely decrease. Around day 50, there is a noticeable drop in past use, bringing it down to baseline, or zero. Future efficacy dips below zero indicating this is decreasing that individuals risk of lapse. This graph shows how different risk factors were the most important on different days.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -716,7 +716,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
 
 <img data-src="aud_big_jump.png" class="r-stretch"><aside class="notes">
-<p>In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. However, around day 35, past use, the blue line, drives up their lapse probability considerably. This increase coincides with the slight increase in time spent at a risky location, the purple line. This is a geolocation feature that provides insights into why this individual may have lapsed. Future efficacy, the yellow-green line, jumps shortly after past use slightly decreases. There is an almost inverse relation between future efficacy and past use, which makes sense. That is, if a person is currently using, their confidence about future abstinence is likely to decrease. At any given day, the most important feature impacting lapse probability can change. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation.</p>
+<p>In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. This geolocation feature provides insights into why this individual may have lapsed. Moreover, future efficacy, the yellow-green line, jumps shortly after past use slightly decreases. There is an almost inverse relation between the two. This makes sense as a person who is currently using is likley to feel less confident about future abstinence. The variability of this plot highlights that At any given day, the most important feature impacting lapse risk can change. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
