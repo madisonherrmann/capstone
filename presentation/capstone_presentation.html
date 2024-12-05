@@ -681,40 +681,6 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="local-importance-1" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
 
-<img data-src="aud_shaps_48.png" class="r-stretch"><aside class="notes">
-<p>Starting from day 1, there is a large jump in future efficacy, as shown by the lime green line. Around day 5, there is a significant increase in past use, the blue line, as future efficacy plummets. The inverse relation between these two can be observed across time, as increases in past use seem to coincide with a decrease in future efficacy, and vice versa. As expected, lapsing caused a decrease in their confidence in recovery. The red line bringing downb their lapse probability is alcohol availability at location.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="local-importance-2" class="slide level2">
-<h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
-
-<img data-src="aud_big_drop.png" class="r-stretch"><aside class="notes">
-<p>Starting from day 1, this participants’ report of past use drove up their lapse probability, as seen by the blue line The lime green line shows future efficacy, which is confidence in not drinking. There is almost an inverse relation between the two, as past use increases usually coincide with decreases in future efficacy. This makes sense because if someone is currently using, their confidence in abstaining would likely decrease. Around day 50, there is a noticeable drop in past use, bringing it down to baseline, or zero. Future efficacy dips below zero indicating this is decreasing that individuals risk of lapse. This graph shows how different risk factors were the most important on different days.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="local-importance-3" class="slide level2">
-<h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
-
 <img data-src="aud_big_jump.png" class="r-stretch"><aside class="notes">
 <p>In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. This geolocation feature provides insights into why this individual may have lapsed. Moreover, future efficacy, the yellow-green line, jumps shortly after past use slightly decreases. There is an almost inverse relation between the two. This makes sense as a person who is currently using is likley to feel less confident about future abstinence. The variability of this plot highlights that At any given day, the most important feature impacting lapse risk can change. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation.</p>
 <style type="text/css">
@@ -822,11 +788,59 @@ Madison Herrmann &amp; Tianrun Zhu
 <li>The best model achieved an outstanding auROC of 0.94</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p><img data-src="oud_roc_curve.%20jpg"></p>
+<p><img data-src="oud_roc_curve.jpg"></p>
 </div>
 </div>
 <aside class="notes">
 <p>The models were trained using the XGBoost algorithm with a five by ten-fold cross-validation. framework to ensure robust performance evaluation. Prior to training, unreliable responses were removed from the dataset, such as instances where participants reported lapses on a future date. Model training utilized high-throughput computing to efficiently explore and identify the optimal combination of hyperparameters. The final model achieved an outstanding AUROC of 0.94. Here is a graph of the roc curve for the best model, you can see that the line is very close to the top left corner, indicating excellent predictive performance.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="models-1" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">Models</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="oud_hyperparameters.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="oud_hyperparameters_down.png"></p>
+</div>
+</div>
+<aside class="notes">
+<p>Here is the hyperparameter plot shwoing the Relationship among log10 Learning Rate, Hyperparameters and auROC. We tested both the up-sampling and the down-sampling. The left is for the up-sampled data and the right one is for the dow-sampled data. We can observe a peak for every chunk, meaning that we have considered enough range of hyperparameters to select the best model.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="eda-on-monthly-data" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">EDA on Monthly Data</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>There may be a ceiling effect for participants’ self-reported recovery.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="oud_monthly.png"></p>
+</div>
+</div>
+<aside class="notes">
+<p>Moving on to the monthly surveys. We are now at a stage to preprocess the data for model training. There can be a ceiling effect for participants’ self-reported recovery because many participants reproted the highest value, meaning that those participants were all extremely satisfied with their recovery goals, extremely motivated to avoid using opioid for non-medical reasons and extremely confident in their ability to avoid using opioids for non-medical reasons. More work is needed to identify potential unreliable responses in the future.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -854,6 +868,19 @@ Madison Herrmann &amp; Tianrun Zhu
 <ul>
 <li>Writing <span style="color: blue;">recommendations</span> based on important features</li>
 </ul>
+<aside class="notes">
+<p>For future directions, our group aim to develop reliable approaches in measuring trust, engagement, and usability of risk-monitoring system interventions. In addition, there are challenges in determining how models can be clinically useful. For example, when a participant shows low effectiveness, it is essential to determine whether the issue stems from limitations in the system itself or from the participant’s low adherence to the system. Furthermore, once the system is implemented, we will provide users with recommendations based on the identified important features. Our team is actively exploring the optimal methods for delivering these recommendations, including the language, tone, and format, to minimize participant burden and maximize effectiveness.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="credits" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Credits</span></h2>

@@ -283,25 +283,6 @@ SHAP values are an explanatory approach revealing which features on which days c
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
 
-![](aud_shaps_48.png)
-
-:::{.notes}
-
-Starting from day 1, there is a large jump in future efficacy, as shown by the lime green line. Around day 5, there is a significant increase in past use, the blue line, as future efficacy plummets. The inverse relation between these two can be observed across time, as increases in past use seem to coincide with a decrease in future efficacy, and vice versa. As expected, lapsing caused a decrease in their confidence in recovery. The red line bringing downb their lapse probability is alcohol availability at location. 
-:::
-
-## <span style="color: green; text-decoration: underline;">Local Importance</span>
-
-
-![](aud_big_drop.png)
-
-:::{.notes}
-Starting from day 1, this participants' report of past use drove up their lapse probability, as seen by the blue line The lime green line shows future efficacy, which is confidence in not drinking. There is almost an inverse relation between the two, as past use increases usually coincide with decreases in future efficacy. This makes sense because if someone is currently using, their confidence in abstaining would likely decrease. Around day 50, there is a noticeable drop in past use, bringing it down to baseline, or zero. Future efficacy dips below zero indicating this is decreasing that individuals risk of lapse. This graph shows how different risk factors were the most important on different days.
-:::
-
-## <span style="color: green; text-decoration: underline;">Local Importance</span>
-
-
 ![](aud_big_jump.png)
 
 :::{.notes}
