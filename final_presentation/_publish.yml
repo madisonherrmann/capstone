@@ -1,0 +1,4 @@
+- source: final_capstone.qmd
+  quarto-pub:
+    - id: 72adbbaa-ae95-4327-8a62-1775e54b8a5c
+      url: 'https://mherrmann44.quarto.pub/machine-learning-in-digital-mental-health-interventions'
