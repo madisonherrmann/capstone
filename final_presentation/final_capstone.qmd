@@ -68,7 +68,11 @@ options(dplyr.print_max=Inf)
 
 ## <span style="color: green; text-decoration: underline;">Substance Use Disorders</span>
 
-- bullet point 1
+-   Barriers to treatment
+    -   [Accessibility]{style="color: gray;"}
+    -   [Affordability]{style="color: gray;"}
+    -   [Availability]{style="color: gray;"}
+    -   [Acceptability]{style="color: gray;"}
 
 :::{notes}
 notes
@@ -142,19 +146,17 @@ notes
 
 
 
-## <span style="color: green; text-decoration: underline;">How do we implement for clinical benefit?</span>
+## <span style="color: green; text-decoration: underline;">Model Implementation?</span>
 
-- Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
-  - Key step towards real-time risk-prediction system
+- How might we use these models to deploy the right recommendation, at the right time, to the right person?
+  - Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
   
-
-- Geolocation & 1x daily EMA Model
-  - XGBoost algorithm
-  - 5x10 k-fold CV
-  - Day level windows
+  \
+  
+  - Key step towards real-time risk-prediction system
 
 :::{.notes}
-Now that we can successfully predict lapse probability, how can we implement the model for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. To do so, I retrained the model using 1x daily EMA with geolocation and day level windows. High throughput computing was utilized along with the XGBOOST algorithm and 5 by 10 kfold cross validation. The additional geolocation improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system for clinical implementation.  
+Now that we can successfully predict lapse probability, How might we use these models to deploy the right recommendation, at the right time, to the right person? Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why.   
 :::
 
 ## <span style="color: green; text-decoration: underline;">Area under ROC Curve (auROC)</span>
@@ -162,7 +164,7 @@ Now that we can successfully predict lapse probability, how can we implement the
 ![](aud_auroc_v4.png) 
 
 :::{.notes}
-The best configuration resulted in a median auroc of .85. The histogram reveals the performance  across the 50 folds, with some performing as low as .4 and as high as .96. The drop in performance is likely due to using 24-hr periods instead of hour-by-hour windows.
+To do so, I retrained the model using 1x daily EMA with geolocation and day level windows. High throughput computing was utilized along with the XGBOOST algorithm and 5 by 10 kfold cross validation. The additional geolocation improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk monitoring and support system. The best configuration resulted in a median auroc of .85. The histogram reveals the performance  across the 50 folds, with some performing as low as .4 and as high as .96. The drop in performance is likely due to using 24-hr periods instead of hour-by-hour windows to predict lapse probability.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Global Importance</span>
@@ -172,8 +174,12 @@ The best configuration resulted in a median auroc of .85. The histogram reveals 
 
 
 :::{.notes} 
-Global importance reveals which risk features were the most important across participants. Past use and future efficacy were by far the most important predictors of lapse. These were derived from the daily EMA's, where participants reported drinking since their last assessment, and confidence in future recovery. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. However, different risk factors impact lapse probability at different times, for different people. 
+Global importance reveals which risk features were the most important across participants. Past use and future efficacy were by far the most important predictors of lapse. These were derived from the daily EMA's, where participants reported drinking since their last assessment, and confidence in future recovery. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. However, these risk factors impact lapse probability at different times, for different people. 
 :::
+
+## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
+
+![](aud_global_importance.png) #replace w/ rfplot
 
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
@@ -190,6 +196,14 @@ Global importance reveals which risk features were the most important across par
 SHAP values are an explanatory approach revealing which features on which days change lapse probability for each participant. Negative values decrease lapse probability, while positive values increase it. Lets look at the most important features for a specific participant across the study.
 :::
 
+## <span style="color: green; text-decoration: underline;">Local Importance</span>
+
+
+![](aud_big_jump.png)
+
+:::{.notes}
+In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. This geolocation feature provides insights into why this individual may have lapsed. Moreover, future efficacy, the yellow-green line, jumps shortly after past use slightly decreases. There is an almost inverse relation between the two. This makes sense as a person who is currently using is likley to feel less confident about future abstinence. The variability of this plot highlights that At any given day, the most important feature impacting lapse risk can change. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
+:::
 
 ## <span style="color: green; text-decoration: underline;">Future Directions</span>
 
