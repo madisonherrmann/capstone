@@ -17,33 +17,29 @@ title-slide-attributes:
 include-after: |
   <style>
     /* Apply custom styles only to the title slide */
+    }
+    }
+    }
+    }
+    }
+    });
     .reveal .slides > section:first-of-type h1 {
       color: blue;         /* Title color */
       font-size: 4rem;     /* Larger font size */
       text-align: center;  /* Center align the title */
       font-weight: bold;   /* Bold text */
-    }
-
     .reveal .slides > section:first-of-type h2 {
       font-size: 1.5rem;   /* Smaller font for author */
       text-align: center;  /* Center align the author */
-    }
-
     .reveal .slides > section:first-of-type h3 {
       font-size: 1.2rem;   /* Smaller font for institute */
       text-align: center;  /* Center align the institute */
-    }
-
     .reveal .slides > section:first-of-type h4 {
       font-size: 1rem;     /* Small font for date */
       text-align: center;  /* Center align the date */
-    }
-
     .reveal .slides > section:first-of-type {
+      }
       padding-top: 2rem;   /* Adds space at the top */
-    }
-  </style>
-
   <script type="text/javascript">
     Reveal.on('ready', event => {
       if (event.indexh === 0) {
@@ -51,9 +47,6 @@ include-after: |
         document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
         Reveal.configure({ slideNumber: null });
         Reveal.configure({ slideNumber: 'c' });
-      }
-    });
-  </script>
 editor_options: 
   chunk_output_type: console
 ---
@@ -82,8 +75,143 @@ notes
 :::
 
 
-## <span style="color: green; text-decoration: underline;">Background</span>
+## <span style="color: green; text-decoration: underline;">ARC</span>
+
+## <span style="color: green; text-decoration: underline;">Overarching Goal</span>
+
+**TIANRUN U CAN CHANGE THE BULLETS BUT KEEP THE NIH AND PUT IT SOMEWHERE**
+::: {.columns}
+:::: {.column width="60%"}
+-   Implement a temporally-precise, risk-monitoring system
+
+\
+
+-   Mitigate barriers in accessibility
+
+\
+
+-   Deliver tailored support and recommendations
+::::
+
+:::: {.column width="40%"}
+![](nih.png)
+::::
+:::
+
+## <span style="color: green; text-decoration: underline;">Define Lapse</span>
+
+## <span style="color: green; text-decoration: underline;">Predicting Lapse with EMA</span>
+
+**TIANRUN MAKE THIS ONLY AB EMA, KEEP PIC**
+::: {.columns}
+:::: {.column width="30%"}
+- [Active Sensing]{style="color: blue;"}
+  - Ecological Momentary Assessment (**EMA**)
+
+- [Passive Sensing]{style="color: blue;"}
+  - Geolocation
+  - Cellular Communications 
+::::
+
+:::: {.column width="70%"}
+![](aud_ema.png)
+::::
+:::
+
+## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
 
 
-## <span style="color: green; text-decoration: underline;">EMA</span>
+
+
+## <span style="color: green; text-decoration: underline;">Predicting Lapse in OUD</span>
+
+
+
+
+
+## <span style="color: green; text-decoration: underline;">Models</span>
+
+
+
+
+
+## <span style="color: green; text-decoration: underline;">Models</span>
+
+
+
+
+
+
+## <span style="color: green; text-decoration: underline;">How do we implement for clinical benefit?</span>
+
+- Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
+  - Key step towards real-time risk-prediction system
+  
+
+- Geolocation & 1x daily EMA Model
+  - XGBoost algorithm
+  - 5x10 k-fold CV
+  - Day level windows
+
+:::{.notes}
+Now that we can successfully predict lapse probability, how can we implement the model for clinical benefit? With the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. To do so, I retrained the model using 1x daily EMA with geolocation and day level windows. High throughput computing was utilized along with the XGBOOST algorithm and 5 by 10 kfold cross validation. The additional geolocation improved the models contextual awareness, a key step that brought us closer to deploying a real-time risk prediction system for clinical implementation.  
+:::
+
+## <span style="color: green; text-decoration: underline;">Area under ROC Curve (auROC)</span>
+
+![](aud_auroc_v4.png) 
+
+:::{.notes}
+The best configuration resulted in a median auroc of .85. The histogram reveals the performance  across the 50 folds, with some performing as low as .4 and as high as .96. The drop in performance is likely due to using 24-hr periods instead of hour-by-hour windows.
+:::
+
+## <span style="color: green; text-decoration: underline;">Global Importance</span>
+
+
+![](aud_global_importance.png) 
+
+
+:::{.notes} 
+Global importance reveals which risk features were the most important across participants. Past use and future efficacy were by far the most important predictors of lapse. These were derived from the daily EMA's, where participants reported drinking since their last assessment, and confidence in future recovery. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. However, different risk factors impact lapse probability at different times, for different people. 
+:::
+
+
+## <span style="color: green; text-decoration: underline;">Local Importance</span>
+
+- [Shapley Values]{style="color: blue;"}
+
+  -   **Negative** values **decrease** lapse probability.
+  
+  \
+  
+  -   **Positive** values **increase** lapse probability.
+
+:::{.notes}
+SHAP values are an explanatory approach revealing which features on which days change lapse probability for each participant. Negative values decrease lapse probability, while positive values increase it. Lets look at the most important features for a specific participant across the study.
+:::
+
+
+## <span style="color: green; text-decoration: underline;">Future Directions</span>
+
+- Measuring [trust]{style="color: blue;"}, [engagement]{style="color: blue;"}, and [usability]{style="color: blue;"} of risk-monitoring system interventions
+
+\
+
+- Determining how models can be [clinically useful]{style="color: blue;"} 
+
+\
+
+- Writing [recommendations]{style="color: blue;"} based on important features
+
+:::{.notes}
+For future directions, our group aim to develop reliable approaches in measuring trust, engagement, and usability of risk-monitoring system interventions. In addition, there are challenges in determining how models can be clinically useful. For example, when a participant shows low effectiveness, it is essential to determine whether the issue stems from limitations in the system itself or from the participant's low adherence to the system. 
+Furthermore, once the system is implemented, we will provide users with recommendations based on the identified important features. Our team is actively exploring the optimal methods for delivering these recommendations, including the language, tone, and format, to minimize participant burden and maximize effectiveness.
+:::
+
+## <span style="color: green; text-decoration: underline;">Credits</span>
+
+- **PI:** John Curtin, PhD
+- **Lab Manager:** Susan Wanta
+- **PhD Mentor:** Kendra Wyant
+- **OUD Demographics:** Zihan Li
 
