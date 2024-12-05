@@ -212,26 +212,31 @@ The best configuration resulted in a median auroc of .85. The histogram reveals 
 
 
 :::{.notes} 
-Global importance reveals which risk features were the most important across participants. Past use and future efficacy were by far the most important predictors of lapse. These were derived from the daily EMA's, where participants reported drinking since their last assessment, and confidence in future recovery. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. However, these risk factors impact lapse probability at different times, for different people. Lets look at how these features can predict lapse probability. 
+Global importance reveals which risk features were the most important across participants. Past use and future efficacy were by far the most important predictors of lapse. Past use refers to reported drinking days since their last EMA. Future efficacy measures how confident individuals are to not drink in the near future. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. Lets look at how these features can predict lapse probability. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
 
-![](aud_global_importance.png) #replace w/ rfplot
+![](aud_global_importance.png) 
 
+:::{.notes}
+Hence, if someone reported past use the day prior, their lapse probability for the next-day will be higher. Now that we have a sense of how these features can predict lapse risk, let's see how they vary across individuals and time. 
+:::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
 - [Shapley Values]{style="color: blue;"}
 
-  -   **Negative** values **decrease** lapse risk probability.
+  -   Negative values decrease lapse probability.
+    - Act as **protective features**
   
   \
   
-  -   **Positive** values **increase** lapse risk probability.
+  -   Positive values increase lapse risk probability.
+    - Act as **risk features**
 
 :::{.notes}
-SHAP values are an explanatory approach providing insight into the relative risk factors for an individual. This allows us to determine which features on which days impact lapse risk for each participant. Negative values indicate a decreased risk of lapse, while positive values represent an increased risk. Lets look at the most important features for a specific participant across the study.
+SHAP values are an explanatory approach providing insight into the relative risk factors for an individual. This allows us to determine which features on which days impact lapse risk for each participant. Negative values indicate a decreased risk of lapse, or protective features. while positive values represent an increased lapse probability, or risk feature. Lets look at the most important features for a specific participant across the study.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
