@@ -242,10 +242,19 @@ SHAP values are an explanatory approach providing insight into the relative risk
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
 
-![](aud_big_jump.png)
+![](aud_risk_loc.png)
 
 :::{.notes}
-In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. This geolocation feature provides insights into why this individual may have lapsed, as they most likely went to a bar. Moreover, future efficacy, the yellow-green line, lags behind past use. This makes sense as   a person who is currently using is likely to feel less confident about future abstinence. The variability of this plot highlights that At any given day, the most important feature impacting lapse risk can change. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
+In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. This geolocation feature provides insights into why this individual may have lapsed, as they most likely went to a bar. Moreover, future efficacy, the yellow-green line, lags behind past use. This makes sense as   a person who is currently using is likely to feel less confident about future abstinence. Around day 50, they a future risky situation is decreasing their lapse risk. This could be due to the fact that they are anticipating risk and the act of reflecting on this acts as a protective factor. The variability of this plot highlights that At any given day, the most important feature impacting lapse risk can change. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
+:::
+
+## <span style="color: green; text-decoration: underline;">Local Importance</span>
+
+
+![](aud_loc_valence.png)
+
+:::{.notes}
+For this participant, past use acts as their most important protective feature. This is shown by the blue line bringing down their lapse risk, indicating someone who did not lapse on study. The green line increasing lapse risk is location valence. This refers to the emotions associated with a particular place. Future efficacy acts as a protective feature until around day 65, when it jumps above location valence. This indicates the participant has a lack of confidence in not drinking in the future. There is a vast difference between this participant's relative risk features and the previous.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Future Directions</span>
