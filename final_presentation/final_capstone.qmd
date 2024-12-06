@@ -148,12 +148,19 @@ notes
 
 ## <span style="color: green; text-decoration: underline;">Model Implementation</span>
 
+
+::: {.columns}
+:::: {.column width="30%"}
 - How might we use these models to deploy the right recommendation, at the right time, to the right person?
   - Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
   - Risky locations, alcohol availability, location type
   
-\
+::::
 
+:::: {.column width="70%"}
+![](aud_gps.png)
+::::
+:::
 
 
 :::{.notes}
@@ -222,7 +229,7 @@ Global importance reveals which risk features were the most important for predic
 ![](aud_global_importance.png) 
 
 :::{.notes}
-Future efficacy asked participants how likely are you to drink within the next week, on a scale from 1-10? On average, reports of high likelihood were associated with a higher probability of lapsing. their lapse probability increased.Past use refers to an EMA item that assessed Hence, if someone reported past use the day prior, their lapse probability for the next-day will be higher. Now that we have a sense of how these features can predict lapse risk, let's see how they vary across individuals and time. 
+Future efficacy asked participants how likely are you to drink within the next week, on a scale from 1-10? On average, reports of high likelihood were associated with a higher probability of lapsing.Now that we have a sense of how these features can predict lapse risk, let's see how they vary across individuals and time. Hence, if someone reported past use the day prior, their lapse probability for the next-day will be higher.Does being at this location put you at any risk to begin drinking? [If no, mark “No risk”; if yes, indicate if the risk is “Low risk”, “Medium risk”, or “High risk”.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
