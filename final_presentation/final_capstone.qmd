@@ -158,7 +158,7 @@ notes
 ::::
 
 :::: {.column width="70%"}
-![](aud_gps.png)
+![](aud_gps.jpg)
 ::::
 :::
 
