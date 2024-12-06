@@ -149,23 +149,25 @@ notes
 ## <span style="color: green; text-decoration: underline;">Model Implementation</span>
 
 
-::: {.columns}
-:::: {.column width="30%"}
-- How might we use these models to deploy the right recommendation, at the right time, to the right person?
-  - Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
-  - Risky locations, alcohol availability, location type
+- How might we use these models to deploy the **right** recommendation, to the **right person**, at the **right time**? 
+
+\
+
+- Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
+  - Passive sensing
+  - Continuous monitoring
   
-::::
-
-:::: {.column width="70%"}
-![](aud_gps.jpg)
-::::
-:::
-
 
 :::{.notes}
-Now that we can successfully predict lapse probability, How might we use these models to deploy the right recommendation, at the right time, to the right person? Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. Participants reported theur frequenly visted locations and were asked various questions regarding alchol availbity, location type, and risk level. 
-sing data from our alcohol use disorder sample, we can begin to understand the need for continuous monitoring in recovery.    
+Now that we can successfully predict lapse probability, How might we use these models to deploy the right recommendation, at the right time, to the right person? Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. Geolocation is a form of passive sensing that can provide context into the places and situations impacting lapse risk using GPS tracking.    
+:::
+
+## <span style="color: green; text-decoration: underline;">Geolocation</span>
+
+![](aud_gps.jpg)
+
+:::{.notes}
+ Here is an example of some the survey questions asked regarding geolocation. Participants reported frequently visited locations and were asked various questions regarding previous use, alcohol availability, and valence. Using data from our alcohol use disorder sample, we can begin to understand the need for continuous monitoring in recovery
 :::
 
 ## <span style="color: green; text-decoration: underline;">AUD Characteristics</span>
@@ -208,10 +210,7 @@ We had reasonable diversity across many characteristics including age, sex at bi
 ![](aud_auroc_v4.png) 
 
 :::{.notes}
-- Geolocation & 1x Daily EMA Model
-  - XGBoost algorithm
-  - 5x10 k-fold CV
-  - Day level windows.I retrained the model using 1x daily EMA with geolocation and day level windows. High throughput computing was utilized along with the XGBOOST algorithm and 5 by 10 kfold cross validation. The best configuration resulted in a median auroc of .85. The drop in performance is likely due to using 24-hr periods instead of hour-by-hour windows to predict lapse probability. Despite the drop in performance, additional geolocation improved the models contextual awareness, a key step that brings us closer to deploying a real-time risk monitoring and support system. Lets now look at what features were the most important for the model's predictions.
+I retrained the model using 1x daily EMA with geolocation and day level windows. High throughput computing was utilized along with the XGBOOST algorithm and 5 by 10 kfold cross validation. The best configuration resulted in a median auroc of .85. The drop in performance is likely due to using 24-hr periods instead of hour-by-hour windows to predict lapse probability. Despite the drop in performance, additional geolocation improved the models contextual awareness, a key step that brings us closer to deploying a real-time risk monitoring and support system. Lets now look at what features were the most important for the model's predictions.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Global Importance</span>
