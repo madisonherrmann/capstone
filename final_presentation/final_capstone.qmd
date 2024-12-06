@@ -150,16 +150,15 @@ notes
 
 - How might we use these models to deploy the right recommendation, at the right time, to the right person?
   - Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
+  - Risky locations, alcohol availability, location type
   
 \
 
-- Geolocation & 1x Daily EMA Model
-  - XGBoost algorithm
-  - 5x10 k-fold CV
-  - Day level windows
+
 
 :::{.notes}
-Now that we can successfully predict lapse probability, How might we use these models to deploy the right recommendation, at the right time, to the right person? Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. To do so, I retrained the model using 1x daily EMA with geolocation and day level windows. High throughput computing was utilized along with the XGBOOST algorithm and 5 by 10 kfold cross validation. Using data from our alcohol use disorder sample, we can begin to understand the need for continuous monitoring in recovery.    
+Now that we can successfully predict lapse probability, How might we use these models to deploy the right recommendation, at the right time, to the right person? Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. Participants reported theur frequenly visted locations and were asked various questions regarding alchol availbity, location type, and risk level. 
+sing data from our alcohol use disorder sample, we can begin to understand the need for continuous monitoring in recovery.    
 :::
 
 ## <span style="color: green; text-decoration: underline;">AUD Characteristics</span>
@@ -192,7 +191,7 @@ To start, lets characterize our sample. Data was collected on 151 individuals wi
 
 
 :::{.notes}
-We had reasonable diversity across many characteristics including age, sex at birth, marital status, education, and income. However, given the recruiting methods, there is very little racial and ethnic diversity in the sample. The sample is predominately white and non-Hispanic.
+We had reasonable diversity across many characteristics including age, sex at birth, marital status, education, and income. However, given the recruiting methods, there is very little racial and ethnic diversity in the sample. Now that we have some background on the sample, we can pivot to the modeling process. 
 ::: 
 
 
@@ -202,7 +201,10 @@ We had reasonable diversity across many characteristics including age, sex at bi
 ![](aud_auroc_v4.png) 
 
 :::{.notes}
-The best configuration resulted in a median auroc of .85. The histogram reveals the performance  across the 50 folds, with some performing as low as .4 and as high as .96. The drop in performance is likely due to using 24-hr periods instead of hour-by-hour windows to predict lapse probability. Despite the drop in performance, additional geolocation improved the models contextual awareness, a key step that brings us closer to deploying a real-time risk monitoring and support system. 
+- Geolocation & 1x Daily EMA Model
+  - XGBoost algorithm
+  - 5x10 k-fold CV
+  - Day level windows.I retrained the model using 1x daily EMA with geolocation and day level windows. High throughput computing was utilized along with the XGBOOST algorithm and 5 by 10 kfold cross validation. The best configuration resulted in a median auroc of .85. The drop in performance is likely due to using 24-hr periods instead of hour-by-hour windows to predict lapse probability. Despite the drop in performance, additional geolocation improved the models contextual awareness, a key step that brings us closer to deploying a real-time risk monitoring and support system. Lets now look at what features were the most important for the model's predictions.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Global Importance</span>
@@ -212,7 +214,7 @@ The best configuration resulted in a median auroc of .85. The histogram reveals 
 
 
 :::{.notes} 
-Global importance reveals which risk features were the most important across participants. Past use and future efficacy were by far the most important predictors of lapse. Past use refers to reported drinking days since their last EMA. Future efficacy measures how confident individuals are to not drink in the near future. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. Lets look at how these features can predict lapse probability. 
+Global importance reveals which risk features were the most important for predicting lapse probability across participants. Past use and future efficacy, both from the EMAs,  were by far the most important predictors of lapse. Past use refers to reported drinking days since their last EMA. Future efficacy measures how likely individuals are to drink in the near future. In regards to the geolocation features, risky location was the most important. This asked particpants to report if a location puts them at any risk to begin drinking. Others include: alcohol availability at location, type of location, and location valence. Lets look at how these features can predict lapse probability. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
@@ -220,8 +222,13 @@ Global importance reveals which risk features were the most important across par
 ![](aud_global_importance.png) 
 
 :::{.notes}
-Hence, if someone reported past use the day prior, their lapse probability for the next-day will be higher. Now that we have a sense of how these features can predict lapse risk, let's see how they vary across individuals and time. 
+Future efficacy asked participants how likely are you to drink within the next week, on a scale from 1-10? On average, reports of high likelihood were associated with a higher probability of lapsing. their lapse probability increased.Past use refers to an EMA item that assessed Hence, if someone reported past use the day prior, their lapse probability for the next-day will be higher. Now that we have a sense of how these features can predict lapse risk, let's see how they vary across individuals and time. 
 :::
+
+## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
+
+## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
+
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
@@ -245,7 +252,7 @@ SHAP values are an explanatory approach providing insight into the relative risk
 ![](aud_risk_loc.png)
 
 :::{.notes}
-In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. This geolocation feature provides insights into why this individual may have lapsed, as they most likely went to a bar. Moreover, future efficacy, the yellow-green line, lags behind past use. This makes sense as   a person who is currently using is likely to feel less confident about future abstinence. Around day 50, they a future risky situation is decreasing their lapse risk. This could be due to the fact that they are anticipating risk and the act of reflecting on this acts as a protective factor. The variability of this plot highlights that At any given day, the most important feature impacting lapse risk can change. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
+In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. This geolocation feature provides insights into why this individual may have lapsed, as they most likely went to a bar. Moreover, future efficacy, the yellow-green line, lags behind past use. This makes sense as a person who is currently using is likely to feel less confident about future abstinence. Around day 50, a future risky situation decreases their lapse risk, acting as a protective feature at certain points. This participant likely reported low likelihood of a future risky situation. The variability of this plot highlights that at any given day, the most important feature impacting lapse risk can change.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
@@ -254,7 +261,7 @@ In the beginning, This participant had little change in their risk features, wit
 ![](aud_loc_valence.png)
 
 :::{.notes}
-For this participant, past use acts as their most important protective feature. This is shown by the blue line bringing down their lapse risk, indicating someone who did not lapse on study. The green line increasing lapse risk is location valence. This refers to the emotions associated with a particular place. Future efficacy acts as a protective feature until around day 65, when it jumps above location valence. This indicates the participant has a lack of confidence in not drinking in the future. There is a vast difference between this participant's relative risk features and the previous.
+For this participant, past use acts as their most important protective feature, differing from the previous example. This is shown by the blue line bringing down their lapse risk, indicating someone who did not lapse on study. The green line increasing their risk of lapse is location valence. This refers to the emotions associated with a particular place. Future efficacy acts as a protective feature  until around day 65, when it jumps above location valence. This indicates the participant reported a higher likelihood of drinking, relative to their previous self-reports. Their lack of confidence in future abstinence increases their probability of lapsing. There is a vast difference between this participant's relative risk features and the previous. For this participant, past use acts as their most important protective feature, consistently lowering their risk of lapse. As opposed to the previous plot, where past use acted as the most important risk factor, increasing the probability of lapse. This highlights the need for personalized recommendations and supports as different risk features can impact lapse risk in different ways, for different people. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Future Directions</span>
