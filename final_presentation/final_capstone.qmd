@@ -225,16 +225,27 @@ Global importance reveals which risk features were the most important for predic
 
 ## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
 
-![](aud_global_importance.png) 
+![](aud_past_use.png) 
 
 :::{.notes}
-Future efficacy asked participants how likely are you to drink within the next week, on a scale from 1-10? On average, reports of high likelihood were associated with a higher probability of lapsing.Now that we have a sense of how these features can predict lapse risk, let's see how they vary across individuals and time. Hence, if someone reported past use the day prior, their lapse probability for the next-day will be higher.Does being at this location put you at any risk to begin drinking? [If no, mark “No risk”; if yes, indicate if the risk is “Low risk”, “Medium risk”, or “High risk”.
+Drawing your attention to the y-axis, observations below zero are decreasing lapse probability, while observations above zero are increasing it. Observations below zero reflect reports of no past use, bringing down lapse probability. There is a mostly linear relationship with past use and an increased risk of lapse. That is, high reports of past use are associated with an increased risk of lapse. Hence, if someone reported past use the day prior, their lapse probability for the next-day is likely to be higher.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
 
+![](aud_future_efficacy.png) 
+
+:::{.notes}
+Future efficacy asked participants how likely are you to drink within the next week, on a scale from 1-10? On average, reports of high likelihood were associated with a higher probability of lapsing.
+:::
+
 ## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
 
+![](aud_past_use.png) 
+
+:::{.notes}
+GPS Feature will go above was interpretation from Kendra is approved. Now that we have a sense of how these features can predict lapse risk, let's see how they vary across individuals and time.
+:::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
