@@ -228,7 +228,7 @@ Global importance reveals which risk features were the most important for predic
 ![](aud_past_use.png) 
 
 :::{.notes}
-Drawing your attention to the y-axis, observations below zero are decreasing lapse probability, while observations above zero are increasing it. Observations below zero reflect reports of no past use, bringing down lapse probability. There is a mostly linear relationship with past use and an increased risk of lapse. That is, high reports of past use are associated with an increased risk of lapse. Hence, if someone reported past use the day prior, their lapse probability for the next-day is likely to be higher.
+Drawing your attention to the y-axis, observations below zero are decreasing lapse probability, while observations above zero are increasing it. Observations below zero reflect reports of no past use, bringing down lapse probability. There is a mostly linear relationship with past use and an increased risk of lapse. That is, if someone reported past use, their lapse probability for the next-day is likely to be higher.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
@@ -241,10 +241,10 @@ Future efficacy asked participants how likely are you to drink within the next w
 
 ## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
 
-![](aud_past_use.png) 
+![](aud_risky_location.png) 
 
 :::{.notes}
-GPS Feature will go above was interpretation from Kendra is approved. Now that we have a sense of how these features can predict lapse risk, let's see how they vary across individuals and time.
+Risky location is a gps feature that asked participants to rate frequently visited locations that put them at risk for drinking, from no to high risk. Through GPS monitoring, the time spent at these locations was recorded. It is likely that time spent at a high risk location, like a bar, would increase lapse probability. Whereas, time spent at no risk location, like an AA meeting, would likely decrease it. However, the plot reveals risky location has a mostly neutral impact on lapse probability, with most places clustered around zero. The absence of a clear trend likely suggests the relationship between risky location and lapse risk varies across participants. Now that we have a sense of how these features can predict lapse risk, let's see how they vary across individuals and time.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
