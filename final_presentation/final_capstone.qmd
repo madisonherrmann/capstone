@@ -66,55 +66,93 @@ options(dplyr.print_max=Inf)
 
 
 
-## <span style="color: green; text-decoration: underline;">Substance Use Disorders</span>
+## <span style="color: green; text-decoration: underline;">Scope and Background of Project</span>
 
--   Barriers to treatment
-    -   [Accessibility]{style="color: gray;"}
-    -   [Affordability]{style="color: gray;"}
-    -   [Availability]{style="color: gray;"}
-    -   [Acceptability]{style="color: gray;"}
-
-:::{notes}
-notes
-:::
-
-
-## <span style="color: green; text-decoration: underline;">ARC</span>
-
-## <span style="color: green; text-decoration: underline;">Overarching Goal</span>
-
-**TIANRUN U CAN CHANGE THE BULLETS BUT KEEP THE NIH AND PUT IT SOMEWHERE**
-::: {.columns}
-:::: {.column width="60%"}
--   Implement a temporally-precise, risk-monitoring system
+- Alcohol Use Disorder (AUD) and Opioid Use Disorder (OUD) are chronic.
 
 \
 
--   Mitigate barriers in accessibility
+- Challenges in Recovery:
+  - Lifelong management and continuous monitoring.
+  - Limited resources for sustained support post-treatment.
+  - Individuals' needs evolve, making long-term recovery management challenging.
+  
+:::{.notes}
+Alcohol and opioid use disorders are chronic conditions that require lifelong management. Recovery is often a long, dynamic, and complex process, with individuals facing numerous challenges:
+
+Effective initial treatment is not enough—sustained support is critical but often lacking.
+
+Recovery needs continuous monitoring because what works at one moment might not work at another.
+
+Individuals’ needs evolve over time, adding complexity to long-term recovery management.
+
+There is an unmet need for accessible and affordable solutions to address these challenges effectively.
+:::
+
+## <span style="color: green; text-decoration: underline;">Scope and Background of Project</span>
+
+![](nih.png){fig-width=10}
+- A part of a larger project under the Addiction Research Center.
+
+- Overarching Goals:
+
+  -   Mitigate barriers in accessibility and affordability
+  -   Implement a temporally precise risk-monitoring system
+  -   Deliver tailored support and recommendations
+
+:::{.notes}
+Our project is part of a larger initiative under the Addiction Research Center at UW-Madison, supported by the NIH.
+
+The broader project aims to address barriers to accessibility and affordability in managing recovery from substance use disorders. It seeks to develop a temporally precise risk-monitoring system that will be integrated into mobile devices, such as smartphone health apps. This system will provide tailored support and recommendations to individuals in recovery.
+:::
+
+## <span style="color: green; text-decoration: underline;">Scope and Background of Project</span>
+
+- Our project is to build and to evaluate machine learning models to predict AUD and OUD lapses
+
+  \
+
+  - To predict when a future lapse may happen.
+
+  \
+
+  - To figure out why a lapse is likely to happen.
+
+:::{.notes}
+Our specific focus is on building and evaluating machine learning models to predict future lapses in Alcohol Use Disorder and Opioid Use Disorder. Using the machine learning models, we aim to predict when a future lapse may happen, and to figure out why a lapse is likely to happen.
+:::
+
+
+## <span style="color: green; text-decoration: underline;">Lapse</span>
+
+- Temporally precise onset
 
 \
 
--   Deliver tailored support and recommendations
-::::
+- Important target for intervention
 
-:::: {.column width="40%"}
-![](nih.png)
-::::
-:::
+\
 
-## <span style="color: green; text-decoration: underline;">Define Lapse</span>
+- **Single lapse** can result in **overdose and death**
+
+\
+
+:::{.notes}
+**add image to right**
+Before I get any further, it is important to distinguish lapse from relapse. 
+- Lapses are clearly defined and have a temporally precise onset.
+- They're an important target for intervention and serve as an early warning sign for relapse.
+- A single lapse can be detrimental resulting in overdose and death, emphasizing the need for a temporally-precise, risk-monitoring system. 
+::: 
+
+
 
 ## <span style="color: green; text-decoration: underline;">Predicting Lapse with EMA</span>
 
-**TIANRUN MAKE THIS ONLY AB EMA, KEEP PIC**
 ::: {.columns}
 :::: {.column width="30%"}
 - [Active Sensing]{style="color: blue;"}
   - Ecological Momentary Assessment (**EMA**)
-
-- [Passive Sensing]{style="color: blue;"}
-  - Geolocation
-  - Cellular Communications 
 ::::
 
 :::: {.column width="70%"}
@@ -122,24 +160,171 @@ notes
 ::::
 :::
 
+:::{.notes} 
+Lapse risk is monitored actively trhough ecological momentary assessments. EMA refers to daily self-report measures that assess mood, experiences, and past use. The image shows where participants report whether or not they have drank alcohol since there last assessment. 
+:::
+
 ## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
 
+::: {.columns}
+:::: {.column width="50%"}
+- 336 individuals, the majority reported severe symptoms
 
+\
+
+- Early to mid-stage of recovery (1-12 months)
+
+\
+
+- Committed to abstinence throughout study
+::::
+
+:::: {.column width="50%"}
+![](oud_dsm.jpg)
+::::
+:::
+
+:::{.notes} 
+Now lets characterize the OUD sample. Data was collected on 336 individuals. The majority of participants reported severe symptoms of OUD. The participants were in early to mid-stages of recovery, and had received 1 - 12 month medication-assisted treatment. All participants committed to abstinence for the duration of the study.
+:::
+
+## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
+
+![](oud_demo_combined.1.jpeg)
+
+:::{.notes}
+We had reasonable diversity across age, income, gender, race and education.
+::: 
 
 
 ## <span style="color: green; text-decoration: underline;">Predicting Lapse in OUD</span>
 
+- Predict [day-by-day]{style="color: blue;"} probability of [future lapse]{style="color: blue;"}
 
+\
 
+- Label windows roll day-by-day starting at 6am in the participants' time zone.
+
+\
+
+- Take the daily EMA data.
+
+:::{.notes} 
+Using daily EMA data, we performed feature engineering to transform raw data into meaningful signals predictive of future opioid lapse. Machine learning models were then developed to predict the likelihood of a lapse occurring on the following day.
+:::
 
 
 ## <span style="color: green; text-decoration: underline;">Models</span>
 
 
+- XGBoost algorithm
+
+\
+
+- 5x10 k-fold CV
+
+\
+
+- CHTC
+
+
+:::{.notes}
+The models were trained using the XGBoost algorithm with a five by ten-fold cross-validation framework to ensure robust performance evaluation. We used XGBoost because it consistently outperformed the other three algorithms, Random Forest, K-Nearest Neighbors, and Elastic Net, during preliminary exploratory analyses. Model training utilized high-throughput computing to efficiently explore and identify the optimal combination of hyperparameters. 
+:::
 
 
 
-## <span style="color: green; text-decoration: underline;">Models</span>
+
+## <span style="color: green; text-decoration: underline;">Model Performance</span>
+
+- The best model achieved an outstanding area under the Receiver Operating Characteristic curve (auROC) of 0.94
+
+::: {.columns}
+
+::: {.column width="50%"}
+![](oud_roc_curve.jpg) 
+:::
+
+::: {.column width="50%"}
+![](oud_auroc_best_folds.png) 
+:::
+
+:::
+
+:::{.notes}
+Given the imbalance in our labels, with a large majority of non-lapse cases and a small portion of lapse cases, we used the area under the Receiver Operating Characteristic curve (auROC) to evaluate model performance, as it is effective in handling unbalanced data. The right graph shows the auROC values of the best model across the 5 by 10, that is 50 folders. The median auROC is 0.94, which is outstanding. This means there is a 94% chance that the model will score a lapse higher than a no-lapse when it is a lapse instance. The left shows a graph of the roc curve for the best model.
+:::
+
+## <span style="color: green; text-decoration: underline;">Model Performance</span>
+
+
+![](oud_fairness_c.png) 
+
+:::{.notes}
+This model achieved a high fairness across different demographic groups. As is shown in the graphs, the differences in median auROC for different gender, race and income groups are very small.
+:::
+
+## <span style="color: green; text-decoration: underline;">Important Features</span>
+
+::: {.columns}
+
+::: {.column width="25%"}
+- [Global Importance]{style="color: blue;"}
+  - Past use
+  - Confidence
+  - Urge
+:::
+
+::: {.column width="75%"}
+![](oud_global_importance.png) 
+:::
+
+:::
+
+:::{.notes} 
+Global importance reveals which risk features were the most important across participants. The top 3 features are:
+first, past use, which indicates that participants reported using opioids since their last assessment;
+second, participants' confidence in future recovery;
+third, participants' urge to use the substance.
+:::
+
+
+## <span style="color: green; text-decoration: underline;">Important Features</span>
+
+
+
+![](oud_top3_c.png) 
+
+:::{.notes} 
+Here are the graphs showing the relationship between feature value and feature importance for the top 3 features. Higher "Past Use" values significantly increase the prediction. Higher "Confidence" values significantly decrease the prediction. Higher "Urge" feature values positively contribute to the model's predictions. 
+:::
+
+
+
+
+
+## <span style="color: green; text-decoration: underline;">Other Features</span>
+
+::: {.columns}
+
+::: {.column width="50%"}
+![](oud_sharp_substances.png) 
+:::
+
+::: {.column width="50%"}
+![](oud_sharp_mood.png) 
+:::
+
+:::
+
+
+
+:::{.notes} 
+For substance use variables, higher score instimulant use positively influences predictions, while higher score in inhalant use has a more negative effects. Other substances, like alcohol and cannabis, have moderate but consistent contributions.
+
+For emotional states, higher score in anxiety has a strong positive influence on predictions. Other states, such as anger, happiness, and pleasantness, contribute more neutrally, with minimal impact on model outcomes.
+:::
+
 
 
 
