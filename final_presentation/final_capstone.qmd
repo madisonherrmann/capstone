@@ -224,6 +224,8 @@ Using daily EMA data, we performed feature engineering to transform raw data int
 
 - XGBoost algorithm
 
+  - optimized using the Shapley Additive Explanations (SHAP) method
+
 \
 
 - 5x10 k-fold CV
@@ -234,7 +236,7 @@ Using daily EMA data, we performed feature engineering to transform raw data int
 
 
 :::{.notes}
-The models were trained using the XGBoost algorithm with a five by ten-fold cross-validation framework to ensure robust performance evaluation. We used XGBoost because it consistently outperformed the other three algorithms, Random Forest, K-Nearest Neighbors, and Elastic Net, during preliminary exploratory analyses. Model training utilized high-throughput computing to efficiently explore and identify the optimal combination of hyperparameters. 
+The models were trained using the XGBoost algorithm with a five by ten-fold cross-validation framework to ensure robust performance evaluation. We used XGBoost because it consistently outperformed the other three algorithms during preliminary exploratory analyses, including Random Forest, K-Nearest Neighbors, and Elastic Net. Furthermore, the Shapley Additive Explanations (SHAP) method, which we planned to use for explanatory analyses of feature importance in our full models, is optimized for XGBoost. Model training utilized high-throughput computing to efficiently explore and identify the optimal combination of hyperparameters. 
 :::
 
 
@@ -287,7 +289,9 @@ This model achieved a high fairness across different demographic groups. As is s
 :::
 
 :::{.notes} 
-Global importance reveals which risk features were the most important across participants. The top 3 features are:
+A higher Shapley value indicates higher feature importane in prediction.
+Global importance reveals which risk features were the most important across participants. 
+The top 3 features are:
 first, past use, which indicates that participants reported using opioids since their last assessment;
 second, participants' confidence in future recovery;
 third, participants' urge to use the substance.
@@ -315,9 +319,7 @@ Here are the graphs showing the relationship between feature value and feature i
 :::{.notes} 
 Let's look at some other features.
 
-For substance use variables, higher score instimulant use positively influences predictions, while higher score in inhalant use has a more negative effects. Other substances, like alcohol and cannabis, have moderate but consistent contributions.
-
-For emotional states, higher score in anxiety has a strong positive influence on predictions. Other states, such as anger, happiness, and pleasantness, contribute more neutrally, with minimal impact on model outcomes.
+For substance use variables, higher score instimulant use since last assessment positively influences predictions, while higher score in inhalant use has a more negative effects. Other substances, like alcohol and cannabis, have moderate but consistent contributions.
 :::
 
 
