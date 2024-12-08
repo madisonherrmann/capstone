@@ -426,7 +426,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </ul></li>
 </ul>
 <aside class="notes">
-<p>Now that we can successfully predict lapse probability, How might we use these models to deploy the right recommendation, at the right time, to the right person? Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. Geolocation is a form of passive sensing that can provide context into the places and situations impacting lapse risk using GPS tracking.</p>
+<p>Now that we have a model that can successfully predict lapse probability, How might we implement it to deploy the right recommendation, to the right person, at the right time? Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. Geolocation is a form of passive sensing that can provide context into the places and situations impacting lapse risk.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -442,8 +442,8 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="geolocation" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Geolocation</span></h2>
 
-<img data-src="aud_gps.jpg" class="r-stretch"><aside class="notes">
-<p>Here is an example of some the survey questions asked regarding geolocation. Participants reported frequently visited locations and were asked various questions regarding previous use, alcohol availability, and valence. Using data from our alcohol use disorder sample, we can begin to understand the need for continuous monitoring in recovery</p>
+<img data-src="gps3.jpg" class="r-stretch"><aside class="notes">
+<p>Here is an example of some the survey questions asked regarding geolocation. Participants reported frequently visited locations and were asked various questions regarding previous drinking locations, alcohol availability, valence, and more. Their time spent at these locations was documented using gps monitoring via smartphone. We can begin to understand the need for continuous monitoring in recovery by looking at data from our alcohol use disorder study.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -495,7 +495,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">AUD Characteristics</span></h2>
 
 <img data-src="aud_demographics.png" class="r-stretch"><aside class="notes">
-<p>We had reasonable diversity across many characteristics including age, sex at birth, marital status, education, and income. However, given the recruiting methods, there is very little racial and ethnic diversity in the sample. Now that we have some background on the sample, we can pivot to the modeling process.</p>
+<p>We had reasonable diversity across many characteristics including age, sex at birth, marital status, education, and income. However, given the recruiting methods, there is very little racial and ethnic diversity across participants. Now that we have some background on the sample, we can pivot to the modeling process.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -529,7 +529,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Global Importance</span></h2>
 
 <img data-src="aud_global_importance.png" class="r-stretch"><aside class="notes">
-<p>Global importance reveals which risk features were the most important for predicting lapse probability across participants. Past use and future efficacy, both from the EMAs, were by far the most important predictors of lapse. Past use refers to reported drinking days since their last EMA. Future efficacy measures how likely individuals are to drink in the near future. In regards to the geolocation features, risky location was the most important. This asked particpants to report if a location puts them at any risk to begin drinking. Others include: alcohol availability at location, type of location, and location valence. Lets look at how these features can predict lapse probability.</p>
+<p>Global importance reveals which risk features were the most important for predicting lapse probability across participants. Past use and future efficacy, both from the EMAs, were by far the most important predictors of lapse. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. Lets look at how what these features mean and how they can predict lapse probability.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -546,7 +546,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Important Risk Features</span></h2>
 
 <img data-src="aud_past_use.png" class="r-stretch"><aside class="notes">
-<p>Drawing your attention to the y-axis, observations below zero are decreasing lapse probability, while observations above zero are increasing it. Observations below zero reflect reports of no past use, bringing down lapse probability. There is a mostly linear relationship with past use and an increased risk of lapse. That is, if someone reported past use, their lapse probability for the next-day is likely to be higher.</p>
+<p>Past use refers to reported drinking days since the participants’ last EMA. The feature values on the x-axis reveal how important past use is across participants, classified as low, medium, or high. Drawing your attention to the y-axis, observations below zero are decreasing lapse probability, while observations above zero are increasing it. Observations below zero reflect reports of no past use, or not drinking. There is a mostly linear relationship with past use and increased lapse risk.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -580,7 +580,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Important Risk Features</span></h2>
 
 <img data-src="aud_risky_location.png" class="r-stretch"><aside class="notes">
-<p>Risky location is a gps feature that asked participants to rate frequently visited locations that put them at risk for drinking, from no to high risk. Through GPS monitoring, the time spent at these locations was recorded. It is likely that time spent at a high risk location, like a bar, would increase lapse probability. Whereas, time spent at no risk location, like an AA meeting, would likely decrease it. However, the plot reveals risky location has a mostly neutral impact on lapse probability, with most places clustered around zero. The absence of a clear trend likely suggests the relationship between risky location and lapse risk varies across participants. Now that we have a sense of how these features can predict lapse risk, let’s see how they vary across individuals and time.</p>
+<p>Risky location is a gps feature that asked participants to rate frequently visited locations that put them at risk for drinking. They classified these locations as low, medium, high, or no risk. Through GPS monitoring, the time spent at these locations was recorded. It is likely that time spent at a high risk location, like a bar, would increase lapse probability. Whereas, time spent at no risk location, like an AA meeting, would likely decrease it. However, the plot reveals risky location has a mostly neutral impact on lapse probability, with most places clustered around zero. The absence of a clear trend likely suggests the relationship between risky location and lapse risk varies across participants. Now that we have a sense of how these features can predict lapse risk, let’s see how they vary across individuals and time.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -609,7 +609,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </ul></li>
 </ul>
 <aside class="notes">
-<p>SHAP values are an explanatory approach providing insight into the relative risk factors for an individual. This allows us to determine which features on which days impact lapse risk for each participant. Negative values indicate a decreased risk of lapse, or protective features. while positive values represent an increased lapse probability, or risk feature. Lets look at the most important features for a specific participant across the study.</p>
+<p>SHAPley values are an explanatory approach providing insight into the relative risk factors for an individual. They allows us to determine which features on which days impact lapse risk for each participant. Negative values indicate a decreased risk of lapse, or protective features. While positive values indicate an increased risk of lapse probability, or risk features. Lets look at the most important features for a specific participant across the study.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -626,7 +626,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
 
 <img data-src="aud_risk_loc.png" class="r-stretch"><aside class="notes">
-<p>In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. This geolocation feature provides insights into why this individual may have lapsed, as they most likely went to a bar. Moreover, future efficacy, the yellow-green line, lags behind past use. This makes sense as a person who is currently using is likely to feel less confident about future abstinence. Around day 50, a future risky situation decreases their lapse risk, acting as a protective feature at certain points. This participant likely reported low likelihood of a future risky situation. The variability of this plot highlights that at any given day, the most important feature impacting lapse risk can change.</p>
+<p>In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. Risky location provides insights into why this individual may have lapsed, as they likely visited to a bar. Moreover, future efficacy, the yellow-green line, is shown closely lagging behind past use. This makes sense as a person who is currently using is likely to feel less confident about future abstinence. Around day 50, a future risky situation decreases their lapse risk, acting as a protective feature at certain points. The variability of this plot highlights that at any given day, the most important feature impacting lapse risk can change.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -643,7 +643,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
 
 <img data-src="aud_loc_valence.png" class="r-stretch"><aside class="notes">
-<p>For this participant, past use acts as their most important protective feature, differing from the previous example. This is shown by the blue line bringing down their lapse risk, indicating someone who did not lapse on study. The green line increasing their risk of lapse is location valence. This refers to the emotions associated with a particular place. Future efficacy acts as a protective feature until around day 65, when it jumps above location valence. This indicates the participant reported a higher likelihood of drinking, relative to their previous self-reports. Their lack of confidence in future abstinence increases their probability of lapsing. There is a vast difference between this participant’s relative risk features and the previous. For this participant, past use acts as their most important protective feature, consistently lowering their risk of lapse. As opposed to the previous plot, where past use acted as the most important risk factor, increasing the probability of lapse. This highlights the need for personalized recommendations and supports as different risk features can impact lapse risk in different ways, for different people. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation.</p>
+<p>For this participant, past use acts as their most important protective feature, differing from the previous example. This is shown by the blue line bringing down their lapse risk, indicating someone who did not lapse on study. The green line increasing their risk of lapse is location valence. This refers to the emotions associated with a particular place. Future efficacy acts as a protective feature until around day 65, when it jumps above location valence. This indicates the participant reported a higher likelihood of drinking, relative to their previous self-reports. Their lack of confidence in future abstinence increases their probability of lapsing. There is a vast difference between this participant’s relative risk features and the previous. For this participant, past use acts as their most important protective feature, consistently lowering their risk of lapse. As opposed to the previous plot, where past use acted as the most important risk factor, increasing the probability of lapse. This highlights the need for personalized recommendations and supports as different risk features can impact lapse risk in different ways, at different time, for different people. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
