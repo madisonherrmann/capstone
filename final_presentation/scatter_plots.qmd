@@ -1,0 +1,360 @@
+---
+title: "Supplemental plots"
+date: last-modified
+number-sections: true
+format: 
+  html: 
+    embed-resources: true
+    toc: true 
+    toc_depth: 5
+editor_options: 
+  chunk_output_type: console
+---
+
+
+## Setup
+
+```{r}
+#| echo: false
+
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(source("https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true"))
+suppressPackageStartupMessages(library(tidyposterior))
+library(patchwork)
+library(cowplot)
+
+theme_set(theme_classic())
+
+options(knitr.kable.NA = '')
+# set path to shapsgrp_v1
+path_processed <- format_path(str_c("studydata/risk2/data_processed/ema"))
+```
+
+## Read in data
+
+```{r}
+shaps_rf_grp <-  read_csv(here::here(path_processed, "shapsgrp_v1.csv"),
+                   show_col_types = FALSE) |>
+  glimpse()
+
+auroc <- read_csv(here::here(path_processed, "auroc_dem_v1_kfold.csv"),
+                   show_col_types = FALSE) |>
+  glimpse()
+
+pp <- read_csv(here::here(path_processed, "pp_auroc_dem_v1_kfold.csv"),
+                   show_col_types = FALSE) |>
+  glimpse()
+```
+
+# Make scatter plots with rfvalues on the x-axis and SHARP values on the y-axis
+
+Filter the ema item and income
+```{r}
+shaps_rf_grp <- shaps_rf_grp |>
+  filter(grepl("ema", variable_grp) | grepl("income", variable_grp)) |>
+  glimpse()
+
+shaps_rf_grp |> distinct(variable_grp)
+
+shaps_rf_grp <- shaps_rf_grp |>
+  filter(variable_grp != "missing emas (other)" & variable_grp != "missed dose (ema)") |>
+  glimpse()
+```
+
+Get the range of rfvalues for each variable_grp
+```{r}
+ranges <- shaps_rf_grp |>
+  group_by(variable_grp) |>
+  summarise(min_rfvalue = min(rfvalue, na.rm = TRUE),
+            max_rfvalue = max(rfvalue, na.rm = TRUE),
+            range_rfvalue = max_rfvalue - min_rfvalue)
+```
+
+Define functions to draw graphs.
+```{r}
+# Single graph
+create_plot <- function(data, variable, title) {
+  # Filter for the specific variable
+  filtered_data <- data |> filter(variable_grp == variable)
+  
+  # Calculate dynamic breaks
+  min_val <- min(filtered_data$rfvalue, na.rm = TRUE)
+  max_val <- max(filtered_data$rfvalue, na.rm = TRUE)
+  mid_val <- (min_val + max_val) / 2
+  
+  # Create the plot
+  ggplot(filtered_data, aes(x = rfvalue, y = value)) +
+    scale_x_continuous(
+      breaks = c(min_val, mid_val, max_val),
+      labels = c("low", "medium", "high")
+    ) +
+    geom_point(alpha = .4, color = "#458892") +
+    labs(title = title, y = "Shapley", x = "Feature value") +
+    theme(
+      axis.text.x = element_text(size = 10, colour = "black"),
+      legend.position = "none",
+      panel.border = element_rect(colour = "black", fill = NA, linewidth = 1)
+    )
+}
+
+# Facet graph
+create_facet_plot <- function(data, variables, title, y_limits, ncol = 3) {
+  # Filter for the specified variables
+  filtered_data <- data %>%
+    filter(variable_grp %in% variables)
+  
+  # Dynamically calculate breaks for "low", "medium", "high"
+  min_val <- min(filtered_data$rfvalue, na.rm = TRUE)
+  max_val <- max(filtered_data$rfvalue, na.rm = TRUE)
+  mid_val <- (min_val + max_val) / 2
+  
+  # Create the facet plot
+  ggplot(filtered_data, aes(x = rfvalue, y = value)) +
+    geom_point(alpha = 0.4, aes(color = variable_grp)) + 
+    facet_wrap(~ variable_grp, ncol = ncol) + 
+    labs(
+      title = title,
+      x = "Feature Value",
+      y = "Shapley Value"
+    ) +
+    scale_x_continuous(
+      breaks = c(min_val, mid_val, max_val),
+      labels = c("low", "medium", "high")
+    ) +
+    ylim(y_limits) +
+    theme_minimal() +
+    theme(
+      panel.border = element_rect(colour = "black", fill = NA, linewidth = 1),
+      legend.position = "none",
+      axis.text.x = element_text(size = 10, colour = "black"),
+      panel.background = element_rect(fill = "white", color = NA), 
+      plot.background = element_rect(fill = "white", color = NA))
+}
+```
+
+
+## Draw the scatter plots
+
+For stimulant use
+```{r}
+create_plot(shaps_rf_grp, variable = "stimulant use (ema)", title = "Stimulant Use")
+```
+
+For sedative use
+```{r}
+create_plot(shaps_rf_grp, variable = "sedative use (ema)", title = "Sedative Use")
+```
+
+For cannabis use
+```{r}
+create_plot(shaps_rf_grp, variable = "cannabis use (ema)", title = "Cannabis Use")
+```
+
+For alcohol use
+```{r}
+create_plot(shaps_rf_grp, variable = "alcohol use (ema)", title = "Alcohol Use")
+```
+
+For hallucinogen use
+```{r}
+create_plot(shaps_rf_grp, variable = "hallucinogen use (ema)", title = "Hallucinogen Use")
+```
+
+For inhalant use
+```{r}
+create_plot(shaps_rf_grp, variable = "inhalant use (ema)", title = "Inhalant Use")
+```
+
+For past use (ema)
+```{r}
+p_past_use <- create_plot(shaps_rf_grp, variable = "past use (ema)", title = "Past Use")
+
+print(p_past_use)
+
+ggsave("/Users/Jun/Desktop/oud_sharp_past_use.png", p_past_use, width = 8, height = 6)
+```
+
+For angry
+```{r}
+create_plot(shaps_rf_grp, variable = "angry (ema)", title = "Angry")
+```
+
+For anxious
+```{r}
+create_plot(shaps_rf_grp, variable = "anxious (ema)", title = "Anxious")
+```
+
+For confidence
+```{r}
+p_confidence <- create_plot(shaps_rf_grp, variable = "confidence (ema)", title = "Confidence")
+
+print(p_confidence)
+
+ggsave("/Users/Jun/Desktop/oud_sharp_confidence.png", p_confidence, width = 8, height = 6)
+```
+
+For depressed
+```{r}
+create_plot(shaps_rf_grp, variable = "depressed (ema)", title = "Depressed")
+```
+
+For happy
+```{r}
+create_plot(shaps_rf_grp, variable = "happy (ema)", title = "Happy")
+```
+
+For hassle
+```{r}
+create_plot(shaps_rf_grp, variable = "hassle (ema)", title = "Hassle")
+```
+
+For motivation
+```{r}
+create_plot(shaps_rf_grp, variable = "motivation (ema)", title = "Motivation")
+```
+
+For pain
+```{r}
+create_plot(shaps_rf_grp, variable = "pain (ema)", title = "Pain")
+```
+
+For pleasant
+```{r}
+create_plot(shaps_rf_grp, variable = "pleasant (ema)", title = "Pleasant")
+```
+
+For relaxed
+```{r}
+create_plot(shaps_rf_grp, variable = "relaxed (ema)", title = "Relaxed")
+```
+
+For risk (ema)
+```{r}
+create_plot(shaps_rf_grp, variable = "risk (ema)", title = "Risk")
+```
+
+For sleep (ema)
+```{r}
+create_plot(shaps_rf_grp, variable = "sleep (ema)", title = "Sleep")
+```
+
+For urge (ema)
+```{r}
+p_urge <- create_plot(shaps_rf_grp, variable = "urge (ema)", title = "Urge")
+
+print(p_urge)
+
+ggsave("/Users/Jun/Desktop/oud_sharp_urge.png", p_urge, width = 8, height = 6)
+```
+
+For income (demographics)
+- The income (demographics) has only 2 distinct rfvalues: 0.333 and 0.
+```{r}
+create_plot(shaps_rf_grp, variable = "income (demographics)", title = "Income")
+
+shaps_rf_grp |> 
+  filter(variable_grp == "income (demographics)") |> 
+  distinct(rfvalue)
+```
+
+## Combined graphs
+
+For the substance use variables together
+```{r}
+variables <- c(
+  "stimulant use (ema)", 
+  "sedative use (ema)", 
+  "cannabis use (ema)", 
+  "alcohol use (ema)", 
+  "hallucinogen use (ema)", 
+  "inhalant use (ema)"
+)
+
+y_limits <- c(-0.5, 0.6)
+
+facet_plot_1 <- create_facet_plot(
+  data = shaps_rf_grp, 
+  variables = variables, 
+  title = "Feature Relationships Across Substance Use Variables", 
+  y_limits = y_limits,
+  ncol = 3
+)
+
+print(facet_plot_1)
+
+ggsave("/Users/Jun/Desktop/oud_sharp_substances.png", facet_plot_1, width = 8, height = 6)
+```
+
+For the mood variables
+```{r}
+variables <- c(
+    "pleasant (ema)", 
+    "angry (ema)", 
+    "anxious (ema)", 
+    "depressed (ema)", 
+    "happy (ema)", 
+    "relaxed (ema)"
+)
+
+y_limits <- c(-0.5, 0.5)
+
+facet_plot_2 <- create_facet_plot(
+  data = shaps_rf_grp, 
+  variables = variables, 
+  title = "Feature Relationships Across Emotional States", 
+  y_limits = y_limits,
+  ncol = 3
+)
+
+print(facet_plot_2)
+
+ggsave("/Users/Jun/Desktop/oud_sharp_mood.png", facet_plot_2, width = 8, height = 6)
+```
+
+
+## auROC plots for each demographic group
+
+```{r}
+p_gender <- ggplot(pp[pp$model %in% c("Man", "Woman"),], aes(x = model, y = pp_median)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = pp_lower, ymax = pp_upper), width = 0.2) +
+  labs(title = "Gender", x = "Group", y = "auROC") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA)) +
+  annotate("text", x = 1.5, y = min(pp$pp_lower) - 0.01, 
+           label = paste0("Y-axis range: ", round(min(pp$pp_lower), 3), " - ", round(max(pp$pp_upper), 3)), 
+           color = "red", size = 3, hjust = 0)
+
+ggsave("/Users/Jun/Desktop/oud_fairness_gender.png", p_gender, width = 8, height = 6)
+```
+
+```{r}
+p_race <- ggplot(pp[pp$model %in% c("non-Hispanic White", "not White"),], aes(x = model, y = pp_median)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = pp_lower, ymax = pp_upper), width = 0.2) +
+  labs(title = "Race", x = "Group", y = "auROC") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA)) +
+  annotate("text", x = 1.5, y = min(pp$pp_lower) - 0.01, 
+           label = paste0("Y-axis range: ", round(min(pp$pp_lower), 3), " - ", round(max(pp$pp_upper), 3)), 
+           color = "red", size = 3, hjust = 0)
+
+ggsave("/Users/Jun/Desktop/oud_fairness_race.png", p_race, width = 8, height = 6)
+```
+
+```{r}
+p_income <- ggplot(pp[pp$model %in% c("above $25,000", "below $25,000"),], aes(x = model, y = pp_median)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = pp_lower, ymax = pp_upper), width = 0.2) +
+  labs(title = "Income", x = "Group", y = "auROC") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA)) +
+  annotate("text", x = 1.5, y = min(pp$pp_lower) - 0.01, 
+           label = paste0("Y-axis range: ", round(min(pp$pp_lower), 3), " - ", round(max(pp$pp_upper), 3)), 
+           color = "red", size = 3, hjust = 0)
+
+ggsave("/Users/Jun/Desktop/oud_fairness_income.png", p_income, width = 8, height = 6)
+```
