@@ -24,6 +24,7 @@ include-after: |
     }
     }
     });
+  <script type="text/javascript">
     .reveal .slides > section:first-of-type h1 {
       color: blue;         /* Title color */
       font-size: 4rem;     /* Larger font size */
@@ -41,7 +42,6 @@ include-after: |
     .reveal .slides > section:first-of-type {
       }
       padding-top: 2rem;   /* Adds space at the top */
-  <script type="text/javascript">
     Reveal.on('ready', event => {
       if (event.indexh === 0) {
         document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
@@ -66,7 +66,6 @@ options(dplyr.print_max=Inf)
 ```
 
 
-
 ## <span style="color: green; text-decoration: underline;">Scope and Background of Project</span>
 
 - Alcohol Use Disorder (AUD) and Opioid Use Disorder (OUD) are chronic.
@@ -79,6 +78,8 @@ options(dplyr.print_max=Inf)
   - Individuals' needs evolve, making long-term recovery management challenging.
   
 :::{.notes}
+Welcome to our presentation on 'Machine Learning in Digital Mental Health Interventions.' Today, Madison Herrmann and I, Tianrun Zhu, will discuss how advanced computational methods are applied to personalize and enhance mental health care using digital platforms.
+
 Alcohol and opioid use disorders are chronic conditions that require lifelong management. Recovery is often a long, dynamic, and complex process, with individuals facing numerous challenges:
 
 Effective initial treatment is not enough—sustained support is critical but often lacking.
@@ -93,6 +94,8 @@ There is an unmet need for accessible and affordable solutions to address these 
 ## <span style="color: green; text-decoration: underline;">Scope and Background of Project</span>
 
 ![](nih.png){fig-width=10}
+\
+
 - A part of a larger project under the Addiction Research Center.
 
 - Overarching Goals:
@@ -191,7 +194,7 @@ Now lets characterize the OUD sample. Data was collected on 336 individuals. The
 
 ## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
 
-![](oud_demo_combined.1.jpeg)
+![](oud_demo_c.png){fig-width=10}
 
 :::{.notes}
 We had reasonable diversity across age, income, gender, race and education.
@@ -249,7 +252,7 @@ The models were trained using the XGBoost algorithm with a five by ten-fold cros
 :::
 
 ::: {.column width="50%"}
-![](oud_auroc_best_folds.png) 
+![](oud_auroc_folds.png)
 :::
 
 :::
@@ -261,7 +264,7 @@ Given the imbalance in our labels, with a large majority of non-lapse cases and 
 ## <span style="color: green; text-decoration: underline;">Model Performance</span>
 
 
-![](oud_fairness_c.png) 
+![](oud_fairness_c.png){fig-width=10}
 
 :::{.notes}
 This model achieved a high fairness across different demographic groups. As is shown in the graphs, the differences in median auROC for different gender, race and income groups are very small.
@@ -297,7 +300,7 @@ third, participants' urge to use the substance.
 
 
 
-![](oud_top3_c.png) 
+![](oud_top_features.png){fig-width=10}
 
 :::{.notes} 
 Here are the graphs showing the relationship between feature value and Shapley value for the top 3 features. 
@@ -315,30 +318,23 @@ For Urge, we observe an opposite non-linear trend. At lower values, Urge has a n
 
 ## <span style="color: green; text-decoration: underline;">Other Features</span>
 
-::: {.columns}
-
-::: {.column width="50%"}
-![](oud_sharp_substances.png) 
-:::
-
-::: {.column width="50%"}
-![](oud_sharp_mood.png) 
-:::
-
-:::
-
-
+![](oud_substances.png){fig-width=10}
 
 :::{.notes} 
-
-For substance use variables, higher score instimulant use positively influences predictions, while higher score in inhalant use has a more negative effects. Other substances, like alcohol and cannabis, have moderate but consistent contributions.
-
-For emotional states, higher score in anxiety has a strong positive influence on predictions. Other states, such as anger, happiness, and pleasantness, contribute more neutrally, with minimal impact on model outcomes.
-
 Let's look at some other features.
 
 For substance use variables, lower score in stimulant use since last assessment positively contributes predictions, as the score gets higher, the contribution diminishes. Similar trends can be observed for inhalant use and sedative use. Other substances, like alcohol and cannabis, have neutral but consistent contributions.
 :::
+
+
+## <span style="color: green; text-decoration: underline;">Other Features</span>
+
+![](oud_mood.png){fig-width=10}
+
+:::{.notes} 
+For emotional states, higher score in anxiety has a strong positive influence on predictions. Other states, such as anger, happiness, and pleasantness, contribute more neutrally, with minimal impact on model outcomes.
+:::
+
 
 
 
