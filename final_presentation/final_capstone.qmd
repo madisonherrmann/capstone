@@ -329,15 +329,14 @@ For Urge, we observe an opposite non-linear trend. At lower values, Urge has a n
 
 
 :::{.notes} 
-<<<<<<< HEAD
+
 For substance use variables, higher score instimulant use positively influences predictions, while higher score in inhalant use has a more negative effects. Other substances, like alcohol and cannabis, have moderate but consistent contributions.
 
 For emotional states, higher score in anxiety has a strong positive influence on predictions. Other states, such as anger, happiness, and pleasantness, contribute more neutrally, with minimal impact on model outcomes.
-=======
+
 Let's look at some other features.
 
 For substance use variables, lower score in stimulant use since last assessment positively contributes predictions, as the score gets higher, the contribution diminishes. Similar trends can be observed for inhalant use and sedative use. Other substances, like alcohol and cannabis, have neutral but consistent contributions.
->>>>>>> b15fa8bb1faefe3f1ab1b1eeb237902287a4095e
 :::
 
 
@@ -365,7 +364,6 @@ Now that we have a model that can successfully predict lapse probability, How mi
 ## <span style="color: green; text-decoration: underline;">Geolocation</span>
 
 ![](gps3.jpg)
-
 
 :::{.notes}
  Here is an example of some the survey questions asked regarding geolocation. Participants reported frequently visited locations and were asked various questions regarding previous drinking locations, alcohol availability, valence, and more. Their time spent at these locations was documented using gps monitoring via smartphone. We can begin to understand the need for continuous monitoring in recovery by looking at data from our alcohol use disorder study. 
@@ -408,7 +406,7 @@ We had reasonable diversity across many characteristics including age, sex at bi
 
 ## <span style="color: green; text-decoration: underline;">Area under ROC Curve (auROC)</span>
 
-![](aud_auroc_v4.png) 
+![](aud_auroc.png) 
 
 :::{.notes}
 I retrained the model using 1x daily EMA with geolocation and day level windows. High throughput computing was utilized along with the XGBOOST algorithm and 5 by 10 kfold cross validation. The best configuration resulted in a median auroc of .85. The drop in performance is likely due to using 24-hr periods instead of hour-by-hour windows to predict lapse probability. Despite the drop in performance, additional geolocation improved the models contextual awareness, a key step that brings us closer to deploying a real-time risk monitoring and support system. Lets now look at what features were the most important for the model's predictions.
