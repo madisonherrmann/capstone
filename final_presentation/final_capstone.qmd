@@ -24,7 +24,7 @@ include-after: |
     }
     }
     });
-  <script type="text/javascript">
+    Reveal.on('ready', event => {
     .reveal .slides > section:first-of-type h1 {
       color: blue;         /* Title color */
       font-size: 4rem;     /* Larger font size */
@@ -42,7 +42,6 @@ include-after: |
     .reveal .slides > section:first-of-type {
       }
       padding-top: 2rem;   /* Adds space at the top */
-    Reveal.on('ready', event => {
       if (event.indexh === 0) {
         document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
         document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
@@ -197,7 +196,7 @@ Now lets characterize the OUD sample. Data was collected on 336 individuals. The
 ![](oud_demo_c.png){fig-width=10}
 
 :::{.notes}
-We had reasonable diversity across age, income, gender, race and education.
+Compared with previous studies, we had more reasonable diversity across age, income, gender and education. However, given the recruiting methods, there is limited racial and ethnic diversity across participants.
 ::: 
 
 
@@ -267,10 +266,26 @@ Given the imbalance in our labels, with a large majority of non-lapse cases and 
 ![](oud_fairness_c.png){fig-width=10}
 
 :::{.notes}
-This model achieved a high fairness across different demographic groups. As is shown in the graphs, the differences in median auROC for different gender, race and income groups are very small.
+This model achieved a high fairness across different demographic groups. As is shown in the graphs, the differences in median auROC for different gender, race and income groups are very small, and for all groups, the auROC scores are high indicating good performance. 
 :::
 
-## <span style="color: green; text-decoration: underline;">Important Features</span>
+## <span style="color: green; text-decoration: underline;">Feature Importance</span>
+
+- [Shapley Values]{style="color: blue;"}
+
+  -   Negative values decrease lapse probability.
+      -  Can act as **protective features**
+  
+  \
+  
+  -   Positive values increase lapse risk probability.
+      - Can act as **risk features**
+
+:::{.notes}
+SHAPley values are an explanatory approach providing insight into the relative risk factors for an individual. They allows us to determine which features on which days impact lapse risk for each participant. Negative values indicate a decreased risk of lapse, and can act as protective features. While positive values indicate an increased risk of lapse probability, and can act as risk features. Lets look at the most important features for a specific participant across the study.
+:::
+
+## <span style="color: green; text-decoration: underline;">Feature Importance</span>
 
 ::: {.columns}
 
@@ -289,6 +304,7 @@ This model achieved a high fairness across different demographic groups. As is s
 
 :::{.notes} 
 For any given instance, Shapley values show how much each feature pushes the prediction either higher or lower compared to the baseline. On a global level, we can aggregate Shapley values across the dataset to measure the overall importance of each feature. 
+This graph shows the rank order of important features in prediction. On x-axis, we have the mean shapley value for the features across the dataset.
 For this model, the top 3 features are:
 first, past use, which indicates that participants reported using opioids since their last assessment;
 second, participants' confidence in future recovery;
@@ -305,7 +321,9 @@ third, participants' urge to use the substance.
 :::{.notes} 
 Here are the graphs showing the relationship between feature value and Shapley value for the top 3 features. 
 
-Higher "Past Use" values positively contribute to the model's predictions.
+The graphs show the relationship between raw feature value and their shapley value, with raw feature value on x-axis and shapley value on y-axis. The raw featue values are grouped into low, medium and high.
+
+There is a mostly linear relationship with past use and increased lapse risk. Higher "Past Use" values positively contribute to the model's predictions.
 
 For Confidence, we observe a non-linear contribution to the model's predictions. At lower values, Confidence has a positive impact, pushing the prediction higher. As the values of Confidence increase, its impact diminishes, becoming neutral at moderate values. However, when Confidence reaches higher values, it starts to negatively affect the prediction. 
 
