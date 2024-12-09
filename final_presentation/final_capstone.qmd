@@ -193,7 +193,7 @@ Now lets characterize the OUD sample. Data was collected on 336 individuals. The
 
 ## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
 
-![](oud_demo_c.png){fig-width=10}
+![](ouc_demo_c.png){fig-width=10}
 
 :::{.notes}
 Compared with previous studies, we had more reasonable diversity across age, income, gender and education. However, given the recruiting methods, there is limited racial and ethnic diversity across participants.
