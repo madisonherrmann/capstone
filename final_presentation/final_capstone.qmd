@@ -451,12 +451,12 @@ Risky location is a gps feature that asked participants to rate frequently visit
 - [Shapley Values]{style="color: blue;"}
 
   -   Negative values decrease lapse probability.
-    -  Can act as **protective features**
+      -  Can act as **protective features**
   
   \
   
   -   Positive values increase lapse risk probability.
-    - Can act as **risk features**
+      - Can act as **risk features**
 
 :::{.notes}
 SHAPley values are an explanatory approach providing insight into the relative risk factors for an individual. They allows us to determine which features on which days impact lapse risk for each participant. Negative values indicate a decreased risk of lapse, and can act as protective features. While positive values indicate an increased risk of lapse probability, and can act as risk features. Lets look at the most important features for a specific participant across the study.
