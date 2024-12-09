@@ -421,7 +421,7 @@ I retrained the model using 1x daily EMA with geolocation and day level windows.
 
 
 :::{.notes} 
-Global importance reveals which risk features were the most important for predicting lapse probability across participants. Past use and future efficacy, both from the EMAs,  were by far the most important predictors of lapse. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. Lets look at how what these features mean and how they can predict lapse probability. 
+Past use and future efficacy, both from the EMAs,  were by far the most important predictors of lapse probability across participants. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. Lets look at how what these features mean and how they can predict lapse probability. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
@@ -453,15 +453,15 @@ Risky location is a gps feature that asked participants to rate frequently visit
 - [Shapley Values]{style="color: blue;"}
 
   -   Negative values decrease lapse probability.
-    - Act as **protective features**
+    -  Can act as **protective features**
   
   \
   
   -   Positive values increase lapse risk probability.
-    - Act as **risk features**
+    - Can act as **risk features**
 
 :::{.notes}
-SHAPley values are an explanatory approach providing insight into the relative risk factors for an individual. They allows us to determine which features on which days impact lapse risk for each participant. Negative values indicate a decreased risk of lapse, or protective features. While positive values indicate an increased risk of lapse probability, or risk features. Lets look at the most important features for a specific participant across the study.
+SHAPley values are an explanatory approach providing insight into the relative risk factors for an individual. They allows us to determine which features on which days impact lapse risk for each participant. Negative values indicate a decreased risk of lapse, and can act as protective features. While positive values indicate an increased risk of lapse probability, and can act as risk features. Lets look at the most important features for a specific participant across the study.
 :::
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
@@ -479,7 +479,7 @@ In the beginning, This participant had little change in their risk features, wit
 ![](aud_loc_valence.png)
 
 :::{.notes}
-For this participant, past use acts as their most important protective feature, differing from the previous example. This is shown by the blue line bringing down their lapse risk, indicating someone who did not lapse on study. The green line increasing their risk of lapse is location valence. This refers to the emotions associated with a particular place. Future efficacy acts as a protective feature  until around day 65, when it jumps above location valence. This indicates the participant reported a higher likelihood of drinking, relative to their previous self-reports. Their lack of confidence in future abstinence increases their probability of lapsing. There is a vast difference between this participant's relative risk features and the previous. For this participant, past use acts as their most important protective feature, consistently lowering their risk of lapse. As opposed to the previous plot, where past use acted as the most important risk factor, increasing the probability of lapse. This highlights the need for personalized recommendations and supports as different risk features can impact lapse risk in different ways, at different time, for different people. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
+For this participant, past use acts as their most important protective feature across time, differing from the previous example. This is shown by the blue line bringing down their lapse risk, indicating someone who did not lapse on study. The green line increasing their risk of lapse is location valence, or the emotions associated with a particular place. It is likely that time spent at an unpleasant place increased this participant's lapse risk. Around day 75, future efficacy jumped above location valence, likely due to the participant reporting a higher likelihood of drinking, relative to their previous self-reports. Their lack of confidence in future abstinence increases their probability of lapsing. There is a vast difference between this participant's relative risk features and the previous. For this participant, past use acts as their most important protective feature, consistently lowering their risk of lapse. As opposed to the previous plot, where past use acted as the most important risk factor, increasing the probability of lapse. This highlights the need for personalized recommendations and supports as different risk features can impact lapse risk in different ways, at different times, for different people. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Future Directions</span>
@@ -497,7 +497,7 @@ For this participant, past use acts as their most important protective feature, 
 
 
 :::{.notes}
-Now that we know the most important features impacting lapse probability, we can begin to develop support recommendations for model implementation. Once the system is implemented, we will provide users with tailored recommendations based on their current risk features. Our team is actively exploring the optimal methods for delivering these recommendations, including the language, tone, and format, to minimize participant burden. We are working to develop reliable approaches that measure the system's trust, engagement, and usability. In doing so, we hope to see that engaging with support messages acts as a protective factor in recovery. 
+Now that we know the most important features impacting lapse probability, we can begin to develop support recommendations for model implementation. Once the system is implemented, it will provide users with tailored recommendations based on their current risk features. Our team is actively exploring the optimal methods for delivering these recommendations, including the language, tone, and format, to minimize participant burden. We are working to develop reliable approaches that measure the system's trust, engagement, and usability. In doing so, we hope to see that engaging with support messages acts as a protective factor for continued recovery. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Credits</span>
