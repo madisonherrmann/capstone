@@ -5,6 +5,7 @@ institute: "University of Wisconsin-Madison"
 date: December 13, 2024
 format: 
   revealjs:
+    multiplex: true
     chalkboard: true
     scrollable: true
     css: slides.css
