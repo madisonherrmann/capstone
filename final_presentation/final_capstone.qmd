@@ -289,9 +289,8 @@ This model achieved a high fairness across different demographic groups. As is s
 :::
 
 :::{.notes} 
-A higher Shapley value indicates higher feature importane in prediction.
-Global importance reveals which risk features were the most important across participants. 
-The top 3 features are:
+For any given instance, Shapley values show how much each feature pushes the prediction either higher or lower compared to the baseline. On a global level, we can aggregate Shapley values across the dataset to measure the overall importance of each feature. 
+For this model, the top 3 features are:
 first, past use, which indicates that participants reported using opioids since their last assessment;
 second, participants' confidence in future recovery;
 third, participants' urge to use the substance.
@@ -305,7 +304,13 @@ third, participants' urge to use the substance.
 ![](oud_top_features.png){fig-width=10}
 
 :::{.notes} 
-Here are the graphs showing the relationship between feature value and feature importance for the top 3 features. Higher "Past Use" values significantly increase the prediction. Higher "Confidence" values significantly decrease the prediction. Higher "Urge" feature values positively contribute to the model's predictions. 
+Here are the graphs showing the relationship between feature value and Shapley value for the top 3 features. 
+
+Higher "Past Use" values positively contribute to the model's predictions.
+
+For Confidence, we observe a non-linear contribution to the model's predictions. At lower values, Confidence has a positive impact, pushing the prediction higher. As the values of Confidence increase, its impact diminishes, becoming neutral at moderate values. However, when Confidence reaches higher values, it starts to negatively affect the prediction. 
+
+For Urge, we observe an opposite non-linear trend. At lower values, Urge has a negative impact, pushing the prediction lower. As the values of Urge increase, its impact diminishes, becoming neutral at moderate values. However, when Urge reaches higher values, it starts to positively affect the prediction. 
 :::
 
 
@@ -319,7 +324,7 @@ Here are the graphs showing the relationship between feature value and feature i
 :::{.notes} 
 Let's look at some other features.
 
-For substance use variables, higher score instimulant use since last assessment positively influences predictions, while higher score in inhalant use has a more negative effects. Other substances, like alcohol and cannabis, have moderate but consistent contributions.
+For substance use variables, lower score in stimulant use since last assessment positively contributes predictions, as the score gets higher, the contribution diminishes. Similar trends can be observed for inhalant use and sedative use. Other substances, like alcohol and cannabis, have neutral but consistent contributions.
 :::
 
 
