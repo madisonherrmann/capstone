@@ -361,6 +361,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </ul></li>
 </ul>
 <aside class="notes">
+<p>Welcome to our presentation on ‘Machine Learning in Digital Mental Health Interventions.’ Today, Madison Herrmann and I, Tianrun Zhu, will discuss how advanced computational methods are applied to personalize and enhance mental health care using digital platforms.</p>
 <p>Alcohol and opioid use disorders are chronic conditions that require lifelong management. Recovery is often a long, dynamic, and complex process, with individuals facing numerous challenges:</p>
 <p>Effective initial treatment is not enough—sustained support is critical but often lacking.</p>
 <p>Recovery needs continuous monitoring because what works at one moment might not work at another.</p>
@@ -380,8 +381,10 @@ Madison Herrmann &amp; Tianrun Zhu
 </section>
 <section id="scope-and-background-of-project-1" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Scope and Background of Project</span></h2>
-<p><img data-src="nih.png" data-fig-width="10"> - A part of a larger project under the Addiction Research Center.</p>
+<p><img data-src="nih.png" data-fig-width="10"><br>
+</p>
 <ul>
+<li><p>A part of a larger project under the Addiction Research Center.</p></li>
 <li><p>Overarching Goals:</p>
 <ul>
 <li>Mitigate barriers in accessibility and affordability</li>
@@ -530,7 +533,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="oud-characteristics-1" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">OUD Characteristics</span></h2>
 
-<img data-src="oud_demo_combined.1.jpeg" class="r-stretch"><aside class="notes">
+<img data-src="oud_demo_c.png" class="r-stretch quarto-figure-center"><aside class="notes">
 <p>We had reasonable diversity across age, income, gender, race and education.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -614,7 +617,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <div class="column" style="width:50%;">
 <p><img data-src="oud_roc_curve.jpg"></p>
 </div><div class="column" style="width:50%;">
-<p><img data-src="oud_auroc_best_folds.png"></p>
+<p><img data-src="oud_auroc_folds.png"></p>
 </div>
 </div>
 <aside class="notes">
@@ -634,7 +637,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="model-performance-1" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Model Performance</span></h2>
 
-<img data-src="oud_fairness_c.png" class="r-stretch"><aside class="notes">
+<img data-src="oud_fairness_c.png" class="r-stretch quarto-figure-center"><aside class="notes">
 <p>This model achieved a high fairness across different demographic groups. As is shown in the graphs, the differences in median auROC for different gender, race and income groups are very small.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -681,7 +684,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="important-features-1" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Important Features</span></h2>
 
-<img data-src="oud_top3_c.png" class="r-stretch"><aside class="notes">
+<img data-src="oud_top_features.png" class="r-stretch quarto-figure-center"><aside class="notes">
 <p>Here are the graphs showing the relationship between feature value and Shapley value for the top 3 features.</p>
 <p>Higher “Past Use” values positively contribute to the model’s predictions.</p>
 <p>For Confidence, we observe a non-linear contribution to the model’s predictions. At lower values, Confidence has a positive impact, pushing the prediction higher. As the values of Confidence increase, its impact diminishes, becoming neutral at moderate values. However, when Confidence reaches higher values, it starts to negatively affect the prediction.</p>
@@ -700,18 +703,27 @@ Madison Herrmann &amp; Tianrun Zhu
 </section>
 <section id="other-features" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Other Features</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="oud_sharp_substances.png"></p>
-</div><div class="column" style="width:50%;">
-<p><img data-src="oud_sharp_mood.png"></p>
-</div>
-</div>
-<aside class="notes">
-<p>For substance use variables, higher score instimulant use positively influences predictions, while higher score in inhalant use has a more negative effects. Other substances, like alcohol and cannabis, have moderate but consistent contributions.</p>
-<p>For emotional states, higher score in anxiety has a strong positive influence on predictions. Other states, such as anger, happiness, and pleasantness, contribute more neutrally, with minimal impact on model outcomes.</p>
+
+<img data-src="oud_substances.png" class="r-stretch quarto-figure-center"><aside class="notes">
 <p>Let’s look at some other features.</p>
 <p>For substance use variables, lower score in stimulant use since last assessment positively contributes predictions, as the score gets higher, the contribution diminishes. Similar trends can be observed for inhalant use and sedative use. Other substances, like alcohol and cannabis, have neutral but consistent contributions.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="other-features-1" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">Other Features</span></h2>
+
+<img data-src="oud_mood.png" class="r-stretch quarto-figure-center"><aside class="notes">
+<p>For emotional states, higher score in anxiety has a strong positive influence on predictions. Other states, such as anger, happiness, and pleasantness, contribute more neutrally, with minimal impact on model outcomes.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1422,6 +1434,7 @@ Madison Herrmann &amp; Tianrun Zhu
       }
       }
       });
+    <script type="text/javascript">
       .reveal .slides > section:first-of-type h1 {
         color: blue;         /* Title color */
         font-size: 4rem;     /* Larger font size */
@@ -1439,7 +1452,6 @@ Madison Herrmann &amp; Tianrun Zhu
       .reveal .slides > section:first-of-type {
         }
         padding-top: 2rem;   /* Adds space at the top */
-    <script type="text/javascript">
       Reveal.on('ready', event => {
         if (event.indexh === 0) {
           document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
