@@ -269,21 +269,6 @@ Given the imbalance in our labels, with a large majority of non-lapse cases and 
 This model achieved a high fairness across different demographic groups. As is shown in the graphs, the differences in median auROC for different gender, race and income groups are very small, and for all groups, the auROC scores are high indicating good performance. 
 :::
 
-## <span style="color: green; text-decoration: underline;">Feature Importance</span>
-
-- [Shapley Values]{style="color: blue;"}
-
-  -   Negative values decrease lapse probability.
-      -  Can act as **protective features**
-  
-  \
-  
-  -   Positive values increase lapse risk probability.
-      - Can act as **risk features**
-
-:::{.notes}
-SHAPley values are an explanatory approach providing insight into the relative risk factors for an individual. They allows us to determine which features on which days impact lapse risk for each participant. Negative values indicate a decreased risk of lapse, and can act as protective features. While positive values indicate an increased risk of lapse probability, and can act as risk features. Lets look at the most important features for a specific participant across the study.
-:::
 
 ## <span style="color: green; text-decoration: underline;">Feature Importance</span>
 
