@@ -477,8 +477,13 @@ SHAPley values are an explanatory approach providing insight into the relative r
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
-
+::: {.r-stack}
 ![](aud_risk_loc.png)
+
+![](aud_risk_loc2.png){.fragment}
+
+![](aud_risk_loc3.png){.fragment}
+:::
 
 :::{.notes}
 C key. In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. Risky location provides insights into why this individual may have lapsed, as they likely visited to a bar. Moreover, future efficacy, the yellow-green line, is shown closely lagging behind past use. This makes sense as a person who is currently using is likely to feel less confident about future abstinence. Around day 50, the future risky situation feature decreases their lapse risk, acting as a protective feature at certain points. This participant likely reported a low likelihood of risky situations in the next week. The variability of this plot highlights that at any given day, the most important feature impacting lapse risk can change.
@@ -486,8 +491,11 @@ C key. In the beginning, This participant had little change in their risk featur
 
 ## <span style="color: green; text-decoration: underline;">Local Importance</span>
 
-
+::: {.r-stack}
 ![](aud_loc_valence.png)
+
+![](aud_loc_valence2.png){.fragment}
+:::
 
 :::{.notes}
 For this participant, past use acts as their most important protective feature across time, differing from the previous example. This is shown by the blue line bringing down their lapse risk, indicating someone who did not lapse on study. The green line increasing their risk of lapse is location valence, or the emotions associated with a particular place. It is likely that time spent at an unpleasant place increased this participant's lapse risk. Around day 75, future efficacy jumped above location valence, likely due to the participant reporting a higher likelihood of drinking, relative to their previous self-reports. Their lack of confidence in future abstinence increases their probability of lapsing. There is a vast difference between this participant's relative risk features and the previous. For this participant, past use acts as their most important protective feature, consistently lowering their risk of lapse. As opposed to the previous plot, where past use acted as the most important risk factor, increasing the risk of lapse. This highlights the need for personalized recommendations and supports as different risk features can impact lapse risk in different ways, at different times, for different people. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation. 
