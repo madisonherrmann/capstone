@@ -533,8 +533,8 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="oud-characteristics-1" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">OUD Characteristics</span></h2>
 
-<img data-src="oud_demo_c.png" class="r-stretch quarto-figure-center"><aside class="notes">
-<p>We had reasonable diversity across age, income, gender, race and education.</p>
+<img data-src="ouc_demo_c.png" class="r-stretch quarto-figure-center"><aside class="notes">
+<p>Compared with previous studies, we had more reasonable diversity across age, income, gender and education. However, given the recruiting methods, there is limited racial and ethnic diversity across participants.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -638,7 +638,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Model Performance</span></h2>
 
 <img data-src="oud_fairness_c.png" class="r-stretch quarto-figure-center"><aside class="notes">
-<p>This model achieved a high fairness across different demographic groups. As is shown in the graphs, the differences in median auROC for different gender, race and income groups are very small.</p>
+<p>This model achieved a high fairness across different demographic groups. As is shown in the graphs, the differences in median auROC for different gender, race and income groups are very small, and for all groups, the auROC scores are high indicating good performance.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -651,8 +651,8 @@ Madison Herrmann &amp; Tianrun Zhu
           display:block!important;
       }</style></aside>
 </section>
-<section id="important-features" class="slide level2">
-<h2><span style="color: green; text-decoration: underline;">Important Features</span></h2>
+<section id="feature-importance" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">Feature Importance</span></h2>
 <div class="columns">
 <div class="column" style="width:25%;">
 <ul>
@@ -668,7 +668,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </div>
 </div>
 <aside class="notes">
-<p>For any given instance, Shapley values show how much each feature pushes the prediction either higher or lower compared to the baseline. On a global level, we can aggregate Shapley values across the dataset to measure the overall importance of each feature. For this model, the top 3 features are: first, past use, which indicates that participants reported using opioids since their last assessment; second, participants’ confidence in future recovery; third, participants’ urge to use the substance.</p>
+<p>For any given instance, Shapley values show how much each feature pushes the prediction either higher or lower compared to the baseline. On a global level, we can aggregate Shapley values across the dataset to measure the overall importance of each feature. This graph shows the rank order of important features in prediction. On x-axis, we have the mean shapley value for the features across the dataset. For this model, the top 3 features are: first, past use, which indicates that participants reported using opioids since their last assessment; second, participants’ confidence in future recovery; third, participants’ urge to use the substance.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -681,12 +681,13 @@ Madison Herrmann &amp; Tianrun Zhu
           display:block!important;
       }</style></aside>
 </section>
-<section id="important-features-1" class="slide level2">
+<section id="important-features" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Important Features</span></h2>
 
 <img data-src="oud_top_features.png" class="r-stretch quarto-figure-center"><aside class="notes">
 <p>Here are the graphs showing the relationship between feature value and Shapley value for the top 3 features.</p>
-<p>Higher “Past Use” values positively contribute to the model’s predictions.</p>
+<p>The graphs show the relationship between raw feature value and their shapley value, with raw feature value on x-axis and shapley value on y-axis. The raw featue values are grouped into low, medium and high.</p>
+<p>There is a mostly linear relationship with past use and increased lapse risk. Higher “Past Use” values positively contribute to the model’s predictions.</p>
 <p>For Confidence, we observe a non-linear contribution to the model’s predictions. At lower values, Confidence has a positive impact, pushing the prediction higher. As the values of Confidence increase, its impact diminishes, becoming neutral at moderate values. However, when Confidence reaches higher values, it starts to negatively affect the prediction.</p>
 <p>For Urge, we observe an opposite non-linear trend. At lower values, Urge has a negative impact, pushing the prediction lower. As the values of Urge increase, its impact diminishes, becoming neutral at moderate values. However, when Urge reaches higher values, it starts to positively affect the prediction.</p>
 <style type="text/css">
@@ -744,14 +745,16 @@ Madison Herrmann &amp; Tianrun Zhu
 <p><br>
 </p>
 <ul>
-<li>Retrain model with <span style="color: blue;">geolocation</span> and <span style="color: blue;">EMA</span>
+<li><strong>NIH-funded Grant:</strong> -Optimizing Message Components of a <span style="color:    blue;">Recovery Monitoring Support System</span>for Engagement and Clinical Outcomes for Alcohol Use Disorder
 <ul>
-<li>Passive sensing</li>
-<li>Continuous monitoring</li>
+<li>Interventions derived from Relapse-Prevention Model (Marlatt &amp; Gordon, 1985)
+<ul>
+<li>Risk-relevant recommendations</li>
+</ul></li>
 </ul></li>
 </ul>
 <aside class="notes">
-<p>Now that we have a model that can successfully predict lapse probability, How might we implement it to deploy the right recommendation, to the right person, at the right time? Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. Geolocation is a form of passive sensing that can provide context into the places and situations impacting lapse risk.</p>
+<p>Now that we have a model that can successfully predict lapse probability, How might we implement it to deploy the right recommendation, to the right person, at the right time? Our next grant aims to explore how to use these models for clinical benefit in an effort to build a recovery monitoring support system. This system will deliver tailor made recommendations in real-time based on what unique features are impacting risk for that individual at that particular moment. Output from machine-learning models can be anchored within the Relapse Prevention model to identify specific intervention and supports that are risk-relevant for each patient - much like a clinician would do if they were available in the moment. For example, during sensed periods of high stress, guided mindfulness and body scans could be recommended. If increased time at risky locations is driving lapse risk, the recovery monitoring support system could provide information on local AA or other support meetings.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -765,6 +768,29 @@ Madison Herrmann &amp; Tianrun Zhu
       }</style></aside>
 </section>
 <section id="geolocation" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">Geolocation</span></h2>
+<ul>
+<li>Retrain model with <span style="color: blue;">geolocation</span> and <span style="color: blue;">EMA</span>
+<ul>
+<li>Passive sensing</li>
+<li>Continuous monitoring</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>The risk factors impacting recovery require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time. Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. Geolocation is a form of passive sensing that can provide context into the places and situations impacting lapse risk.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="geolocation-1" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Geolocation</span></h2>
 
 <img data-src="gps3.jpg" class="r-stretch"><aside class="notes">
@@ -905,7 +931,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <h2><span style="color: green; text-decoration: underline;">Important Risk Features</span></h2>
 
 <img data-src="aud_risky_location.png" class="r-stretch"><aside class="notes">
-<p>Risky location is a gps feature that asked participants to rate frequently visited locations that put them at risk for drinking. They classified these locations as low, medium, high, or no risk. Through GPS monitoring, the time spent at these locations was recorded. It is likely that time spent at a high risk location, such as a bar, would increase lapse probability. Whereas, time spent at no risk location, such as an AA meeting, would likely decrease it. However, the plot reveals risky location has a mostly neutral impact on lapse probability, with most places clustered around zero. The absence of a clear trend likely suggests the relationship between risky location and lapse risk varies across participants. Now that we have a sense of how these features can predict lapse risk, let’s see how they vary across individuals and time.</p>
+<p>Risky location is a gps feature that asked participants to rate frequently visited locations that put them at risk for drinking. They self-reported these locations as low, medium, high, or no risk. Through GPS monitoring, the time spent at these locations was recorded. It is likely that time spent at a high risk location, such as a bar, would increase lapse probability. Whereas, time spent at no risk location, such as an AA meeting, would likely decrease it. However, the plot reveals risky location has a mostly neutral impact on lapse probability, with most places clustered around zero. The absence of a clear trend likely suggests the relationship between risky location and lapse risk varies across participants. Now that we have a sense of how these features can predict lapse risk, let’s see how they vary across individuals and time.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -953,8 +979,12 @@ Madison Herrmann &amp; Tianrun Zhu
 </section>
 <section id="local-importance-1" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
-
-<img data-src="aud_risk_loc.png" class="r-stretch"><aside class="notes">
+<div class="r-stack">
+<p><img data-src="aud_risk_loc.png"></p>
+<p><img data-src="aud_risk_loc2.png" class="fragment"></p>
+<p><img data-src="aud_risk_loc3.png" class="fragment"></p>
+</div>
+<aside class="notes">
 <p>C key. In the beginning, This participant had little change in their risk features, with past use and future efficacy bringing down their probability of lapse. The other features are staying constant at zero, indicating little to no influence on lapse risk. However, around day 35, past use, the blue line, drives up their lapse risk considerably. This increase coincides with the slight increase in time spent at a risky location, as shown with the purple line. Risky location provides insights into why this individual may have lapsed, as they likely visited to a bar. Moreover, future efficacy, the yellow-green line, is shown closely lagging behind past use. This makes sense as a person who is currently using is likely to feel less confident about future abstinence. Around day 50, the future risky situation feature decreases their lapse risk, acting as a protective feature at certain points. This participant likely reported a low likelihood of risky situations in the next week. The variability of this plot highlights that at any given day, the most important feature impacting lapse risk can change.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -970,8 +1000,11 @@ Madison Herrmann &amp; Tianrun Zhu
 </section>
 <section id="local-importance-2" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Local Importance</span></h2>
-
-<img data-src="aud_loc_valence.png" class="r-stretch"><aside class="notes">
+<div class="r-stack">
+<p><img data-src="aud_loc_valence.png"></p>
+<p><img data-src="aud_loc_valence2.png" class="fragment"></p>
+</div>
+<aside class="notes">
 <p>For this participant, past use acts as their most important protective feature across time, differing from the previous example. This is shown by the blue line bringing down their lapse risk, indicating someone who did not lapse on study. The green line increasing their risk of lapse is location valence, or the emotions associated with a particular place. It is likely that time spent at an unpleasant place increased this participant’s lapse risk. Around day 75, future efficacy jumped above location valence, likely due to the participant reporting a higher likelihood of drinking, relative to their previous self-reports. Their lack of confidence in future abstinence increases their probability of lapsing. There is a vast difference between this participant’s relative risk features and the previous. For this participant, past use acts as their most important protective feature, consistently lowering their risk of lapse. As opposed to the previous plot, where past use acted as the most important risk factor, increasing the risk of lapse. This highlights the need for personalized recommendations and supports as different risk features can impact lapse risk in different ways, at different times, for different people. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1434,7 +1467,7 @@ Madison Herrmann &amp; Tianrun Zhu
       }
       }
       });
-    <script type="text/javascript">
+      Reveal.on('ready', event => {
       .reveal .slides > section:first-of-type h1 {
         color: blue;         /* Title color */
         font-size: 4rem;     /* Larger font size */
@@ -1452,7 +1485,6 @@ Madison Herrmann &amp; Tianrun Zhu
       .reveal .slides > section:first-of-type {
         }
         padding-top: 2rem;   /* Adds space at the top */
-      Reveal.on('ready', event => {
         if (event.indexh === 0) {
           document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
           document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
