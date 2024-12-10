@@ -7,7 +7,7 @@ format:
   revealjs:
     multiplex: true
     chalkboard: true
-    scrollable: true
+    scrollable: false
     css: slides.css
     slide-number: false 
 title-slide-attributes:
@@ -348,38 +348,37 @@ For emotional states, higher score in anxiety has a strong positive influence on
 ## <span style="color: green; text-decoration: underline;">Model Implementation</span>
 
 
-- How might we use these models to deploy the **right** recommendation, to the **right person**, at the **right time**? 
+- How might we use these models to deploy the **right recommendation**, to the **right person**, at the **right time**? 
 
-\
-
-- **NIH-funded Grant:**
-  -Optimizing Message Components of a [Recovery Monitoring Support System]{style="color:    blue;"}for Engagement and Clinical Outcomes for Alcohol Use Disorder
-  - Interventions derived from Relapse-Prevention Model (Marlatt & Gordon, 1985)
-    - Risk-relevant recommendations 
-
-
-
+- [Recent NIH-funded Grant:]{style="color:    blue;"}
+  - Optimizing Message Components of a **Recovery Monitoring Support System** for Engagement and Clinical Outcomes for Alcohol Use Disorder
+    - Interventions derived from Relapse-Prevention Model (Marlatt & Gordon, 1985)
+ 
+ 
 :::{.notes}
-Now that we have a model that can successfully predict lapse probability, How might we implement it to deploy the right recommendation, to the right person, at the right time? Our next grant aims to explore how to use these models for clinical benefit in an effort to build a recovery monitoring support system. This system will deliver tailor made recommendations in real-time based on what unique features are impacting risk for that individual at that particular moment. Output from machine-learning models can be anchored within the Relapse Prevention model to identify specific intervention and supports that are risk-relevant for each patient - much like a clinician would do if they were available in the moment. For example, during sensed periods of high stress, guided mindfulness and body scans could be recommended. If increased time at risky locations is driving lapse risk, the recovery monitoring support system could provide information on local AA or other support meetings. 
+Now that we have a model that can successfully predict lapse probability, How might we implement it to deploy the right recommendation, to the right person, at the right time? Our next grant aims to explore how to use these models for clinical benefit in an effort to build a recovery monitoring support system. This system will deliver tailor made recommendations in real-time based on what unique features are impacting risk for that individual at that particular moment. Output from machine-learning models will be anchored within the Relapse Prevention model to identify specific intervention and supports that are risk-relevant for each patient - much like a clinician would do if they were available in the moment. For example, during sensed periods of high stress, guided mindfulness and body scans could be recommended. If increased time at risky locations is driving lapse risk, the recovery monitoring support system could provide information on local AA or other support meetings. 
 ::::
+
+
 ## <span style="color: green; text-decoration: underline;">Geolocation</span>
 
-
+::: {.columns}
+:::: {.column width="35%"}
 - Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
   - Passive sensing
-  - Continuous monitoring
   
+  \
+  
+  - Continuous monitoring
+::::
 
-:::{.notes}
-The risk factors impacting recovery require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time. Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. Geolocation is a form of passive sensing that can provide context into the places and situations impacting lapse risk.    
+:::: {.column width="65%"}
+![](gps.jpg)
+::::
 :::
 
-## <span style="color: green; text-decoration: underline;">Geolocation</span>
-
-![](gps3.jpg)
-
 :::{.notes}
- Here is an example of some the survey questions asked regarding geolocation. Participants reported frequently visited locations and were asked various questions regarding previous drinking locations, alcohol availability, valence, and more. Their time spent at these locations was documented using gps monitoring via smartphone. We can begin to understand the need for continuous monitoring in recovery by looking at data from our alcohol use disorder study. 
+The risk factors impacting recovery require continuous monitoring to deploy the necessary intervention, for that individual, at that particular moment in time.Through the addition of geolocation features, we can gain insight into not only when an individual is at a higher risk of lapsing, but why. Geolocation is a form of passive sensing that can provide context into the places and situations impacting lapse risk. The image shows an example of some the survey questions asked regarding geolocation. Participants reported frequently visited locations and were asked various questions regarding previous drinking locations, alcohol availability, valence, and more. Their time spent at these locations was documented using gps monitoring via smartphone. We can begin to understand the need for continuous monitoring in recovery by looking at data from our alcohol use disorder study. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">AUD Characteristics</span>
