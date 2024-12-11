@@ -365,7 +365,8 @@ Now that we have a model that can successfully predict lapse probability, How mi
 ::: {.columns}
 :::: {.column width="35%"}
 - [Contextual Insights]{style="color:blue;"}
-  - Places, situations
+  - Places
+  - Situations
   
 \
 
