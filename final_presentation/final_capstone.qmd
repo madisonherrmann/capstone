@@ -350,7 +350,7 @@ For emotional states, higher score in anxiety has a strong positive influence on
 
 - How might we use these models to deploy the **right recommendation**, to the **right person**, at the **right time**? 
 
-- [Recent NIH-funded Grant:]{style="color:    blue;"}
+- [Recent NIH-funded Grant:]{style="color:blue;"}
   - Optimizing Message Components of a **Recovery Monitoring Support System** for Engagement and Clinical Outcomes for Alcohol Use Disorder
     - Interventions derived from Relapse-Prevention Model (Marlatt & Gordon, 1985)
  
@@ -364,12 +364,13 @@ Now that we have a model that can successfully predict lapse probability, How mi
 
 ::: {.columns}
 :::: {.column width="35%"}
-- Retrain model with [geolocation]{style="color: blue;"} and [EMA]{style="color: blue;"}
-  - Passive sensing
+- [Contextual Insights]{style="color:blue;"}
+  - Places, situations
   
-  \
-  
-  - Continuous monitoring
+\
+
+- [Passive Sensing]{style="color:blue;"}
+   - Continuous monitoring
 ::::
 
 :::: {.column width="65%"}
