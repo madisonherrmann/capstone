@@ -433,7 +433,7 @@ I retrained the model using 1x daily EMA with geolocation and day level windows.
 
 
 :::{.notes} 
-Past use and future efficacy, both from the EMAs, were by far the most important predictors of lapse probability across participants. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. Lets look at what these features mean and how they can predict lapse probability. 
+Acoss participants, past use and future efficacy, both from the EMAs, were by far the most important predictors of lapse probability. In regards to the geolocation features, risky location was the most important. Others include: alcohol availability at location, type of location, and location valence. Lets look at what these features mean and how they can predict lapse probability. 
 :::
 
 ## <span style="color: green; text-decoration: underline;">Important Risk Features</span>
