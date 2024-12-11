@@ -333,11 +333,11 @@ Here are the graphs showing the relationship between feature value and Shapley v
 
 The graphs show the relationship between raw feature value and their shapley value, with raw feature value on x-axis and shapley value on y-axis. The raw featue values are grouped into low, medium and high.
 
-There is a mostly linear relationship with past use and increased lapse risk. Higher "Past Use" values positively contribute to the model's predictions.
+We can observe that higher "Past Use" values positively contribute to the model's predictions.
 
-For Confidence, we observe a non-linear contribution to the model's predictions. At lower values, Confidence has a positive impact, pushing the prediction higher. As the values of Confidence increase, its impact diminishes, becoming neutral at moderate values. However, when Confidence reaches higher values, it starts to negatively affect the prediction. 
+For Confidence, we can observe that at lower values, Confidence has a positive impact, pushing the prediction higher. As the values of Confidence increase, its impact diminishes, becoming neutral at moderate values. However, when Confidence reaches higher values, it starts to negatively affect the prediction. 
 
-For Urge, we observe an opposite non-linear trend. At lower values, Urge has a negative impact, pushing the prediction lower. As the values of Urge increase, its impact diminishes, becoming neutral at moderate values. However, when Urge reaches higher values, it starts to positively affect the prediction. 
+For Urge, we can observe that at lower values, Urge has a negative impact, pushing the prediction lower. As the values of Urge increase, its impact diminishes, becoming neutral at moderate values. However, when Urge reaches higher values, it starts to positively affect the prediction. 
 :::
 
 
