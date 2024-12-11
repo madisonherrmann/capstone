@@ -41,8 +41,8 @@ include-after: |
       text-align: center;  /* Center align the date */
     .reveal .slides > section:first-of-type {
       }
-      padding-top: 2rem;   /* Adds space at the top */
       if (event.indexh === 0) {
+      padding-top: 2rem;   /* Adds space at the top */
         document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
         document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
         Reveal.configure({ slideNumber: null });
@@ -165,6 +165,24 @@ Before I get any further, it is important to distinguish lapse from relapse.
 
 :::{.notes} 
 Lapse risk is monitored actively trhough ecological momentary assessments. EMA refers to daily self-report measures that assess mood, experiences, and past use. The image shows where participants report whether or not they have drank alcohol since there last assessment. 
+:::
+
+## <span style="color: green; text-decoration: underline;">Predicting Lapse with EMA</span>
+
+- Other questions on the daily EMA surveys include:
+  - Other substances used
+  - Adherence to medication
+  - Urge to use opioids
+  - Motivation and confidence to avoid using opioids
+  - Experiences of pain, risk, pleasantness, anger, anxiety, etc.
+
+:::{.notes} 
+- Other questions on the daily EMA surveys include:
+  - Other substances used
+  - Adherence to medication
+  - Urge to use opioids
+  - Motivation and confidence to avoid using opioids
+  - Experiences of pain, risk, pleasantness, anger, anxiety, etc.
 :::
 
 ## <span style="color: green; text-decoration: underline;">OUD Characteristics</span>
