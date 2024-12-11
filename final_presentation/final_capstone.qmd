@@ -281,7 +281,8 @@ Given the imbalance in our labels, with a large majority of non-lapse cases and 
 ## <span style="color: green; text-decoration: underline;">Model Performance</span>
 
 
-![](oud_fairness_c.png){fig-width=10}
+| ![Gender Fairness](oud_fairness_gender.png){width=200%} | ![Race Fairness](oud_fairness_race.png){width=200%} | ![Income Fairness](oud_fairness_income.png){width=200%} |
+|:-----------------------------------------------------:|:--------------------------------------------------:|:----------------------------------------------------:|
 
 :::{.notes}
 This model achieved a high fairness across different demographic groups. As is shown in the graphs, the differences in median auROC for different gender, race and income groups are very small, and for all groups, the auROC scores are high indicating good performance. 
