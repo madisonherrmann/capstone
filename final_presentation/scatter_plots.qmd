@@ -316,45 +316,89 @@ ggsave("/Users/Jun/Desktop/oud_sharp_mood.png", facet_plot_2, width = 8, height 
 
 ```{r}
 p_gender <- ggplot(pp[pp$model %in% c("Man", "Woman"),], aes(x = model, y = pp_median)) +
-  geom_point(size = 4) +
-  geom_errorbar(aes(ymin = pp_lower, ymax = pp_upper), width = 0.2) +
-  labs(title = "Gender", x = "Group", y = "auROC") +
+  geom_point(size = 6) +
+  geom_errorbar(aes(ymin = pp_lower, ymax = pp_upper), width = 0.5) +
+  labs(title = "Gender", x = "", y = "auROC") +
   theme_minimal() +
-  theme(panel.background = element_rect(fill = "white", color = NA),
-        plot.background = element_rect(fill = "white", color = NA)) +
-  annotate("text", x = 1.5, y = min(pp$pp_lower) - 0.01, 
-           label = paste0("Y-axis range: ", round(min(pp$pp_lower), 3), " - ", round(max(pp$pp_upper), 3)), 
-           color = "red", size = 3, hjust = 0)
+  theme(
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    plot.title = element_text(size = 48),   # Bigger title
+    axis.title = element_text(size = 40),  # Bigger axis labels
+    axis.text = element_text(size = 32)    # Bigger axis tick labels
+  ) +
+  scale_x_discrete(labels = c("Man" = "Man", "Woman" = "Woman")) +  # Keep default labels for simplicity
+  scale_y_continuous(limits = c(0, 1)) +
+  annotate(
+    "text",
+    x = 1.5,
+    y = -0.05,
+    label = "Y-axis range: 0 - 1",
+    color = "red",
+    size = 8, # Much bigger text
+    hjust = 0
+  )
 
-ggsave("/Users/Jun/Desktop/oud_fairness_gender.png", p_gender, width = 8, height = 6)
+ggsave("oud_fairness_gender.png", p_gender, width = 6, height = 8)
 ```
 
 ```{r}
-p_race <- ggplot(pp[pp$model %in% c("non-Hispanic White", "not White"),], aes(x = model, y = pp_median)) +
-  geom_point(size = 4) +
-  geom_errorbar(aes(ymin = pp_lower, ymax = pp_upper), width = 0.2) +
-  labs(title = "Race", x = "Group", y = "auROC") +
+p_race <- ggplot(pp[pp$model %in% c("non-Hispanic White", "not White"),], 
+                 aes(x = model, y = pp_median)) +
+  geom_point(size = 6) +
+  geom_errorbar(aes(ymin = pp_lower, ymax = pp_upper), width = 0.5) +
+  labs(title = "Race", x = "", y = "auROC") +
   theme_minimal() +
-  theme(panel.background = element_rect(fill = "white", color = NA),
-        plot.background = element_rect(fill = "white", color = NA)) +
-  annotate("text", x = 1.5, y = min(pp$pp_lower) - 0.01, 
-           label = paste0("Y-axis range: ", round(min(pp$pp_lower), 3), " - ", round(max(pp$pp_upper), 3)), 
-           color = "red", size = 3, hjust = 0)
+  theme(
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    plot.title = element_text(size = 48),   # Bigger title
+    axis.title = element_text(size = 40),  # Bigger axis labels
+    axis.text = element_text(size = 32)    # Bigger axis tick labels
+  ) +
+  scale_x_discrete(labels = c("non-Hispanic White" = "non-Hispanic\nWhite", 
+                              "not White" = "not\nWhite")) +  # Custom labels for x-axis
+  scale_y_continuous(limits = c(0, 1)) +
+  annotate(
+    "text",
+    x = 1.5,
+    y = -0.05,
+    label = "Y-axis range: 0 - 1",
+    color = "red",
+    size = 8, # Much bigger text
+    hjust = 0
+  )
 
-ggsave("/Users/Jun/Desktop/oud_fairness_race.png", p_race, width = 8, height = 6)
+print(p_race)
+
+ggsave("oud_fairness_race.png", p_race, width = 6, height = 8)
 ```
 
 ```{r}
 p_income <- ggplot(pp[pp$model %in% c("above $25,000", "below $25,000"),], aes(x = model, y = pp_median)) +
-  geom_point(size = 4) +
-  geom_errorbar(aes(ymin = pp_lower, ymax = pp_upper), width = 0.2) +
-  labs(title = "Income", x = "Group", y = "auROC") +
+  geom_point(size = 6) +
+  geom_errorbar(aes(ymin = pp_lower, ymax = pp_upper), width = 0.5) +
+  labs(title = "Income", x = "", y = "auROC") +
   theme_minimal() +
-  theme(panel.background = element_rect(fill = "white", color = NA),
-        plot.background = element_rect(fill = "white", color = NA)) +
-  annotate("text", x = 1.5, y = min(pp$pp_lower) - 0.01, 
-           label = paste0("Y-axis range: ", round(min(pp$pp_lower), 3), " - ", round(max(pp$pp_upper), 3)), 
-           color = "red", size = 3, hjust = 0)
+  theme(
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    plot.title = element_text(size = 48),   # Bigger title
+    axis.title = element_text(size = 40),  # Bigger axis labels
+    axis.text = element_text(size = 32)    # Bigger axis tick labels
+  ) +
+  scale_x_discrete(labels = c("above $25,000" = "above\n$25,000", 
+                              "below $25,000" = "below\n$25,000")) +  # Custom labels for x-axis
+  scale_y_continuous(limits = c(0, 1)) +
+  annotate(
+    "text",
+    x = 1.5,
+    y = -0.05,
+    label = "Y-axis range: 0 - 1",
+    color = "red",
+    size = 8, # Much bigger text
+    hjust = 0
+  )
 
-ggsave("/Users/Jun/Desktop/oud_fairness_income.png", p_income, width = 8, height = 6)
+ggsave("oud_fairness_income.png", p_income, width = 6, height = 8)
 ```
