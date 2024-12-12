@@ -409,20 +409,28 @@ Madison Herrmann &amp; Tianrun Zhu
 <section id="scope-and-background-of-project-2" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Scope and Background of Project</span></h2>
 <ul>
-<li><p>Our project is to build and to evaluate machine learning models to predict AUD and OUD lapses</p>
-<p><br>
-</p>
+<li>Our project is to build and to evaluate machine learning models to predict AUD and OUD lapses
 <ul>
 <li>To predict when a future lapse may happen.</li>
-</ul>
-<p><br>
-</p>
-<ul>
 <li>To figure out why a lapse is likely to happen.</li>
+</ul></li>
+<li>The AUD and OUD projects uses 2 distinct data sets.
+<ul>
+<li>The OUD project started later than the AUD project and is on a more preliminary stage.</li>
+<li>The AUD project is now on a stage for clinical implementation.</li>
+<li>We will present the OUD project and then the AUD project to show the technique pipeline.</li>
 </ul></li>
 </ul>
 <aside class="notes">
 <p>Our specific focus is on building and evaluating machine learning models to predict future lapses in Alcohol Use Disorder and Opioid Use Disorder. Using the machine learning models, we aim to predict when a future lapse may happen, and to figure out why a lapse is likely to happen.</p>
+<ul>
+<li>The AUD and OUD projects uses 2 distinct datasets.
+<ul>
+<li>The OUD project started later than the AUD project and is on a more preliminary stage.</li>
+<li>The AUD project is now on a stage for clinical implementation.</li>
+<li>We will presente the OUD project and then the AUD project to show the technique pipeline.</li>
+</ul></li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -482,6 +490,41 @@ Madison Herrmann &amp; Tianrun Zhu
 </div>
 <aside class="notes">
 <p>Lapse risk is monitored actively trhough ecological momentary assessments. EMA refers to daily self-report measures that assess mood, experiences, and past use. The image shows where participants report whether or not they have drank alcohol since there last assessment.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="predicting-lapse-with-ema-1" class="slide level2">
+<h2><span style="color: green; text-decoration: underline;">Predicting Lapse with EMA</span></h2>
+<ul>
+<li>Other questions on the daily EMA surveys include:
+<ul>
+<li>Other substances used</li>
+<li>Adherence to medication</li>
+<li>Urge to use opioids</li>
+<li>Motivation and confidence to avoid using opioids</li>
+<li>Experiences of pain, risk, pleasantness, anger, anxiety, etc.</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Other questions on the daily EMA surveys include:
+<ul>
+<li>Other substances used</li>
+<li>Adherence to medication</li>
+<li>Urge to use opioids</li>
+<li>Motivation and confidence to avoid using opioids</li>
+<li>Experiences of pain, risk, pleasantness, anger, anxiety, etc.</li>
+</ul></li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -635,8 +678,23 @@ Madison Herrmann &amp; Tianrun Zhu
 </section>
 <section id="model-performance-1" class="slide level2">
 <h2><span style="color: green; text-decoration: underline;">Model Performance</span></h2>
-
-<img data-src="oud_fairness_c.png" class="r-stretch quarto-figure-center"><aside class="notes">
+<table>
+<colgroup>
+<col style="width: 34%">
+<col style="width: 32%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><img data-src="oud_fairness_gender.png" style="width:200.0%" alt="Gender Fairness"></th>
+<th style="text-align: center;"><img data-src="oud_fairness_race.png" style="width:200.0%" alt="Race Fairness"></th>
+<th style="text-align: center;"><img data-src="oud_fairness_income.png" style="width:200.0%" alt="Income Fairness"></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<aside class="notes">
 <p>This model achieved a high fairness across different demographic groups. As is shown in the graphs, the differences in median auROC for different gender, race and income groups are very small, and for all groups, the auROC scores are high indicating good performance.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -686,9 +744,9 @@ Madison Herrmann &amp; Tianrun Zhu
 <img data-src="oud_top_features.png" class="r-stretch quarto-figure-center"><aside class="notes">
 <p>Here are the graphs showing the relationship between feature value and Shapley value for the top 3 features.</p>
 <p>The graphs show the relationship between raw feature value and their shapley value, with raw feature value on x-axis and shapley value on y-axis. The raw featue values are grouped into low, medium and high.</p>
-<p>There is a mostly linear relationship with past use and increased lapse risk. Higher “Past Use” values positively contribute to the model’s predictions.</p>
-<p>For Confidence, we observe a non-linear contribution to the model’s predictions. At lower values, Confidence has a positive impact, pushing the prediction higher. As the values of Confidence increase, its impact diminishes, becoming neutral at moderate values. However, when Confidence reaches higher values, it starts to negatively affect the prediction.</p>
-<p>For Urge, we observe an opposite non-linear trend. At lower values, Urge has a negative impact, pushing the prediction lower. As the values of Urge increase, its impact diminishes, becoming neutral at moderate values. However, when Urge reaches higher values, it starts to positively affect the prediction.</p>
+<p>We can observe that higher “Past Use” values positively contribute to the model’s predictions.</p>
+<p>For Confidence, we can observe that at lower values, Confidence has a positive impact, pushing the prediction higher. As the values of Confidence increase, its impact diminishes, becoming neutral at moderate values. However, when Confidence reaches higher values, it starts to negatively affect the prediction.</p>
+<p>For Urge, we can observe that at lower values, Urge has a negative impact, pushing the prediction lower. As the values of Urge increase, its impact diminishes, becoming neutral at moderate values. However, when Urge reaches higher values, it starts to positively affect the prediction.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -749,7 +807,7 @@ Madison Herrmann &amp; Tianrun Zhu
 </ul></li>
 </ul>
 <aside class="notes">
-<p>Now that we have a model that can successfully predict lapse probability, How might we implement it to deploy the right recommendation, to the right person, at the right time? A recently funded grant aims to explore how to use these models for clinical benefit, in an effort to build a recovery monitoring support system. This system will deliver tailor made recommendations based on what unique features are impacting lapse risk for that individual, at that particular moment. Output from machine-learning models will be anchored within the Relapse Prevention model to identify the specific intervention and supports that are risk-relevant for each individual. For example, during sensed periods of high stress, guided mindfulness could be recommended as an intervention. If increased time at risky locations is driving lapse risk, the system could provide information on local AA or other support meetings. Continuous monitoring of risk features is essential to deploy the necessary intervention, for that individual, at that particular moment in time.</p>
+<p>I will now shift our focus towards modal implementation using data from a past study conducted on alcohol use disorder. The work I outline will be the next steps in the opioid use disorder study Tianrun discussed. My work was based off of a successful model trained with 4x daily EMA that achieved an auroc of .91, surpassing industry benchmarks. Now that we have a model that can successfully predict lapse probability, How might we implement it to deploy the right recommendation, to the right person, at the right time? A recently funded grant aims to explore how to use these models for clinical benefit, in an effort to build a recovery monitoring support system. This system will deliver tailor made recommendations based on what unique features are impacting lapse risk for that individual, at that particular moment. Output from machine-learning models will be anchored within the Relapse Prevention model to identify the specific intervention and supports that are risk-relevant for each individual. For example, during sensed periods of high stress, guided mindfulness could be recommended as an intervention. If increased time at risky locations is driving lapse risk, the system could provide information on local AA or other support meetings. Continuous monitoring of risk features is essential to deploy the necessary intervention, for that individual, at that particular moment in time.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -997,7 +1055,7 @@ Madison Herrmann &amp; Tianrun Zhu
 <p><img data-src="aud_loc_valence2.png" class="fragment"></p>
 </div>
 <aside class="notes">
-<p>For this participant, past use acts as their most important protective feature across time,indicating someone who did not lapse on study. This is shown by the blue line bringing down their lapse probability. The green line increasing their lapse probability is location valence, or the emotions associated with a particular place. It’s likely that time spent at an unpleasant place increased this participant’s lapse risk. Around day 75, future efficacy jumped above location valence, indicating a higher likelihood of drinking, relative to previous self-reports. Their lack of confidence in future abstinence increases their probability of lapsing, surpassing location valence as the most important risk feature. There is a vast difference between this participant’s relative risk features and the previous. For this participant, past use acts as their most important PROTECTIVE feature, consistently LOWERING their probability of lapse. Whereas in the previous plot, past use acted as their most important RISK feature, INCREASING their probability of lapse. This highlights the need for personalized recommendations and supports as different risk features can impact lapse risk in different ways, at different times, for different people. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation.</p>
+<p>For this participant, past use acts as their most important protective feature across time,indicating someone who did not lapse on study. This is shown by the blue line bringing down their lapse probability. The green line increasing their lapse probability is location valence, or the emotions associated with a particular place. It’s likely that time spent at an unpleasant place increased this participant’s lapse risk. Around day 75, future efficacy jumped above location valence, indicating a higher likelihood of drinking, relative to previous self-reports. Their lack of confidence in future abstinence increases their probability of lapsing, surpassing location valence as the most important risk feature. There is a vast difference between this participant’s relative risk features and the previous. For this participant, past use acts as their most important PROTECTIVE feature, consistently LOWERING their probability of lapse. Whereas in the previous plot, past use acted as their most important RISK feature, INCREASING their probability of lapse. This highlights the need for personalized recommendations and support as different risk features can impact lapse risk in different ways, at different times, for different people. The ability to use these features to deliver tailored interventions that support recovery is the first step towards clinical implementation.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1476,8 +1534,8 @@ Madison Herrmann &amp; Tianrun Zhu
         text-align: center;  /* Center align the date */
       .reveal .slides > section:first-of-type {
         }
-        padding-top: 2rem;   /* Adds space at the top */
         if (event.indexh === 0) {
+        padding-top: 2rem;   /* Adds space at the top */
           document.querySelector("div.has-logo > img.slide-logo").style.display = "block";
           document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
           Reveal.configure({ slideNumber: null });

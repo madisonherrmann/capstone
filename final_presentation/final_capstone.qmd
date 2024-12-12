@@ -115,12 +115,11 @@ The broader project aims to address barriers to accessibility and affordability 
   - To predict when a future lapse may happen.
   - To figure out why a lapse is likely to happen.
   
-\
   
-- The AUD and OUD projects uses 2 distinct datasets. 
+- The AUD and OUD projects uses 2 distinct data sets. 
   - The OUD project started later than the AUD project and is on a more preliminary stage.
   - The AUD project is now on a stage for clinical implementation.
-  - We will presente the OUD project and then the AUD project to show the technique pipeline.
+  - We will present the OUD project and then the AUD project to show the technique pipeline.
 
 :::{.notes}
 Our specific focus is on building and evaluating machine learning models to predict future lapses in Alcohol Use Disorder and Opioid Use Disorder. Using the machine learning models, we aim to predict when a future lapse may happen, and to figure out why a lapse is likely to happen.
