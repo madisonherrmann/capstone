@@ -117,7 +117,7 @@ The broader project aims to address barriers to accessibility and affordability 
   
   
 - The AUD and OUD projects uses 2 distinct data sets. 
-  - The OUD project started later than the AUD project and is on a more preliminary stage.
+  - The OUD project started later than the AUD project.
   - The AUD project is now on a stage for clinical implementation.
   - We will present the OUD project and then the AUD project to show the technique pipeline.
 
